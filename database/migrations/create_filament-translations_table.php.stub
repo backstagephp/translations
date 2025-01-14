@@ -10,12 +10,15 @@ return new class extends Migration
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $
-            $table->string('group');
+            $table->string('locale');
+            $table->string('group')
+                ->nullable();
+
             $table->index('group');
             $table->text('key');
-            $table->string('text');
-                
+            $table->string('text')
+                ->nullable();
+
             $table->string('namespace')
                 ->default('*');
             $table->index('namespace');
@@ -23,5 +26,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('translations');
     }
 };

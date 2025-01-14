@@ -9,7 +9,9 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -53,15 +55,22 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
         //     $package->hasTranslations();
         // }
 
-        // if (file_exists($package->basePath('/../resources/views'))) {
-        //     $package->hasViews(static::$viewNamespace);
-        // }
+        if (file_exists($package->basePath('/../resources/views'))) {
+            $package->hasViews(static::$viewNamespace);
+        }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        // $this->app->register(\Spatie\TranslationLoader\TranslationServiceProvider::class, true);
+    }
 
     public function packageBooted(): void
     {
+        // $this->app->singleton('translation.loader', function ($app): TranslationLoader {
+        //     return new TranslationLoader($app['files'], $app['path.lang']);
+        // });
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -87,6 +96,10 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsFilamentTranslations);
+
+        require_once __DIR__ . '/helpers.php';
+
+        Livewire::component('filament-translations::switcher', \Vormkracht10\FilamentTranslations\Components\Switcher::class);
     }
 
     protected function getAssetPackageName(): ?string
@@ -121,7 +134,9 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
      */
     protected function getIcons(): array
     {
-        return [];
+        return [
+            Blade::aliasComponent('flag-country-us', 'flag_country_en'),
+            Blade::aliasComponent('flag-country-en', 'flag_country_en')];
     }
 
     /**
@@ -147,6 +162,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     {
         return [
             'create_filament-translations_table',
+            'create_filament-languages',
         ];
     }
 }
