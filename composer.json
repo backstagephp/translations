@@ -1,30 +1,29 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "vormkracht10/filament-translations",
+    "description": "This is the official Vormkracht10 Filament Translations package!",
     "keywords": [
-        ":vendor_name",
+        "vormkracht10",
         "laravel",
-        ":package_slug"
+        "filament-translations"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/vormkracht10/filament-translations",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/vormkracht10/filament-translations/issues",
+        "source": "https://github.com/vormkracht10/filament-translations"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Manoj Hortulanus",
+            "email": "manoj@vormkracht10.nl",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
-        "spatie/laravel-package-tools": "^1.15.0"
+        "spatie/laravel-package-tools": "^1.15.0",
+        "spatie/laravel-translation-loader": "^2.8"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -41,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Vormkracht10\\FilamentTranslations\\": "src/",
+            "Vormkracht10\\FilamentTranslations\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Vormkracht10\\FilamentTranslations\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Vormkracht10\\FilamentTranslations\\FilamentTranslationsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentTranslations": "Vormkracht10\\FilamentTranslations\\Facades\\FilamentTranslations"
             }
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Vormkracht10\FilamentTranslations;
 
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
@@ -13,14 +13,14 @@ use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
-use VendorName\Skeleton\Testing\TestsSkeleton;
+use Vormkracht10\FilamentTranslations\Commands\FilamentTranslationsCommand;
+use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class FilamentTranslationsServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'skeleton';
+    public static string $name = 'filament-translations';
 
-    public static string $viewNamespace = 'skeleton';
+    public static string $viewNamespace = 'filament-translations';
 
     public function configurePackage(Package $package): void
     {
@@ -36,7 +36,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub(':vendor_slug/:package_slug');
+                    ->askToStarRepoOnGitHub('vormkracht10/filament-translations');
             });
 
         $configFileName = $package->shortName();
@@ -49,13 +49,13 @@ class SkeletonServiceProvider extends PackageServiceProvider
             $package->hasMigrations($this->getMigrations());
         }
 
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
+        // if (file_exists($package->basePath('/../resources/lang'))) {
+        //     $package->hasTranslations();
+        // }
 
-        if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
-        }
+        // if (file_exists($package->basePath('/../resources/views'))) {
+        //     $package->hasViews(static::$viewNamespace);
+        // }
     }
 
     public function packageRegistered(): void {}
@@ -80,18 +80,18 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/skeleton/{$file->getFilename()}"),
-                ], 'skeleton-stubs');
+                    $file->getRealPath() => base_path("stubs/filament-translations/{$file->getFilename()}"),
+                ], 'filament-translations-stubs');
             }
         }
 
         // Testing
-        Testable::mixin(new TestsSkeleton);
+        Testable::mixin(new TestsFilamentTranslations);
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return ':vendor_slug/:package_slug';
+        return 'vormkracht10/filament-translations';
     }
 
     /**
@@ -100,9 +100,9 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('skeleton', __DIR__ . '/../resources/dist/components/skeleton.js'),
-            Css::make('skeleton-styles', __DIR__ . '/../resources/dist/skeleton.css'),
-            Js::make('skeleton-scripts', __DIR__ . '/../resources/dist/skeleton.js'),
+            // AlpineComponent::make('filament-translations', __DIR__ . '/../resources/dist/components/filament-translations.js'),
+            // Css::make('filament-translations-styles', __DIR__ . '/../resources/dist/filament-translations.css'),
+            // Js::make('filament-translations-scripts', __DIR__ . '/../resources/dist/filament-translations.js'),
         ];
     }
 
@@ -112,7 +112,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            SkeletonCommand::class,
+            FilamentTranslationsCommand::class,
         ];
     }
 
@@ -146,7 +146,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_skeleton_table',
+            'create_filament-translations_table',
         ];
     }
 }
