@@ -18,7 +18,7 @@ class Translation extends Model
     ];
 
     protected $casts = [
-        'locale' => 'string',   
+        'locale' => 'string',
         'group' => 'string',
         'key' => 'string',
         'text' => 'string',

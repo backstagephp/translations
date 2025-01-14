@@ -4,9 +4,6 @@ namespace Vormkracht10\FilamentTranslations\Commands;
 
 use Illuminate\Console\Command;
 
-use function Laravel\Prompts\error;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\text;
 class FilamentTranslationsCommand extends Command
 {
     public $signature = 'filament-translations-dev:import';
@@ -15,7 +12,7 @@ class FilamentTranslationsCommand extends Command
 
     public function handle()
     {
-         $functions = [
+        $functions = [
             'trans',
             'trans_choice',
             'Lang::get',
@@ -27,6 +24,5 @@ class FilamentTranslationsCommand extends Command
             '__',
         ];
 
-            
     }
 }
