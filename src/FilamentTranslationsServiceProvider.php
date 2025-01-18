@@ -2,23 +2,20 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
-use Filament\Panel;
-use Livewire\Livewire;
-use Filament\Support\Assets\Js;
-use Filament\Support\Assets\Css;
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
-use Spatie\LaravelPackageTools\Package;
-use Filament\Support\Facades\FilamentIcon;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Assets\AlpineComponent;
 use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
-use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
 
 class FilamentTranslationsServiceProvider extends PackageServiceProvider
 {
@@ -46,8 +43,6 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
             $package->hasConfigFile();
         }
-
-
 
         // if (file_exists($package->basePath('/../resources/lang'))) {
         //     $package->hasTranslations();
@@ -89,7 +84,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
         require_once __DIR__ . '/helpers.php';
 
         Livewire::component('filament-translations::switcher', \Vormkracht10\FilamentTranslations\Components\Switcher::class);
-}
+    }
 
     protected function getAssetPackageName(): ?string
     {
@@ -153,5 +148,4 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             'create_filament-languages',
         ];
     }
-    
 }

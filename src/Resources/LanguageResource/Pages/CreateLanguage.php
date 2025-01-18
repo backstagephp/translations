@@ -5,9 +5,8 @@ namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\FilamentTranslations\Resources\TranslationResource;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
+use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 
 class CreateLanguage extends CreateRecord
 {
@@ -18,9 +17,7 @@ class CreateLanguage extends CreateRecord
         return __('Create Language');
     }
 
-    protected function beforeCreate(): void
-    {
-    }
+    protected function beforeCreate(): void {}
 
     protected function afterCreate()
     {

@@ -4,7 +4,6 @@ namespace Vormkracht10\FilamentTranslations\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Vormkracht10\FilamentTranslations\Components\Switcher;
 
 class SwitchLanguageLocale
 {

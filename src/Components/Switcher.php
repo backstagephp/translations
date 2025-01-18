@@ -2,9 +2,8 @@
 
 namespace Vormkracht10\FilamentTranslations\Components;
 
-use Livewire\Component;
 use Filament\Actions\Concerns\HasForm;
-use Vormkracht10\FilamentTranslations\Events\LocaleChanged;
+use Livewire\Component;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages\ListLanguages;
 

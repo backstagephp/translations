@@ -3,16 +3,15 @@
 namespace Vormkracht10\FilamentTranslations\Resources;
 
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Laravel\Horizon\Horizon;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Vormkracht10\LaravelTranslations\Models\Language;
 use RyanChandler\FilamentProgressColumn\ProgressColumn;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
+use Vormkracht10\LaravelTranslations\Models\Language;
 
 class LanguageResource extends Resource
 {
