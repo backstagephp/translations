@@ -31,7 +31,6 @@ class Switcher extends Component
 
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
-
         return view('filament-translations::components.switcher');
     }
 

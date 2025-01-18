@@ -2,10 +2,10 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
-use Filament\View\PanelsRenderHook;
 use Filament\Forms\Components\Select;
+use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 
 class FilamentTranslationsPlugin implements Plugin
@@ -19,7 +19,7 @@ class FilamentTranslationsPlugin implements Plugin
     {
         $panel->discoverResources(in: base_path('vendor/vormkracht10/filament-translations/src/Resources'), for: 'Vormkracht10\\FilamentTranslations\\Resources');
 
-        $panel->renderHook(        
+        $panel->renderHook(
             PanelsRenderHook::GLOBAL_SEARCH_AFTER,
             fn (): string => Blade::render('@livewire(\'filament-translations::switcher\')'),
         );

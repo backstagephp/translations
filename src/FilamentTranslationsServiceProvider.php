@@ -15,7 +15,6 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\FilamentTranslations\Commands\FilamentTranslationsCommand;
 use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
 
 class FilamentTranslationsServiceProvider extends PackageServiceProvider

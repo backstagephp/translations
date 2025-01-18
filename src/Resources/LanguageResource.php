@@ -68,7 +68,7 @@ class LanguageResource extends Resource
                     ->label(__('Locale')),
 
                 Tables\Columns\TextColumn::make('label')
-                    ->label(__('Label'))
+                    ->label(__('Label')),
             ])
             ->filters([
                 //
