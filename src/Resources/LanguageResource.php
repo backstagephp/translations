@@ -100,15 +100,17 @@ class LanguageResource extends Resource
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
-                    ->label(__('Finish Translation'))
-                    ->action(fn ($record) => dispatch(new TranslateKeys($record)))
-                    ->visible(fn ($record) => $percentage($record) < 100)
+                    ->label(__('Redo Translation'))
+                    ->action(function ($record) {
+                        TranslationResource::getModel()::where('locale', $record->locale)
+                            ->get()
+                            ->each(fn ($entry) => $entry->update(['translated_at' => null]));
+
+                        dispatch(new TranslateKeys($record));
+                    })
                     ->button(),
             ]);
     }
