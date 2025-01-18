@@ -35,8 +35,8 @@ class TranslationResource extends Resource
             ->columns([
                 IconSelectColumn::make('locale')
                     ->label(__('Locale'))
-                    ->options(LanguageResource::getModel()::pluck('locale', 'locale')->toArray())
-                    ->icons(LanguageResource::getModel()::pluck('locale', 'locale')->map(fn ($locale) => getCountryFlag($locale))->merge([null => ''])->toArray())
+                    ->options(fn() => LanguageResource::getModel()::pluck('locale', 'locale')->toArray())
+                    ->icons(fn() => LanguageResource::getModel()::pluck('locale', 'locale')->map(fn ($locale) => getCountryFlag($locale))->merge([null => ''])->toArray())
                     ->tooltip(fn($record) => $record->locale)
                     ->searchable()
                     ->sortable()

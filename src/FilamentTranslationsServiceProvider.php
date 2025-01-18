@@ -36,8 +36,6 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
                     ->askToStarRepoOnGitHub('vormkracht10/filament-translations');
             });
 
@@ -125,7 +123,6 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            FilamentTranslationsCommand::class,
         ];
     }
 

@@ -20,12 +20,13 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.4",
         "filament/filament": "^3.0",
         "guava/filament-icon-select-column": "^1.1",
         "outhebox/blade-flags": "^1.5",
         "spatie/laravel-package-tools": "^1.15.0",
-        "spatie/laravel-translation-loader": "^2.8"
+        "spatie/laravel-translation-loader": "^2.8",
+        "vormkracht10/laravel-translations": "dev-main"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
