@@ -2,21 +2,23 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
+use Filament\Panel;
+use Livewire\Livewire;
 use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
-use Livewire\Features\SupportTesting\Testable;
-use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
+use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\AlpineComponent;
+use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\FilamentTranslations\Commands\FilamentTranslationsCommand;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
+use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
 
 class FilamentTranslationsServiceProvider extends PackageServiceProvider
 {
@@ -58,17 +60,8 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void
-    {
-        // $this->app->register(\Spatie\TranslationLoader\TranslationServiceProvider::class, true);
-    }
-
     public function packageBooted(): void
     {
-        // $this->app->singleton('translation.loader', function ($app): TranslationLoader {
-        //     return new TranslationLoader($app['files'], $app['path.lang']);
-        // });
-
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -98,7 +91,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
         require_once __DIR__ . '/helpers.php';
 
         Livewire::component('filament-translations::switcher', \Vormkracht10\FilamentTranslations\Components\Switcher::class);
-    }
+}
 
     protected function getAssetPackageName(): ?string
     {
@@ -112,7 +105,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-translations', __DIR__ . '/../resources/dist/components/filament-translations.js'),
-            // Css::make('filament-translations-styles', __DIR__ . '/../resources/dist/filament-translations.css'),
+            Css::make('filament-progress-column-styles', __DIR__ . '/../vendor/ryangjchandler/filament-progress-column/resources/dist/progress.css'),
             // Js::make('filament-translations-scripts', __DIR__ . '/../resources/dist/filament-translations.js'),
         ];
     }
@@ -162,4 +155,5 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             'create_filament-languages',
         ];
     }
+    
 }

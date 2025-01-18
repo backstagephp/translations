@@ -7,8 +7,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Guava\FilamentIconSelectColumn\Tables\Columns\IconSelectColumn;
-use Vormkracht10\FilamentTranslations\Models\Translation;
 use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
+use Vormkracht10\LaravelTranslations\Models\Translation;
 
 class TranslationResource extends Resource
 {
@@ -17,6 +17,11 @@ class TranslationResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationGroup(): ?string
+    {
+        return __('Translations');
+    }
+
+    public static function getLabel(): ?string
     {
         return __('Translations');
     }
@@ -35,9 +40,9 @@ class TranslationResource extends Resource
             ->columns([
                 IconSelectColumn::make('locale')
                     ->label(__('Locale'))
-                    ->options(fn() => LanguageResource::getModel()::pluck('locale', 'locale')->toArray())
-                    ->icons(fn() => LanguageResource::getModel()::pluck('locale', 'locale')->map(fn ($locale) => getCountryFlag($locale))->merge([null => ''])->toArray())
-                    ->tooltip(fn($record) => $record->locale)
+                    ->options(fn () => LanguageResource::getModel()::pluck('locale', 'locale')->toArray())
+                    ->icons(fn () => LanguageResource::getModel()::pluck('locale', 'locale')->map(fn ($locale) => getCountryFlag($locale))->merge([null => ''])->toArray())
+                    ->tooltip(fn ($record) => $record->locale)
                     ->searchable()
                     ->sortable()
                     ->closeOnSelection()

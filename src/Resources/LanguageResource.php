@@ -3,12 +3,15 @@
 namespace Vormkracht10\FilamentTranslations\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Laravel\Horizon\Horizon;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
-use Vormkracht10\FilamentTranslations\Models\Language;
+use Vormkracht10\LaravelTranslations\Models\Language;
+use RyanChandler\FilamentProgressColumn\ProgressColumn;
+use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
 
 class LanguageResource extends Resource
@@ -29,6 +32,11 @@ class LanguageResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');
+    }
+
+    public static function getLabel(): ?string
+    {
+        return __('Languages');
     }
 
     public static function getEloquentQuery(): Builder
@@ -56,6 +64,23 @@ class LanguageResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $percentage = function ($record) {
+            $locale = $record->locale;
+
+            $translated = TranslationResource::getModel()::where('locale', $locale)
+                ->whereNotNull('translated_at')
+                ->count();
+
+            $total = TranslationResource::getModel()::where('locale', $locale)
+                ->count();
+
+            if ($translated == 0 || $total == 0) {
+                return 0;
+            }
+
+            return round($translated / $total * 100, 2);
+        };
+
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('id')
@@ -68,13 +93,24 @@ class LanguageResource extends Resource
                     ->label(__('Locale')),
 
                 Tables\Columns\TextColumn::make('label')
-                    ->label(__('Label'))
+                    ->label(__('Label')),
+
+                ProgressColumn::make('translated')
+                    ->label('Translated')
+                    ->poll(fn ($record) => $percentage($record) > 50 ? '1s' : '5s')
+                    ->progress(fn ($record) => $percentage($record))
+                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('translate')
+                    ->icon('heroicon-o-arrow-path')
+                    ->label(__('Finish Translation'))
+                    ->action(fn ($record) => dispatch(new TranslateKeys($record)))
+                    ->visible(fn ($record) => $percentage($record) < 100)
+                    ->button(),
             ]);
     }
 

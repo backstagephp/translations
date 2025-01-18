@@ -2,8 +2,9 @@
 
 namespace Vormkracht10\FilamentTranslations\Components;
 
-use Filament\Actions\Concerns\HasForm;
 use Livewire\Component;
+use Filament\Actions\Concerns\HasForm;
+use Vormkracht10\FilamentTranslations\Events\LocaleChanged;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages\ListLanguages;
 
@@ -31,16 +32,19 @@ class Switcher extends Component
 
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
-
         return view('filament-translations::components.switcher');
     }
 
     public function switchLanguage(string $lang)
     {
-        session(['curretLanguage' => $lang]);
+        session()->put('locale', $lang);
+
+        cookie()->queue(cookie()->forever('filament_language_switch_locale', $lang));
+
+        return redirect(request()->header('Referer'));
     }
 
-    public function configure()
+    public function list()
     {
         return $this->redirect(ListLanguages::getUrl());
     }

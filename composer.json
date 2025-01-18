@@ -20,13 +20,14 @@
         }
     ],
     "require": {
-        "php": "^8.4",
-        "filament/filament": "^3.0",
-        "guava/filament-icon-select-column": "^1.1",
-        "outhebox/blade-flags": "^1.5",
-        "spatie/laravel-package-tools": "^1.15.0",
-        "spatie/laravel-translation-loader": "^2.8",
-        "vormkracht10/laravel-translations": "dev-main"
+        "php": "*",
+        "filament/filament": "*",
+        "guava/filament-icon-select-column": "*",
+        "outhebox/blade-flags": "*",
+        "ryangjchandler/filament-progress-column": "*",
+        "spatie/laravel-package-tools": "*",
+        "spatie/laravel-translation-loader": "*",
+        "laravel/horizon": "*"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -77,5 +78,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": false
 }

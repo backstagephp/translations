@@ -17,7 +17,7 @@
             </x-filament::dropdown.list.item>
         @endforeach
 
-        <x-filament::dropdown.list.item wire:click="configure" class="mt-3">
+        <x-filament::dropdown.list.item wire:click="list" class="mt-3">
             <div class="filament-dropdown-list-item-label truncate text-start flex justify-content-start gap-3">   
                 <div>
                     <x-filament::icon icon="heroicon-m-map" class="w-5 " />
