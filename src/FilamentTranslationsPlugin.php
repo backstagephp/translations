@@ -2,10 +2,10 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
-use Filament\View\PanelsRenderHook;
 use Filament\Forms\Components\Select;
+use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
 
