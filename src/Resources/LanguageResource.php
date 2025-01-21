@@ -8,7 +8,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use RyanChandler\FilamentProgressColumn\ProgressColumn;
 use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
 use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 use Vormkracht10\LaravelTranslations\Models\Language;
@@ -64,20 +63,20 @@ class LanguageResource extends Resource
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $locale = $record->locale;
-
-            $translated = TranslationResource::getModel()::where('locale', $locale)
+            $translated = TranslationResource::getModel()::where('locale', $record->locale)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('locale', $locale)
+            $total = TranslationResource::getModel()::where('locale', $record->locale)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
                 return 0;
             }
 
-            return round($translated / $total * 100, 2);
+            $result = round($translated / $total * 100);
+
+            return $result;
         };
 
         return $table
@@ -94,7 +93,7 @@ class LanguageResource extends Resource
                 Tables\Columns\TextColumn::make('label')
                     ->label(__('Label')),
 
-                ProgressColumn::make('translated')
+                \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
                     ->poll(fn ($record) => $percentage($record) > 50 ? '1s' : '5s')
                     ->progress(fn ($record) => $percentage($record))

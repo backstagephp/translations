@@ -1,7 +1,5 @@
 <?php
 
-//
-
 function getCountryFlag($locale)
 {
     if ($locale == 'en') {

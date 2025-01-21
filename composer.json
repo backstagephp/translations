@@ -22,7 +22,6 @@
     "require": {
         "php": "*",
         "filament/filament": "*",
-        "guava/filament-icon-select-column": "*",
         "outhebox/blade-flags": "*",
         "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "*",

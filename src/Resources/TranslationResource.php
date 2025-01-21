@@ -6,7 +6,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Guava\FilamentIconSelectColumn\Tables\Columns\IconSelectColumn;
 use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
 use Vormkracht10\LaravelTranslations\Models\Translation;
 
@@ -38,15 +37,11 @@ class TranslationResource extends Resource
     {
         return $table
             ->columns([
-                IconSelectColumn::make('locale')
+                Tables\Columns\IconColumn::make('locale')
                     ->label(__('Locale'))
-                    ->options(fn () => LanguageResource::getModel()::pluck('locale', 'locale')->toArray())
-                    ->icons(fn () => LanguageResource::getModel()::pluck('locale', 'locale')->map(fn ($locale) => getCountryFlag($locale))->merge([null => ''])->toArray())
-                    ->tooltip(fn ($record) => $record->locale)
-                    ->searchable()
-                    ->sortable()
-                    ->closeOnSelection()
-                    ->size(Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->icon(fn ($record): string => getCountryFlag($record->locale))
+                    ->color('danger')
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\TextInputColumn::make('group')
                     ->label(__('Group'))
@@ -93,7 +88,6 @@ class TranslationResource extends Resource
         return [
             'index' => Pages\ListTranslations::route('/'),
             'create' => Pages\CreateTranslation::route('/create'),
-            // 'edit' => Pages\EditTranslation::route('/{record}/edit'),
         ];
     }
 }
