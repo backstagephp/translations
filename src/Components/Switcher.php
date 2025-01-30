@@ -21,11 +21,11 @@ class Switcher extends Component
     {
         $this->languages = LanguageResource::getModel()::all()->pluck('label', 'locale')->toArray();
 
-        if(count($this->languages) == 0) {
+        if (count($this->languages) == 0) {
             LanguageResource::getModel()::create([
                 'locale' => 'en',
                 'label' => 'English',
-            ]);    
+            ]);
         }
 
         if (session('curretLanguage')) {
