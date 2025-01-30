@@ -3,15 +3,12 @@
 namespace Vormkracht10\FilamentTranslations\Resources;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
-use Filament\Tables;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Filters\Filter;
-use Filament\Tables\Enums\FiltersLayout;
-use Filament\Tables\Filters\SelectFilter;
-use Vormkracht10\LaravelTranslations\Models\Translation;
+use Filament\Tables\Table;
 use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
+use Vormkracht10\LaravelTranslations\Models\Translation;
 
 class TranslationResource extends Resource
 {
@@ -35,9 +32,9 @@ class TranslationResource extends Resource
             ->columns([
                 Tables\Columns\IconColumn::make('locale')
                     ->label(__('Locale'))
-                    ->icon(fn($record): string => getCountryFlag($record->locale))
+                    ->icon(fn ($record): string => getCountryFlag($record->locale))
                     ->color('danger')
-                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\TextInputColumn::make('group')
                     ->label(__('Group'))
@@ -65,32 +62,32 @@ class TranslationResource extends Resource
                     ->label(__('Translated'))
                     ->default(null)
                     ->form([
-                            Select::make('translated_at')
+                        Select::make('translated_at')
                             ->nullable()
-                                ->placeholder(__('Select...'))
-                                ->default(null)
-                                ->options([
-                                    'all' => __('All'),
-                                    'translated' => __('Translated'),
-                                    'not_translated' => __('Not Translated'),
-                                ])
-                                ->default('all')
-                                ->label(__('Translated'))
-                                ->native(false),
-                        ])
+                            ->placeholder(__('Select...'))
+                            ->default(null)
+                            ->options([
+                                'all' => __('All'),
+                                'translated' => __('Translated'),
+                                'not_translated' => __('Not Translated'),
+                            ])
+                            ->default('all')
+                            ->label(__('Translated'))
+                            ->native(false),
+                    ])
                     ->query(function ($query, $data) {
-                        if($data['translated_at'] === 'all') {
+                        if ($data['translated_at'] === 'all') {
                             return $query;
                         }
 
-                        if($data['translated_at'] === 'translated') {
+                        if ($data['translated_at'] === 'translated') {
                             return $query->whereNotNull('translated_at');
                         }
 
-                        if($data['translated_at'] === 'not_translated') {
+                        if ($data['translated_at'] === 'not_translated') {
                             return $query->whereNull('translated_at');
                         }
-                    })
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

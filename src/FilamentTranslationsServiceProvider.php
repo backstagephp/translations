@@ -2,12 +2,14 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
+use BladeUI\Icons\Factory;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
@@ -16,8 +18,6 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
-use BladeUI\Icons\Factory;
-use Illuminate\Contracts\Container\Container;
 
 class FilamentTranslationsServiceProvider extends PackageServiceProvider
 {
@@ -54,13 +54,13 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             $package->hasViews(static::$viewNamespace);
         }
     }
-    
+
     public function packageRegistered()
     {
         $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
             $config = $container->make('config')->get('blade-flags', []);
 
-            $factory->add('blade-flags', array_merge(['path' => __DIR__.'/../resources/svg'], $config));
+            $factory->add('blade-flags', array_merge(['path' => __DIR__ . '/../resources/svg'], $config));
         });
     }
 
@@ -68,14 +68,14 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../resources/svg' => public_path('vendor/blade-flags'),
+                __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
             ], 'blade-flags');
 
             $this->publishes([
-                __DIR__.'/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
+                __DIR__ . '/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
             ], 'blade-flags-config');
         }
-        
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -172,6 +172,6 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/blade-flags.php', 'blade-flags');
+        $this->mergeConfigFrom(__DIR__ . '/../config/blade-flags.php', 'blade-flags');
     }
 }
