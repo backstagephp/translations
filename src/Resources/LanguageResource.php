@@ -47,7 +47,7 @@ class LanguageResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('locale')
-                    ->label(__('Locale'))
+                    ->label(__('Code'))
                     ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : null)
                     ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
                     ->live()
@@ -95,7 +95,7 @@ class LanguageResource extends Resource
 
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
-                    ->poll(fn ($record) => $percentage($record) > 50 ? '1s' : '5s')
+                    ->poll(fn ($record) => '1s')
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])

@@ -25,14 +25,6 @@ class TranslationResource extends Resource
         return __('Translations');
     }
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                //
-            ]);
-    }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -56,31 +48,19 @@ class TranslationResource extends Resource
                 Tables\Columns\TextInputColumn::make('text')
                     ->label(__('Text'))
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->translated(),
 
                 Tables\Columns\TextInputColumn::make('namespace')
                     ->label(__('Namespace'))
                     ->searchable()
-                    ->sortable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                // Tables\Actions\EditAction::make(),
+                    ->sortable()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

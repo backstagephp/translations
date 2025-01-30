@@ -5,6 +5,7 @@ namespace Vormkracht10\FilamentTranslations;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
 use Filament\Panel;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
 use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
@@ -26,6 +27,8 @@ class FilamentTranslationsPlugin implements Plugin
         );
 
         $this->configure();
+
+        $this->macros();
 
         $panel->middleware([SwitchLanguageLocale::class]);
     }
@@ -49,6 +52,14 @@ class FilamentTranslationsPlugin implements Plugin
     {
         Select::configureUsing(function (Select $select) {
             $select->native(false);
+        });
+    }
+
+    protected function macros () {
+        TextInputColumn::macro('translated', function () {
+            return $this->afterStateUpdated(function ($record) {
+                $record->update(['translated_at' => now()]);
+            });
         });
     }
 }

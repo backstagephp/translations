@@ -20,12 +20,11 @@
         }
     ],
     "require": {
-        "php": "*",
-        "filament/filament": "*",
+        "php": "^8.2",
+        "filament/filament": "^3.0",
         "outhebox/blade-flags": "*",
         "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "*",
-        "spatie/laravel-translation-loader": "*",
         "laravel/horizon": "*"
     },
     "require-dev": {
