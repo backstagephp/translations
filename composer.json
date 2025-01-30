@@ -21,10 +21,11 @@
     ],
     "require": {
         "php": "^8.2",
-        "blade-ui-kit/blade-icons": "1.x-dev",
+        "blade-ui-kit/blade-icons": "^1.6",
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
-        "spatie/laravel-package-tools": "*"
+        "spatie/laravel-package-tools": "*",
+        "vormkracht10/laravel-translations": "*"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
