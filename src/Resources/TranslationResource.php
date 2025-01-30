@@ -2,11 +2,14 @@
 
 namespace Vormkracht10\FilamentTranslations\Resources;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Form;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Vormkracht10\LaravelTranslations\Models\Translation;
 use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
 
@@ -58,13 +61,36 @@ class TranslationResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                Filter::make('not_translated')
-                    ->modifyQueryUsing(fn($query) => $query->whereNull('translated_at'))
-                    ->toggle(),
+                Filter::make('translated_at')
+                    ->label(__('Translated'))
+                    ->default(null)
+                    ->form([
+                            Select::make('translated_at')
+                            ->nullable()
+                                ->placeholder(__('Select...'))
+                                ->default(null)
+                                ->options([
+                                    'all' => __('All'),
+                                    'translated' => __('Translated'),
+                                    'not_translated' => __('Not Translated'),
+                                ])
+                                ->default('all')
+                                ->label(__('Translated'))
+                                ->native(false),
+                        ])
+                    ->query(function ($query, $data) {
+                        if($data['translated_at'] === 'all') {
+                            return $query;
+                        }
 
-                Filter::make('translated')
-                    ->modifyQueryUsing(fn($query) => $query->whereNotNull('translated_at'))
-                    ->toggle(),
+                        if($data['translated_at'] === 'translated') {
+                            return $query->whereNotNull('translated_at');
+                        }
+
+                        if($data['translated_at'] === 'not_translated') {
+                            return $query->whereNull('translated_at');
+                        }
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
