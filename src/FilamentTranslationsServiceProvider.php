@@ -16,6 +16,8 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
+use BladeUI\Icons\Factory;
+use Illuminate\Contracts\Container\Container;
 
 class FilamentTranslationsServiceProvider extends PackageServiceProvider
 {
@@ -52,9 +54,28 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             $package->hasViews(static::$viewNamespace);
         }
     }
+    
+    public function packageRegistered()
+    {
+        $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
+            $config = $container->make('config')->get('blade-flags', []);
+
+            $factory->add('blade-flags', array_merge(['path' => __DIR__.'/../resources/svg'], $config));
+        });
+    }
 
     public function packageBooted(): void
     {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../resources/svg' => public_path('vendor/blade-flags'),
+            ], 'blade-flags');
+
+            $this->publishes([
+                __DIR__.'/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
+            ], 'blade-flags-config');
+        }
+        
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -147,5 +168,10 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             'create_filament-translations_table',
             'create_filament-languages',
         ];
+    }
+
+    protected function registerConfig(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/blade-flags.php', 'blade-flags');
     }
 }
