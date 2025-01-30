@@ -55,7 +55,8 @@ class FilamentTranslationsPlugin implements Plugin
         });
     }
 
-    protected function macros () {
+    protected function macros()
+    {
         TextInputColumn::macro('translated', function () {
             return $this->afterStateUpdated(function ($record) {
                 $record->update(['translated_at' => now()]);

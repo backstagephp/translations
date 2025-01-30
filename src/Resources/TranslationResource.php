@@ -2,7 +2,6 @@
 
 namespace Vormkracht10\FilamentTranslations\Resources;
 
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -54,7 +53,7 @@ class TranslationResource extends Resource
                 Tables\Columns\TextInputColumn::make('namespace')
                     ->label(__('Namespace'))
                     ->searchable()
-                    ->sortable()
+                    ->sortable(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
