@@ -20,7 +20,7 @@ composer require vormkracht10/filament-translations
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="filament-translations-migrations"
+php artisan vendor:publish --tag="laravel-translations-migrations"
 php artisan migrate
 ```
 
@@ -28,6 +28,7 @@ You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="filament-translations-config"
+php artisan vendor:publish --tag="blade-flags-config"
 ```
 
 Optionally, you can publish the views using
@@ -36,18 +37,15 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="filament-translations-views"
 ```
 
-This is the contents of the published config file:
+Add the FilamentTranslationsPlugin to the desired panel provider:
 
 ```php
-return [
-];
-```
+use Vormkracht10\FilamentTranslations\FilamentTranslationsPlugin;
 
-## Usage
-
-```php
-$filamentTranslations = new FilamentTranslations\FilamentTranslations();
-echo $filamentTranslations->echoPhrase('Hello, FilamentTranslations!');
+$panel
+    ->plugins([
+        FilamentTranslationsPlugin::make(),
+    ]);
 ```
 
 ## Testing
