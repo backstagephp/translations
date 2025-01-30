@@ -104,10 +104,6 @@ class LanguageResource extends Resource
                     ->icon('heroicon-o-arrow-path')
                     ->label(__('Redo Translation'))
                     ->action(function ($record) {
-                        TranslationResource::getModel()::where('locale', $record->locale)
-                            ->get()
-                            ->each(fn ($entry) => $entry->update(['translated_at' => null]));
-
                         dispatch(new TranslateKeys($record));
                     })
                     ->button(),

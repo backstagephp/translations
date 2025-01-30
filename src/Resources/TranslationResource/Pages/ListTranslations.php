@@ -18,7 +18,7 @@ class ListTranslations extends ListRecords
             Actions\Action::make('rescan')
                 ->label(__('Rescan'))
                 ->color(Color::Rose)
-                ->action(fn () => dispatch(new ScanTranslatableKeys)),
+                ->action(fn () => dispatch_sync(new ScanTranslatableKeys)),
         ];
     }
 }
