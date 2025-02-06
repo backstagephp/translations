@@ -2,9 +2,16 @@
 
 namespace Vormkracht10\FilamentTranslations\Resources;
 
+use Filament\Actions\StaticAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
@@ -16,14 +23,29 @@ class TranslationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $slug = 'translations';
+
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');
     }
 
-    public static function getLabel(): ?string
+    // public static function getLabel(): ?string
+    // {
+    //     return __('Translations');
+    // }
+
+    public static function form(Form $form): Form
     {
-        return __('Translations');
+        return $form
+            ->schema([
+                    TextArea::make('text')
+                    ->label(__('Text'))
+                    ->autosize()
+                    ->autocomplete(false)
+                    ->columnSpanFull()
+                    ->required(),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -31,31 +53,30 @@ class TranslationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('locale')
-                    ->label(__('Locale'))
+                    ->label(__(''))
                     ->icon(fn ($record): string => getCountryFlag($record->locale))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
-                Tables\Columns\TextInputColumn::make('group')
-                    ->label(__('Group'))
-                    ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextInputColumn::make('key')
+                Tables\Columns\TextColumn::make('key')
                     ->label(__('Key'))
                     ->searchable()
+                    ->description(fn($record) =>$record->group )
                     ->sortable(),
 
                 Tables\Columns\TextInputColumn::make('text')
+                ->width('1/3')
                     ->label(__('Text'))
                     ->searchable()
                     ->sortable()
                     ->translated(),
-
-                Tables\Columns\TextInputColumn::make('namespace')
-                    ->label(__('Namespace'))
-                    ->searchable()
-                    ->sortable(),
+            ])
+            ->actions([
+                EditAction::make()
+                ->modalHeading(__('Edit Translation'))
+                ->modalDescription(fn($record) => $record->key)
+                ->modalIcon(fn($record) => getCountryFlag($record->locale))
+                ->modalIconColor(null)
             ])
             ->filters([
                 Filter::make('translated_at')

@@ -29,8 +29,7 @@
         "blade-ui-kit/blade-icons": "^1.6",
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
-        "spatie/laravel-package-tools": "*",
-        "vormkracht10/laravel-translations": "*"
+        "spatie/laravel-package-tools": "*"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

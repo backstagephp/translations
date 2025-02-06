@@ -21,16 +21,14 @@ class EditLanguage extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->after(function () {
-                    TranslationResource::getModel()::where('locale', $this->record['locale'])->delete();
-                }),
+                ->after(fn() => TranslationResource::getModel()::where('locale', $this->record['locale'])->delete()),
         ];
     }
 
     protected function beforeSave(): void
     {
-        $translations = TranslationResource::getModel()::where('locale', $this->record['locale'])
+        TranslationResource::getModel()::where('locale', $this->record['locale'])
             ->get()
-            ->each(fn ($translation) => $translation->update(['locale' => $this->data['locale']]));
+            ->each(fn($translation) => $translation->update(['locale' => $this->data['locale']]));
     }
 }

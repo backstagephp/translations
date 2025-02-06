@@ -58,7 +58,9 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
-            $config = $container->make('config')->get('blade-flags', []);
+            $config = $container->make('config')->get('blade-flags', [
+                'prefix' => 'flag',
+            ]);
 
             $factory->add('blade-flags', array_merge(['path' => __DIR__ . '/../resources/svg'], $config));
         });

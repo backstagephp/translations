@@ -22,20 +22,15 @@ class LanguageResource extends Resource
 
     protected static bool $isScopedToTenant = false;
 
-    public static function getNavigationParentItem(): ?string
-    {
-        return __('Translations');
-    }
-
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');
     }
 
-    public static function getLabel(): ?string
-    {
-        return __('Languages');
-    }
+    // public static function getLabel(): ?string
+    // {
+    //     return __('Languages');
+    // }
 
     public static function getEloquentQuery(): Builder
     {
@@ -95,7 +90,7 @@ class LanguageResource extends Resource
 
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
-                    ->poll(fn ($record) => '1s')
+                    ->poll('1s')
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])
@@ -103,9 +98,7 @@ class LanguageResource extends Resource
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
                     ->label(__('Redo Translation'))
-                    ->action(function ($record) {
-                        dispatch(new TranslateKeys($record));
-                    })
+                    ->action(fn ($record) => dispatch(new TranslateKeys($record)))
                     ->button(),
             ]);
     }

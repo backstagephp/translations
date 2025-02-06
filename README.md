@@ -1,11 +1,13 @@
-# This is the official Vormkracht10 Filament Translations package!
+# Filament Translations
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vormkracht10/filament-translations.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-translations)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-translations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vormkracht10/filament-translations/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/vormkracht10/filament-translations/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/vormkracht10/filament-translations/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/vormkracht10/filament-translations.svg?style=flat-square)](https://packagist.org/packages/vormkracht10/filament-translations)
 
-A [Laravel Translations](https://github.com/vormkracht10/laravel-translations) package build for Filament.
+## Nice to meet you, we're [Vormkracht10](https://vormkracht10.nl)
+
+Hi! We are a web development agency from Nijmegen in the Netherlands and we use Laravel for everything: advanced websites with a lot of bells and whitles and large web applications.
 
 ## Installation
 

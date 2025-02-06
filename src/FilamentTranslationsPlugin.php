@@ -2,9 +2,11 @@
 
 namespace Vormkracht10\FilamentTranslations;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
 use Filament\Panel;
+use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
@@ -12,6 +14,10 @@ use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
 
 class FilamentTranslationsPlugin implements Plugin
 {
+    use EvaluatesClosures;
+
+    public null|string|Closure $defaultLang = null;
+
     public function getId(): string
     {
         return 'filament-translations';
@@ -62,5 +68,17 @@ class FilamentTranslationsPlugin implements Plugin
                 $record->update(['translated_at' => now()]);
             });
         });
+    }
+
+    public function defaultLang(string|Closure $lang): static
+    {
+        $this->defaultLang = $lang;
+
+        return $this;
+    }
+
+    public function getDefaultLang(): mixed
+    {
+        return $this->evaluate($this->defaultLang);
     }
 }
