@@ -1,3 +1,4 @@
+@if(!\Vormkracht10\FilamentTranslations\FilamentTranslationsPlugin::get()->absoluteLang)
 <x-filament::dropdown wire:poll.1s placement="bottom-start">
     <x-slot name="trigger">
         <x-filament::icon :icon="$currentLanguageIcon" class="w-10 h-auto" />
@@ -29,3 +30,6 @@
             </x-filament::dropdown.list.item>
     </x-filament::dropdown.list>
 </x-filament::dropdown>
+@else 
+<span></span>
+@endif

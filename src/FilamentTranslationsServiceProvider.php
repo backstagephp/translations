@@ -112,7 +112,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-translations', __DIR__ . '/../resources/dist/components/filament-translations.js'),
-            Css::make('filament-progress-column-styles', __DIR__ . '/../vendor/ryangjchandler/filament-progress-column/resources/dist/progress.css'),
+            Css::make('filament-progress-column-styles', __DIR__ . '/../resources/dist/filament-progress-column.css'),
             // Js::make('filament-translations-scripts', __DIR__ . '/../resources/dist/filament-translations.js'),
         ];
     }

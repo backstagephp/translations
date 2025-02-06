@@ -16,7 +16,7 @@ class FilamentTranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
 
-    public null|string|Closure $defaultLang = null;
+    public null|string|Closure $absoluteLang = null;
 
     public function getId(): string
     {
@@ -70,15 +70,15 @@ class FilamentTranslationsPlugin implements Plugin
         });
     }
 
-    public function defaultLang(string|Closure $lang): static
+    public function absoluteLang(string|Closure $langCode): static
     {
-        $this->defaultLang = $lang;
+        $this->absoluteLang = $langCode;
 
         return $this;
     }
 
-    public function getDefaultLang(): mixed
+    public function getAbsoluteLang(): mixed
     {
-        return $this->evaluate($this->defaultLang);
+        return $this->evaluate($this->absoluteLang);
     }
 }

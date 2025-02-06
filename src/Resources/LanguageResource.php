@@ -18,19 +18,33 @@ class LanguageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $slug = 'translations/languages';
+    protected static ?string $slug = 'languages/translations';
 
     protected static bool $isScopedToTenant = false;
 
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-translate';
+    }
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');
     }
 
-    // public static function getLabel(): ?string
-    // {
-    //     return __('Languages');
-    // }
+    public static function getNavigationLabel(): string
+    {
+        return __('Languages');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Language');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Languages');
+    }
 
     public static function getEloquentQuery(): Builder
     {
@@ -97,7 +111,7 @@ class LanguageResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
-                    ->label(__('Redo Translation'))
+                    ->label(__('Translate'))
                     ->action(fn ($record) => dispatch(new TranslateKeys($record)))
                     ->button(),
             ]);

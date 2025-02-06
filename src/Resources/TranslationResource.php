@@ -21,20 +21,38 @@ class TranslationResource extends Resource
 {
     protected static ?string $model = Translation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     protected static ?string $slug = 'translations';
+
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-m-globe-alt';
+    }
+    
+    public static function getNavigationParentItem(): ?string
+    {
+        return __('Languages');
+    }
 
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');
     }
 
-    // public static function getLabel(): ?string
-    // {
-    //     return __('Translations');
-    // }
+    public static function getNavigationLabel(): string
+    {
+        return __('Translations');
+    }
 
+    public static function getModelLabel(): string
+    {
+        return __('Translation');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Translations');
+    }
+    
     public static function form(Form $form): Form
     {
         return $form
