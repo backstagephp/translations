@@ -21,7 +21,7 @@ class ListTranslations extends ListRecords
             Actions\Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
                 ->label(__('Translate using :type', ['type' => ucfirst(config('translations.translation.driver'))]))
-                ->color(fn () => Color::Amber)
+                ->color(fn () => Color::Green)
                 ->action(function () {
                     $record = LanguageResource::getModel()::where('locale', config('app.locale'))->first();
 
