@@ -16,16 +16,15 @@ class LanguageResource extends Resource
 {
     protected static ?string $model = Language::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     protected static ?string $slug = 'languages/translations';
 
     protected static bool $isScopedToTenant = false;
 
     public static function getNavigationIcon(): string
     {
-        return 'heroicon-o-translate';
+        return TranslationResource::getNavigationIcon();
     }
+
     public static function getNavigationGroup(): ?string
     {
         return __('Translations');

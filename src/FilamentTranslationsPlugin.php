@@ -16,7 +16,7 @@ class FilamentTranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
 
-    public null|string|Closure $absoluteLang = null;
+    public bool | Closure $usingAppLang = false;
 
     public function getId(): string
     {
@@ -25,12 +25,22 @@ class FilamentTranslationsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->discoverResources(in: base_path('vendor/vormkracht10/filament-translations/src/Resources'), for: 'Vormkracht10\\FilamentTranslations\\Resources');
+        if (! $this->isUsingAppLang()) {
+            $panel->resources([
+                Resources\LanguageResource::class,
+            ]);
+        }
 
-        $panel->renderHook(
-            PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-            fn (): string => Blade::render('@livewire(\'filament-translations::switcher\')'),
-        );
+        $panel->resources([
+            Resources\TranslationResource::class,
+        ]);
+
+        if (! $this->isUsingAppLang()) {
+            $panel->renderHook(
+                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+                fn (): string => Blade::render('@livewire(\'filament-translations::switcher\')'),
+            );
+        }
 
         $this->configure();
 
@@ -70,15 +80,15 @@ class FilamentTranslationsPlugin implements Plugin
         });
     }
 
-    public function absoluteLang(string|Closure $langCode): static
+    public function useAppLang(bool | Closure $usingAppLang = true): static
     {
-        $this->absoluteLang = $langCode;
+        $this->usingAppLang = $usingAppLang;
 
         return $this;
     }
 
-    public function getAbsoluteLang(): mixed
+    public function isUsingAppLang(): mixed
     {
-        return $this->evaluate($this->absoluteLang);
+        return $this->evaluate($this->usingAppLang);
     }
 }

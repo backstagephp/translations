@@ -21,7 +21,7 @@ class EditLanguage extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-                ->after(fn() => TranslationResource::getModel()::where('locale', $this->record['locale'])->delete()),
+                ->after(fn () => TranslationResource::getModel()::where('locale', $this->record['locale'])->delete()),
         ];
     }
 
@@ -29,6 +29,6 @@ class EditLanguage extends EditRecord
     {
         TranslationResource::getModel()::where('locale', $this->record['locale'])
             ->get()
-            ->each(fn($translation) => $translation->update(['locale' => $this->data['locale']]));
+            ->each(fn ($translation) => $translation->update(['locale' => $this->data['locale']]));
     }
 }

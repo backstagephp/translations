@@ -1,5 +1,7 @@
 <?php
 
+use Vormkracht10\FilamentTranslations\FilamentTranslationsPlugin;
+
 function getCountryFlag($locale)
 {
     if ($locale == 'en') {
@@ -7,4 +9,9 @@ function getCountryFlag($locale)
     }
 
     return 'flag-country-' . $locale;
+}
+
+function filamentTranslations(): FilamentTranslationsPlugin
+{
+    return FilamentTranslationsPlugin::get();
 }

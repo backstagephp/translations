@@ -1,4 +1,4 @@
-@if(!\Vormkracht10\FilamentTranslations\FilamentTranslationsPlugin::get()->absoluteLang)
+@if(!filamentTranslations()->isUsingAppLang())
 <x-filament::dropdown wire:poll.1s placement="bottom-start">
     <x-slot name="trigger">
         <x-filament::icon :icon="$currentLanguageIcon" class="w-10 h-auto" />
