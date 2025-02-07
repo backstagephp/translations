@@ -28,7 +28,6 @@ You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="backstage-translations-config"
-php artisan vendor:publish --tag="blade-flags-config"
 ```
 
 Optionally, you can publish the views using
