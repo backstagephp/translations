@@ -68,6 +68,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Manoj Hortulanus](https://github.com/vormkracht10)
+- [Mark van Eijk](https://github.com/markvaneijk)
 - [All Contributors](../../contributors)
 
 ## License
