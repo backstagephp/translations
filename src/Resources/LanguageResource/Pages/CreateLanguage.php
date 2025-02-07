@@ -2,9 +2,9 @@
 
 namespace Backstage\Translations\Resources\LanguageResource\Pages;
 
+use Backstage\Translations\Resources\LanguageResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Backstage\Translations\Resources\LanguageResource;
 use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
 use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 

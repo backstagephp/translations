@@ -2,8 +2,8 @@
 
 namespace Backstage\Translations\Resources\TranslationResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use Backstage\Translations\Resources\TranslationResource;
+use Filament\Resources\Pages\CreateRecord;
 
 class CreateTranslation extends CreateRecord
 {

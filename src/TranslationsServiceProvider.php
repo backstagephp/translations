@@ -2,6 +2,7 @@
 
 namespace Backstage\Translations;
 
+use Backstage\Translations\Testing\TestsFilamentTranslations;
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
@@ -13,7 +14,6 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Backstage\Translations\Testing\TestsFilamentTranslations;
 
 class TranslationsServiceProvider extends PackageServiceProvider
 {

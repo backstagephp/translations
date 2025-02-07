@@ -2,10 +2,10 @@
 
 namespace Backstage\Translations\Components;
 
-use Filament\Actions\Concerns\HasForm;
-use Livewire\Component;
 use Backstage\Translations\Resources\LanguageResource;
 use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
+use Filament\Actions\Concerns\HasForm;
+use Livewire\Component;
 
 class Switcher extends Component
 {

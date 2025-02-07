@@ -2,12 +2,12 @@
 
 namespace Backstage\Translations\Resources\TranslationResource\Pages;
 
+use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Colors\Color;
-use Backstage\Translations\Resources\LanguageResource;
-use Backstage\Translations\Resources\TranslationResource;
 use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
 use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 

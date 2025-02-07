@@ -2,6 +2,7 @@
 
 namespace Backstage\Translations;
 
+use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
@@ -10,7 +11,6 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
 
 class TranslationsPlugin implements Plugin
 {

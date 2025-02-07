@@ -2,6 +2,7 @@
 
 namespace Backstage\Translations\Resources;
 
+use Backstage\Translations\Resources\TranslationResource\Pages;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
@@ -11,7 +12,6 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\File;
-use Backstage\Translations\Resources\TranslationResource\Pages;
 use Vormkracht10\LaravelTranslations\Models\Translation;
 
 class TranslationResource extends Resource

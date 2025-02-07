@@ -2,11 +2,11 @@
 
 namespace Backstage\Translations\Resources\LanguageResource\Pages;
 
+use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Backstage\Translations\Resources\LanguageResource;
-use Backstage\Translations\Resources\TranslationResource;
 
 class EditLanguage extends EditRecord
 {
