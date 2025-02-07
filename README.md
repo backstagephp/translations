@@ -5,9 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/backstagephp/translations/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/backstagephp/translations/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/backstagephp/translations.svg?style=flat-square)](https://packagist.org/packages/backstagephp/translations)
 
-## Nice to meet you, we're [Backstagephp](https://backstagephp.com)
+## Nice to meet you, we're [Vormkracht10](https://vormkracht10.nl)
 
-Hi! We are a web development agency from Nijmegen in the Netherlands and we use Laravel for everything: advanced websites with a lot of bells and whitles and large web applications.
+Hi! We're a digital agency from Nijmegen in the Netherlands and we use Laravel for everything: advanced websites with a lot of bells and whistles and large web applications.
 
 ## Installation
 
