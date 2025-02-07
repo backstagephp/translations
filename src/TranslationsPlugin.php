@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations;
+namespace Backstage\Translations;
 
 use Closure;
 use Filament\Contracts\Plugin;
@@ -10,9 +10,9 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Vormkracht10\FilamentTranslations\Http\Middleware\SwitchLanguageLocale;
+use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
 
-class FilamentTranslationsPlugin implements Plugin
+class TranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
 
@@ -20,7 +20,7 @@ class FilamentTranslationsPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'filament-translations';
+        return 'translations';
     }
 
     public function register(Panel $panel): void
@@ -38,7 +38,7 @@ class FilamentTranslationsPlugin implements Plugin
         if (! $this->isUsingAppLang()) {
             $panel->renderHook(
                 PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-                fn (): string => Blade::render('@livewire(\'filament-translations::switcher\')'),
+                fn (): string => Blade::render('@livewire(\'translations::switcher\')'),
             );
         }
 

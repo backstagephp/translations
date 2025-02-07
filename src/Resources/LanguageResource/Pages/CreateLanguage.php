@@ -1,10 +1,10 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Resources\LanguageResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
+use Backstage\Translations\Resources\LanguageResource;
 use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
 use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 

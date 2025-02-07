@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Http\Middleware;
+namespace Backstage\Translations\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

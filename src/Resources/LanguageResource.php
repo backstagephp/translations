@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources;
+namespace Backstage\Translations\Resources;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -8,7 +8,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+use Backstage\Translations\Resources\LanguageResource\Pages;
 use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 use Vormkracht10\LaravelTranslations\Models\Language;
 

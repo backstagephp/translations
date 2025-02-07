@@ -1,15 +1,16 @@
 {
-    "name": "vormkracht10/filament-translations",
-    "description": "This is the official Vormkracht10 Filament Translations package!",
+    "name": "backstage/translations",
+    "description": "This is the official Backstagephp Translations package!",
     "keywords": [
-        "vormkracht10",
+        "backstagephp",
         "laravel",
-        "filament-translations"
+        "filament",
+        "translations"
     ],
-    "homepage": "https://github.com/vormkracht10/filament-translations",
+    "homepage": "https://github.com/backstagephp/translations",
     "support": {
-        "issues": "https://github.com/vormkracht10/filament-translations/issues",
-        "source": "https://github.com/vormkracht10/filament-translations"
+        "issues": "https://github.com/backstagephp/translations/issues",
+        "source": "https://github.com/backstagephp/translations"
     },
     "license": "MIT",
     "authors": [
@@ -42,17 +43,18 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "spatie/laravel-ray": "^1.26",
+        "vormkracht10/laravel-translations": "dev-main"
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\": "src/",
-            "Vormkracht10\\FilamentTranslations\\Database\\Factories\\": "database/factories/"
+            "Backstage\\Translations\\": "src/",
+            "Backstage\\Translations\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\Tests\\": "tests/"
+            "Backstage\\Translations\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -72,10 +74,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\FilamentTranslations\\FilamentTranslationsServiceProvider"
+                "Backstage\\Translations\\TranslationsServiceProvider"
             ],
             "aliases": {
-                "FilamentTranslations": "Vormkracht10\\FilamentTranslations\\Facades\\FilamentTranslations"
+                "Translations": "Backstage\\Translations\\Facades\\Translations"
             }
         }
     },

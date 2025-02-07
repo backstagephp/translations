@@ -1,11 +1,11 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Components;
+namespace Backstage\Translations\Components;
 
 use Filament\Actions\Concerns\HasForm;
 use Livewire\Component;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages\ListLanguages;
+use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
 
 class Switcher extends Component
 {
@@ -38,7 +38,7 @@ class Switcher extends Component
 
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
-        return view('filament-translations::components.switcher');
+        return view('backstage-translations::components.switcher');
     }
 
     public function switchLanguage(string $lang)

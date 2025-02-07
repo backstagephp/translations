@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Testing;
+namespace Backstage\Translations\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 

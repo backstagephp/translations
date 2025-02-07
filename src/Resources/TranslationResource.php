@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources;
+namespace Backstage\Translations\Resources;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -11,7 +11,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\File;
-use Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
+use Backstage\Translations\Resources\TranslationResource\Pages;
 use Vormkracht10\LaravelTranslations\Models\Translation;
 
 class TranslationResource extends Resource
@@ -166,7 +166,7 @@ class TranslationResource extends Resource
         $language = LanguageResource::getModel()::where('locale', $appLocale);
 
         if (! $language->exists()) {
-            $jsonPath = base_path('vendor/vormkracht10/filament-translations/resources/json/langCodes.json');
+            $jsonPath = base_path('vendor/backstagephp/backstage-translations/resources/json/langCodes.json');
 
             if (! File::exists($jsonPath)) {
                 throw new \Exception("Language codes file not found at path: {$jsonPath}");

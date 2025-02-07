@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Resources\LanguageResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\FilamentTranslations\Resources\TranslationResource;
+use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Resources\TranslationResource;
 
 class EditLanguage extends EditRecord
 {

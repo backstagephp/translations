@@ -1,6 +1,6 @@
 <?php
 
-use Vormkracht10\FilamentTranslations\FilamentTranslationsPlugin;
+use Backstage\Translations\TranslationsPlugin;
 
 function getCountryFlag($locale)
 {
@@ -11,7 +11,7 @@ function getCountryFlag($locale)
     return 'flag-country-' . $locale;
 }
 
-function filamentTranslations(): FilamentTranslationsPlugin
+function filamentTranslations(): TranslationsPlugin
 {
-    return FilamentTranslationsPlugin::get();
+    return TranslationsPlugin::get();
 }

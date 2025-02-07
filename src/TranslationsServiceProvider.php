@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations;
+namespace Backstage\Translations;
 
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
@@ -13,13 +13,13 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Vormkracht10\FilamentTranslations\Testing\TestsFilamentTranslations;
+use Backstage\Translations\Testing\TestsFilamentTranslations;
 
-class FilamentTranslationsServiceProvider extends PackageServiceProvider
+class TranslationsServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'filament-translations';
+    public static string $name = 'translations';
 
-    public static string $viewNamespace = 'filament-translations';
+    public static string $viewNamespace = 'backstage-translations';
 
     public function configurePackage(Package $package): void
     {
@@ -27,7 +27,7 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
-                    ->askToStarRepoOnGitHub('vormkracht10/filament-translations');
+                    ->askToStarRepoOnGitHub('backstagephp/translations');
             });
 
         $configFileName = $package->shortName();
@@ -80,12 +80,12 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
 
         require_once __DIR__ . '/helpers.php';
 
-        Livewire::component('filament-translations::switcher', \Vormkracht10\FilamentTranslations\Components\Switcher::class);
+        Livewire::component('backstage-translations::switcher', \Backstage\Translations\Components\Switcher::class);
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return 'vormkracht10/filament-translations';
+        return 'backstagephp/translations';
     }
 
     protected function getAssets(): array
