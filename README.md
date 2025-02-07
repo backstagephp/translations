@@ -1,4 +1,4 @@
-# Filament Translations
+# Backstage: Translations for Filament
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/backstagephp/translations.svg?style=flat-square)](https://packagist.org/packages/backstagephp/translations)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/backstagephp/translations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/backstagephp/translations/actions?query=workflow%3Arun-tests+branch%3Amain)
