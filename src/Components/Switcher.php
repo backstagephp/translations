@@ -2,10 +2,11 @@
 
 namespace Backstage\Translations\Components;
 
-use Filament\Actions\Concerns\HasForm;
-use Livewire\Component;
 use Backstage\Translations\Resources\LanguageResource;
 use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
+use Filament\Actions\Concerns\HasForm;
+use Filament\Notifications\Notification;
+use Livewire\Component;
 
 class Switcher extends Component
 {
@@ -19,12 +20,14 @@ class Switcher extends Component
 
     public function render()
     {
-        $this->languages = LanguageResource::getModel()::all()->pluck('label', 'locale')->toArray();
+        $this->languages = LanguageResource::getModel()::all()->pluck('name', 'code')->toArray();
 
         if (count($this->languages) == 0) {
             LanguageResource::getModel()::create([
-                'locale' => 'en',
-                'label' => 'English',
+                'code' => 'en',
+                'name' => 'English',
+                'active' => true,
+                'default' => true,
             ]);
         }
 
@@ -43,9 +46,34 @@ class Switcher extends Component
 
     public function switchLanguage(string $lang)
     {
-        session()->put('locale', $lang);
+        $oldLang = request()->get('code') ?:
+            session()->get('code') ?:
+            request()->cookie('filament_language_code') ?:
+            LanguageResource::getModel()::where('default', true)->first()?->languageCode ?:
+            request()->getPreferredLanguage() ?:
+            app()->getLocale() ?: 'en';
+
+        if (array_key_exists($oldLang, $this->languages)) {
+            if ($this->languages[$oldLang] === $this->languages[$lang]) {
+                Notification::make()
+                    ->title(__('Language not changed'))
+                    ->body(__('The language has not been changed because the selected language is the same as the current language'))
+                    ->danger()
+                    ->send();
+
+                return;
+            }
+        }
+
+        session()->put('code', $lang);
 
         cookie()->queue(cookie()->forever('filament_language_switch_locale', $lang));
+
+        Notification::make()
+            ->title(__('Language changed'))
+            ->body(__('The language has been changed from :oldLanguage to :language', ['oldLanguage' => $this->languages[$oldLang] ?? '', 'language' => $this->languages[$lang]], $lang))
+            ->success()
+            ->send();
 
         return redirect(request()->header('Referer'));
     }

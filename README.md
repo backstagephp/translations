@@ -20,7 +20,7 @@ composer require backstage/translations
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Vormkracht10\LaravelTranslations\LaravelTranslationsServiceProvider"
+php artisan vendor:publish --provider=" Backstage\Translations\Laravel\LaravelTranslationsServiceProvider"
 php artisan migrate
 ```
 

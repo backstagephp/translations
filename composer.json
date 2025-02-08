@@ -44,7 +44,7 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "spatie/laravel-ray": "^1.26",
-        "vormkracht10/laravel-translations": "dev-main"
+        "backstage/laravel-translations": "dev-main"
     },
     "autoload": {
         "psr-4": {

@@ -2,7 +2,7 @@
 
 namespace Backstage\Translations;
 
-use Closure;
+use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
 use Filament\Panel;
@@ -10,13 +10,10 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
 
 class TranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
-
-    public bool | Closure $usingAppLang = false;
 
     public function getId(): string
     {
@@ -25,22 +22,15 @@ class TranslationsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if (! $this->isUsingAppLang()) {
-            $panel->resources([
-                Resources\LanguageResource::class,
-            ]);
-        }
-
         $panel->resources([
+            Resources\LanguageResource::class,
             Resources\TranslationResource::class,
         ]);
 
-        if (! $this->isUsingAppLang()) {
-            $panel->renderHook(
-                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-                fn (): string => Blade::render('@livewire(\'translations::switcher\')'),
-            );
-        }
+        $panel->renderHook(
+            PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+            fn (): string => Blade::render('@livewire(\'backstage-translations::switcher\')'),
+        );
 
         $this->configure();
 
@@ -78,17 +68,5 @@ class TranslationsPlugin implements Plugin
                 $record->update(['translated_at' => now()]);
             });
         });
-    }
-
-    public function useAppLang(bool | Closure $usingAppLang = true): static
-    {
-        $this->usingAppLang = $usingAppLang;
-
-        return $this;
-    }
-
-    public function isUsingAppLang(): mixed
-    {
-        return $this->evaluate($this->usingAppLang);
     }
 }

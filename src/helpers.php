@@ -4,6 +4,8 @@ use Backstage\Translations\TranslationsPlugin;
 
 function getCountryFlag($locale)
 {
+    $locale = explode('_', $locale)[0];
+
     if ($locale == 'en') {
         return 'flag-country-us';
     }

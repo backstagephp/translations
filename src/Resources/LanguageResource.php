@@ -2,15 +2,17 @@
 
 namespace Backstage\Translations\Resources;
 
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\Translations\Resources\LanguageResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Backstage\Translations\Resources\LanguageResource\Pages;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
-use Vormkracht10\LaravelTranslations\Models\Language;
+use Locale;
 
 class LanguageResource extends Resource
 {
@@ -22,7 +24,7 @@ class LanguageResource extends Resource
 
     public static function getNavigationIcon(): string
     {
-        return TranslationResource::getNavigationIcon();
+        return 'heroicon-o-language';
     }
 
     public static function getNavigationGroup(): ?string
@@ -54,28 +56,52 @@ class LanguageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('locale')
+                Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
-                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : null)
+                    ->prefixIconColor('gray')
+                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
                     ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
-                    ->live()
-                    ->reactive()
+                    ->live(debounce: 250)
+                    ->columnSpan(2)
+                    ->afterStateUpdated(function ($state, Set $set) {
+                        $set('name', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], app()->getLocale())));
+                        $set('native', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], explode('_', $state)[0])));
+                    })
                     ->required(),
 
-                Forms\Components\TextInput::make('label')
-                    ->label(__('Label'))
+                Forms\Components\TextInput::make('name')
+                    ->label(__('Name'))
+                    ->columnSpan(5)
                     ->required(),
-            ]);
+
+                Forms\Components\TextInput::make('native')
+                    ->label(__('Native'))
+                    ->columnSpan(5)
+                    ->required(),
+
+                Forms\Components\Toggle::make('active')
+                    ->label(__('Active'))
+                    ->columnSpan(2)
+                    ->default(false)
+                    ->required(),
+
+                Forms\Components\Toggle::make('default')
+                    ->label(__('Default'))
+                    ->default(false)
+                    ->inline()
+                    ->required(),
+            ])
+            ->columns(12);
     }
 
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $translated = TranslationResource::getModel()::where('locale', $record->locale)
+            $translated = TranslationResource::getModel()::where('code', $record->code)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('locale', $record->locale)
+            $total = TranslationResource::getModel()::where('code', $record->code)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
@@ -89,17 +115,22 @@ class LanguageResource extends Resource
 
         return $table
             ->columns([
-                Tables\Columns\IconColumn::make('id')
-                    ->label(__('Flag'))
-                    ->icon(fn ($record): string => getCountryFlag($record->locale))
+                Tables\Columns\IconColumn::make('flag')
+                    ->label('')
+                    ->width(1)
+                    ->getStateUsing(fn () => true)
+                    ->icon(fn ($record): string => getCountryFlag($record->code))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
-                Tables\Columns\TextColumn::make('locale')
-                    ->label(__('Locale')),
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
+                    ->description(fn ($record) => $record->native),
 
-                Tables\Columns\TextColumn::make('label')
-                    ->label(__('Label')),
+                Tables\Columns\TextColumn::make('code')
+                    ->label(__('Code'))
+                    ->badge()
+                    ->color('gray'),
 
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
