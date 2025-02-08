@@ -22,22 +22,11 @@ class Switcher extends Component
     {
         $this->languages = LanguageResource::getModel()::all()->pluck('name', 'code')->toArray();
 
-        if (count($this->languages) == 0) {
-            LanguageResource::getModel()::create([
-                'code' => 'en',
-                'name' => 'English',
-                'active' => true,
-                'default' => true,
-            ]);
-        }
-
-        if (session('curretLanguage')) {
-            $this->currentLanguage = session('curretLanguage');
+        if (isset(session()->get('languages')['code'])) {
+            $this->currentLanguage = session()->get('languages')['code'];
         } else {
             $this->currentLanguage = app()->getLocale();
         }
-
-        app()->setLocale($this->currentLanguage);
 
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
@@ -46,12 +35,7 @@ class Switcher extends Component
 
     public function switchLanguage(string $lang)
     {
-        $oldLang = request()->get('code') ?:
-            session()->get('code') ?:
-            request()->cookie('filament_language_code') ?:
-            LanguageResource::getModel()::where('default', true)->first()?->languageCode ?:
-            request()->getPreferredLanguage() ?:
-            app()->getLocale() ?: 'en';
+        $oldLang = session()->get('languages')['code'];
 
         if (array_key_exists($oldLang, $this->languages)) {
             if ($this->languages[$oldLang] === $this->languages[$lang]) {
@@ -65,13 +49,14 @@ class Switcher extends Component
             }
         }
 
-        session()->put('code', $lang);
+        $lang = LanguageResource::getModel()::where('code', $lang)->first();
 
-        cookie()->queue(cookie()->forever('filament_language_switch_locale', $lang));
+        session()->put('languages.code', $lang->code);
+        session()->put('languages.language_code', $lang->languageCode);
 
         Notification::make()
             ->title(__('Language changed'))
-            ->body(__('The language has been changed from :oldLanguage to :language', ['oldLanguage' => $this->languages[$oldLang] ?? '', 'language' => $this->languages[$lang]], $lang))
+            ->body(__('The language has been changed from :oldLanguage to :language', ['oldLanguage' => array_key_exists($oldLang, $this->languages) ? $this->languages[$oldLang] : 'UNKNOWN', 'language' => $lang->name], $lang->languageCode))
             ->success()
             ->send();
 

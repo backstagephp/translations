@@ -5,15 +5,21 @@ namespace Backstage\Translations\Resources\TranslationResource\Pages;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Resources\LanguageResource\Pages\CreateLanguage;
+use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
 use Backstage\Translations\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Colors\Color;
-
+use Illuminate\Support\HtmlString;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\MaxWidth;
 class ListTranslations extends ListRecords
 {
     protected static string $resource = TranslationResource::class;
+
+    public $defaultAction = 'checkLanguages';
 
     protected function getHeaderActions(): array
     {
@@ -28,14 +34,14 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
 
-                    return dispatch(new ScanTranslationStrings(redo: true));
+                    return dispatch_sync(new ScanTranslationStrings(redo: true));
                 })
                 ->icon('heroicon-o-arrow-path'),
 
             Actions\Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
                 ->label(__('Translate using :type', ['type' => ucfirst(config('translations.translators.default'))]))
-                ->color(fn () => Color::Green)
+                ->color(fn() => Color::Green)
                 ->action(function () {
                     $record = LanguageResource::getModel()::where('code', config('app.locale'))->first();
 
@@ -47,8 +53,33 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
                 })
-                ->visible(fn () => config('translations.translators.default'))
-                ->disabled(fn () => $this->getResource()::getModel()::count() === 0),
+                ->visible(fn() => config('translations.translators.default'))
+                ->disabled(fn() => $this->getResource()::getModel()::count() === 0),
         ];
     }
+
+    public function checkLanguages(): Actions\Action
+    {
+        return Actions\Action::make('checkLanguages')
+        ->visible(fn() => LanguageResource::getModel()::count() === 0)
+            ->label(__('Check languages'))
+            ->color(Color::Blue)
+            ->modalHeading((config('app.name')))
+            ->modalContent(new HtmlString('<center>'.__('Please create a language first!').'</center>'))
+            ->modalIcon('heroicon-o-language')
+            ->modalIconColor('warning')
+            ->modalAlignment(Alignment::Center)
+            ->modalFooterActionsAlignment(Alignment::Center)
+            ->modalWidth(MaxWidth::Medium)
+            ->modalCancelAction(false)
+            ->closeModalByEscaping(false)
+            ->modalCloseButton(false)
+            ->closeModalByClickingAway(false)
+            ->modalSubmitAction()
+            ->modalSubmitActionLabel(__('Create language'))
+            ->action(fn () => redirect(CreateLanguage::getUrl()));
+            ;
+    }
 }
+
+

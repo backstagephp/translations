@@ -3,6 +3,7 @@
 namespace Backstage\Translations;
 
 use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;
 use Filament\Panel;
@@ -15,6 +16,10 @@ class TranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
 
+    protected bool|Closure $languageSwitcherDisabled = false;
+
+    protected bool|Closure $userCanDisableLanguageSwitcher = false;
+
     public function getId(): string
     {
         return 'translations';
@@ -22,21 +27,23 @@ class TranslationsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $panel->middleware([SwitchLanguageLocale::class]);
+        
         $panel->resources([
             Resources\LanguageResource::class,
             Resources\TranslationResource::class,
         ]);
 
-        $panel->renderHook(
-            PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-            fn (): string => Blade::render('@livewire(\'backstage-translations::switcher\')'),
-        );
+        if (!$this->isLanguageSwitcherDisabled()) {
+            $panel->renderHook(
+                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+                fn(): string => Blade::render('@livewire(\'backstage-translations::switcher\')'),
+            );
+        }
 
         $this->configure();
 
         $this->macros();
-
-        $panel->middleware([SwitchLanguageLocale::class]);
     }
 
     public function boot(Panel $panel): void {}
@@ -68,5 +75,17 @@ class TranslationsPlugin implements Plugin
                 $record->update(['translated_at' => now()]);
             });
         });
+    }
+
+    public function languageSwitcherDisabled(bool|Closure $disabled): static
+    {
+        $this->languageSwitcherDisabled = $disabled;
+        
+        return $this;
+    }
+
+    public function isLanguageSwitcherDisabled(): bool
+    {
+        return $this->evaluate($this->languageSwitcherDisabled);
     }
 }

@@ -30,7 +30,8 @@
         "blade-ui-kit/blade-icons": "^1.6",
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
-        "spatie/laravel-package-tools": "*"
+        "spatie/laravel-package-tools": "*",
+        "spatie/laravel-translation-loader": "^2.8"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -43,8 +44,7 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26",
-        "backstage/laravel-translations": "dev-main"
+        "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
@@ -55,7 +55,10 @@
     "autoload-dev": {
         "psr-4": {
             "Backstage\\Translations\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",

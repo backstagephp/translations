@@ -67,8 +67,8 @@ class TranslationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('code')
-                    ->label(__(''))
-                    ->icon(fn ($record): string => getCountryFlag($record->code))
+                    ->label('')
+                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
@@ -91,7 +91,7 @@ class TranslationResource extends Resource
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
                     ->modalDescription(fn ($record) => $record->key)
-                    ->modalIcon(fn ($record) => getCountryFlag($record->code))
+                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
                     ->modalIconColor(null),
             ])
             ->filters([

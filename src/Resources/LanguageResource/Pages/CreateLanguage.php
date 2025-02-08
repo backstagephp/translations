@@ -23,8 +23,4 @@ class CreateLanguage extends CreateRecord
         $this->redirect(EditLanguage::getUrl(['record' => $this->record->code]));
     }
 
-    protected function getRedirectUrl(): string
-    {
-        return EditLanguage::getUrl(['record' => $this->record->code]);
-    }
 }

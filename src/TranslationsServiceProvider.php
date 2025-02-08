@@ -2,18 +2,20 @@
 
 namespace Backstage\Translations;
 
-use Backstage\Translations\Testing\TestsFilamentTranslations;
+use Livewire\Livewire;
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Blade;
-use Livewire\Features\SupportTesting\Testable;
-use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
+use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Contracts\Container\Container;
+use Livewire\Features\SupportTesting\Testable;
+use Backstage\Translations\Base\TranslationLoader;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Backstage\Translations\Testing\TestsFilamentTranslations;
+use Backstage\Translations\Laravel\Base\Translator;
 
 class TranslationsServiceProvider extends PackageServiceProvider
 {
@@ -54,6 +56,23 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        $this->app->register(\Spatie\TranslationLoader\TranslationServiceProvider::class, true);
+
+        $this->app->singleton('translation.loader', function ($app) {
+            return new TranslationLoader($app['files'], $app['path.lang']);
+        });
+
+        $this->app->singleton('translator', function ($app) {
+            $loader = $app['translation.loader'];
+
+            $locale = $app['config']['app.locale'];
+
+            $trans = new Translator($loader, $locale);
+            $trans->setFallback($app['config']['app.fallback_locale']);
+
+            return $trans;
+        });
+        
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
@@ -99,7 +118,8 @@ class TranslationsServiceProvider extends PackageServiceProvider
     {
         return [
             Blade::aliasComponent('flag-country-us', 'flag_country_en'),
-            Blade::aliasComponent('flag-country-en', 'flag_country_en')];
+            Blade::aliasComponent('flag-country-en', 'flag_country_en')
+        ];
     }
 
     protected function registerConfig(): void

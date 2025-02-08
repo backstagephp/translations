@@ -59,8 +59,8 @@ class LanguageResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
                     ->prefixIconColor('gray')
-                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
-                    ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
+                    ->prefixIcon(fn($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
+                    ->unique(fn() => (new (static::getModel()))->getTable(), fn($component) => $component->getName(), null, true)
                     ->live(debounce: 250)
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
@@ -97,11 +97,11 @@ class LanguageResource extends Resource
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $translated = TranslationResource::getModel()::where('code', $record->code)
+            $translated = TranslationResource::getModel()::where('code', $record->languageCode)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('code', $record->code)
+            $total = TranslationResource::getModel()::where('code', $record->languageCode)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
@@ -118,14 +118,25 @@ class LanguageResource extends Resource
                 Tables\Columns\IconColumn::make('flag')
                     ->label('')
                     ->width(1)
-                    ->getStateUsing(fn () => true)
-                    ->icon(fn ($record): string => getCountryFlag($record->code))
+                    ->getStateUsing(fn() => true)
+                    ->icon(fn($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+
+                Tables\Columns\IconColumn::make('active')
+                    ->label(__('Active'))
+                    ->boolean()
+                    ->action(fn($record) => $record->update(['active' => !$record->active])),
+
+                Tables\Columns\IconColumn::make('default')
+                    ->label(__('Default'))
+                    ->boolean()
+                    ->action(fn($record) => $record->update(['default' => !$record->default ])),
+
 
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('Name'))
-                    ->description(fn ($record) => $record->native),
+                    ->description(fn($record) => $record->native),
 
                 Tables\Columns\TextColumn::make('code')
                     ->label(__('Code'))
@@ -135,14 +146,14 @@ class LanguageResource extends Resource
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
                     ->poll('1s')
-                    ->progress(fn ($record) => $percentage($record))
-                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
+                    ->progress(fn($record) => $percentage($record))
+                    ->color(fn($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])
             ->actions([
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
                     ->label(__('Translate'))
-                    ->action(fn ($record) => dispatch(new TranslateKeys($record)))
+                    ->action(fn($record) => dispatch(new TranslateKeys($record)))
                     ->button(),
             ]);
     }

@@ -34,6 +34,6 @@ class EditLanguage extends EditRecord
 
     protected function afterSave(): void
     {
-        redirect($this->getUrl(['record' => $this->record->code]));
+        redirect($this->getUrl(['record' => $this->record->languageCode]));
     }
 }
