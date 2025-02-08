@@ -16,9 +16,9 @@ class TranslationsPlugin implements Plugin
 {
     use EvaluatesClosures;
 
-    protected bool|Closure $languageSwitcherDisabled = false;
+    protected bool | Closure $languageSwitcherDisabled = false;
 
-    protected bool|Closure $userCanDisableLanguageSwitcher = false;
+    protected bool | Closure $userCanDisableLanguageSwitcher = false;
 
     public function getId(): string
     {
@@ -28,16 +28,16 @@ class TranslationsPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->middleware([SwitchLanguageLocale::class]);
-        
+
         $panel->resources([
             Resources\LanguageResource::class,
             Resources\TranslationResource::class,
         ]);
 
-        if (!$this->isLanguageSwitcherDisabled()) {
+        if (! $this->isLanguageSwitcherDisabled()) {
             $panel->renderHook(
                 PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-                fn(): string => Blade::render('@livewire(\'backstage-translations::switcher\')'),
+                fn (): string => Blade::render('@livewire(\'backstage-translations::switcher\')'),
             );
         }
 
@@ -77,10 +77,10 @@ class TranslationsPlugin implements Plugin
         });
     }
 
-    public function languageSwitcherDisabled(bool|Closure $disabled): static
+    public function languageSwitcherDisabled(bool | Closure $disabled): static
     {
         $this->languageSwitcherDisabled = $disabled;
-        
+
         return $this;
     }
 

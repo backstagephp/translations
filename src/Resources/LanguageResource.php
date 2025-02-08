@@ -2,9 +2,9 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
@@ -60,8 +60,8 @@ class LanguageResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
                     ->prefixIconColor('gray')
-                    ->prefixIcon(fn($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
-                    ->unique(fn() => (new (static::getModel()))->getTable(), fn($component) => $component->getName(), null, true)
+                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
+                    ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
                     ->live(debounce: 250)
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
@@ -119,25 +119,24 @@ class LanguageResource extends Resource
                 Tables\Columns\IconColumn::make('flag')
                     ->label('')
                     ->width(1)
-                    ->getStateUsing(fn() => true)
-                    ->icon(fn($record): string => getCountryFlag($record->languageCode))
+                    ->getStateUsing(fn () => true)
+                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\IconColumn::make('active')
                     ->label(__('Active'))
                     ->boolean()
-                    ->action(fn($record) => $record->update(['active' => !$record->active])),
+                    ->action(fn ($record) => $record->update(['active' => ! $record->active])),
 
                 Tables\Columns\IconColumn::make('default')
                     ->label(__('Default'))
                     ->boolean()
-                    ->action(fn($record) => $record->update(['default' => !$record->default ])),
-
+                    ->action(fn ($record) => $record->update(['default' => ! $record->default])),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('Name'))
-                    ->description(fn($record) => $record->native),
+                    ->description(fn ($record) => $record->native),
 
                 Tables\Columns\TextColumn::make('code')
                     ->label(__('Code'))
@@ -147,8 +146,8 @@ class LanguageResource extends Resource
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
                     ->poll('1s')
-                    ->progress(fn($record) => $percentage($record))
-                    ->color(fn($record) => $percentage($record) == 100 ? 'success' : 'danger'),
+                    ->progress(fn ($record) => $percentage($record))
+                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
             ])
             ->actions([
                 Tables\Actions\Action::make('translate')

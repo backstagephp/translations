@@ -2,11 +2,9 @@
 
 namespace Backstage\Translations\Filament\Http\Middleware;
 
-use Backstage\Translations\Laravel\Models\Language;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Closure;
 use Illuminate\Http\Request;
-use Locale;
 
 class SwitchLanguageLocale
 {
@@ -27,7 +25,6 @@ class SwitchLanguageLocale
 
             return $next($request);
         }
-
 
         return $next($request);
     }

@@ -2,20 +2,20 @@
 
 namespace Backstage\Translations\Filament;
 
-use Livewire\Livewire;
-use BladeUI\Icons\Factory;
-use Filament\Support\Assets\Css;
-use Illuminate\Support\Facades\Blade;
-use Spatie\LaravelPackageTools\Package;
-use Filament\Support\Facades\FilamentIcon;
-use Filament\Support\Facades\FilamentAsset;
-use Illuminate\Contracts\Container\Container;
-use Livewire\Features\SupportTesting\Testable;
 use Backstage\Translations\Filament\Base\TranslationLoader;
 use Backstage\Translations\Filament\Base\Translator;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
+use BladeUI\Icons\Factory;
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Facades\Blade;
+use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TranslationsServiceProvider extends PackageServiceProvider
 {
@@ -72,7 +72,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
             return $trans;
         });
-        
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
@@ -118,7 +118,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
     {
         return [
             Blade::aliasComponent('flag-country-us', 'flag_country_en'),
-            Blade::aliasComponent('flag-country-en', 'flag_country_en')
+            Blade::aliasComponent('flag-country-en', 'flag_country_en'),
         ];
     }
 

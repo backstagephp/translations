@@ -2,13 +2,11 @@
 
 namespace Backstage\Translations\Filament\Base;
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Translation\FileLoader;
-use Backstage\Translations\Filament\TranslationsPlugin;
-use Backstage\Translations\Filament\FilamentTranslations;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Laravel\Models\Translation;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Translation\FileLoader;
 
 class TranslationLoader extends FileLoader
 {
@@ -31,9 +29,10 @@ class TranslationLoader extends FileLoader
             ->pluck('text', 'key')
             ->toArray();
 
-            if ($dbTranslations) {
+        if ($dbTranslations) {
             return $dbTranslations + $fileTranslations;
         }
+
         return $fileTranslations;
     }
 
