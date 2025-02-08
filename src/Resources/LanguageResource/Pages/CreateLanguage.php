@@ -1,9 +1,9 @@
 <?php
 
-namespace Backstage\Translations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
-use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 

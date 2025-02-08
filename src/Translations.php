@@ -1,5 +1,5 @@
 <?php
 
-namespace Backstage\Translations;
+namespace Backstage\Translations\Filament;
 
 class FilamentTranslations {}

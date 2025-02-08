@@ -1,6 +1,6 @@
 <?php
 
-namespace Backstage\Translations\Facades;
+namespace Backstage\Translations\Filament\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -11,6 +11,6 @@ class BackstageTranslations extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Backstage\Translations\FilamentTranslations::class;
+        return \Backstage\Translations\Filament\FilamentTranslations::class;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Backstage\Translations\TranslationsPlugin;
-use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Filament\TranslationsPlugin;
+use Backstage\Translations\Filament\Resources\LanguageResource;
 
 function getCountryFlag($locale)
 {

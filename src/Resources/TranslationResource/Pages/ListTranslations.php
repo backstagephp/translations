@@ -1,13 +1,13 @@
 <?php
 
-namespace Backstage\Translations\Resources\TranslationResource\Pages;
+namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\Translations\Resources\LanguageResource;
-use Backstage\Translations\Resources\LanguageResource\Pages\CreateLanguage;
-use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
-use Backstage\Translations\Resources\TranslationResource;
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;

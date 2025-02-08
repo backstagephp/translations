@@ -1,8 +1,8 @@
 <?php
 
-namespace Backstage\Translations\Tests;
+namespace Backstage\Translations\Filament\Tests;
 
-use Backstage\Translations\FilamentTranslationsServiceProvider;
+use Backstage\Translations\Filament\FilamentTranslationsServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;

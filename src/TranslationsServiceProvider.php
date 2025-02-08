@@ -1,6 +1,6 @@
 <?php
 
-namespace Backstage\Translations;
+namespace Backstage\Translations\Filament;
 
 use Livewire\Livewire;
 use BladeUI\Icons\Factory;
@@ -11,11 +11,11 @@ use Filament\Support\Facades\FilamentIcon;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Contracts\Container\Container;
 use Livewire\Features\SupportTesting\Testable;
-use Backstage\Translations\Base\TranslationLoader;
+use Backstage\Translations\Filament\Base\TranslationLoader;
+use Backstage\Translations\Filament\Base\Translator;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Backstage\Translations\Testing\TestsFilamentTranslations;
-use Backstage\Translations\Laravel\Base\Translator;
+use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
 
 class TranslationsServiceProvider extends PackageServiceProvider
 {
@@ -99,7 +99,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
         require_once __DIR__ . '/helpers.php';
 
-        Livewire::component('backstage-translations::switcher', \Backstage\Translations\Components\Switcher::class);
+        Livewire::component('backstage-translations::switcher', \Backstage\Translations\Filament\Components\Switcher::class);
     }
 
     protected function getAssetPackageName(): ?string

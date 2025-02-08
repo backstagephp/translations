@@ -1,8 +1,8 @@
 <?php
 
-namespace Backstage\Translations;
+namespace Backstage\Translations\Filament;
 
-use Backstage\Translations\Http\Middleware\SwitchLanguageLocale;
+use Backstage\Translations\Filament\Http\Middleware\SwitchLanguageLocale;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;

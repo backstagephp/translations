@@ -1,9 +1,9 @@
 <?php
 
-namespace Backstage\Translations\Http\Middleware;
+namespace Backstage\Translations\Filament\Http\Middleware;
 
 use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource;
 use Closure;
 use Illuminate\Http\Request;
 use Locale;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Backstage\Translations\Components;
+namespace Backstage\Translations\Filament\Components;
 
-use Backstage\Translations\Resources\LanguageResource;
-use Backstage\Translations\Resources\LanguageResource\Pages\ListLanguages;
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Filament\Actions\Concerns\HasForm;
 use Filament\Notifications\Notification;
 use Livewire\Component;

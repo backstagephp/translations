@@ -39,7 +39,7 @@ php artisan vendor:publish --tag="backstage-translations-views"
 Add the TranslationsPlugin to the desired panel provider:
 
 ```php
-use Backstage\Translations\TranslationsPlugin;
+use Backstage\Translations\Filament\TranslationsPlugin;
 
 $panel
     ->plugins([

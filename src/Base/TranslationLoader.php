@@ -1,14 +1,14 @@
 <?php
 
-namespace Backstage\Translations\Base;
+namespace Backstage\Translations\Filament\Base;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Translation\FileLoader;
-use Backstage\Translations\TranslationsPlugin;
-use Backstage\Translations\FilamentTranslations;
+use Backstage\Translations\Filament\TranslationsPlugin;
+use Backstage\Translations\Filament\FilamentTranslations;
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Laravel\Models\Translation;
-use Backstage\Translations\Resources\LanguageResource;
-use Backstage\Translations\Resources\TranslationResource;
 
 class TranslationLoader extends FileLoader
 {

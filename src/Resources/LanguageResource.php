@@ -1,13 +1,14 @@
 <?php
 
-namespace Backstage\Translations\Resources;
+namespace Backstage\Translations\Filament\Resources;
 
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Resources\LanguageResource\Pages;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -97,11 +98,11 @@ class LanguageResource extends Resource
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $translated = TranslationResource::getModel()::where('code', $record->languageCode)
+            $translated = TranslationResource::getModel()::where('code', $record->code)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('code', $record->languageCode)
+            $total = TranslationResource::getModel()::where('code', $record->code)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
@@ -153,7 +154,15 @@ class LanguageResource extends Resource
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
                     ->label(__('Translate'))
-                    ->action(fn($record) => dispatch(new TranslateKeys($record)))
+                    ->action(function ($record) {
+                        dispatch(new TranslateKeys($record));
+
+                        Notification::make()
+                            ->title(__('Translations queued'))
+                            ->body(__('The translations have been queued for translation'))
+                            ->success()
+                            ->send();
+                    })
                     ->button(),
             ]);
     }

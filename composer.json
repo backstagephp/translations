@@ -48,13 +48,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Backstage\\Translations\\": "src/",
-            "Backstage\\Translations\\Database\\Factories\\": "database/factories/"
+            "Backstage\\Translations\\Filament\\": "src/",
+            "Backstage\\Translations\\Filament\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Backstage\\Translations\\Tests\\": "tests/"
+            "Backstage\\Translations\\Filament\\Tests\\": "tests/"
         },
         "files": [
             "src/helpers.php"
@@ -77,10 +77,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Backstage\\Translations\\TranslationsServiceProvider"
+                "Backstage\\Translations\\Filament\\TranslationsServiceProvider"
             ],
             "aliases": {
-                "Translations": "Backstage\\Translations\\Facades\\Translations"
+                "Translations": "Backstage\\Translations\\Filament\\Facades\\Translations"
             }
         }
     },

@@ -1,8 +1,8 @@
 <?php
 
-namespace Backstage\Translations\Resources\TranslationResource\Pages;
+namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
-use Backstage\Translations\Resources\TranslationResource;
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTranslation extends CreateRecord

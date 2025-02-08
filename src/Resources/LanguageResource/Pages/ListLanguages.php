@@ -1,8 +1,8 @@
 <?php
 
-namespace Backstage\Translations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
-use Backstage\Translations\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

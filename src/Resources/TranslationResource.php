@@ -1,9 +1,9 @@
 <?php
 
-namespace Backstage\Translations\Resources;
+namespace Backstage\Translations\Filament\Resources;
 
 use Backstage\Translations\Laravel\Models\Translation;
-use Backstage\Translations\Resources\TranslationResource\Pages;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
