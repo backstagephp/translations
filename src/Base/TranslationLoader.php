@@ -21,8 +21,10 @@ class TranslationLoader extends FileLoader
             return $fileTranslations;
         }
 
-        $locale = LanguageResource::getModel()::where('code', session()->get('languages')['code'])
-            ->first()?->code ?: LanguageResource::getModel()::first()?->code ?: '';
+        $locale = isset(session()->get('languages')['code']) 
+            ? (LanguageResource::getModel()::where('code', session()->get('languages')['code'])
+            ->first()?->code)
+            : (LanguageResource::getModel()::first()?->code ?: '');
 
         $dbTranslations = TranslationResource::getModel()::select('key', 'text')
             ->where('code', $locale)
