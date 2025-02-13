@@ -35,7 +35,7 @@ class Switcher extends Component
 
     public function switchLanguage(string $lang)
     {
-        $oldLang = session()->get('languages')['code'];
+        $oldLang = session()->get('languages')['code'] ?? $lang;
 
         if (array_key_exists($oldLang, $this->languages)) {
             if ($this->languages[$oldLang] === $this->languages[$lang]) {
