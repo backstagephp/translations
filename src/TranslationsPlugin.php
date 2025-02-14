@@ -77,7 +77,7 @@ class TranslationsPlugin implements Plugin
         });
     }
 
-    public function languageSwitcherDisabled(bool | Closure $disabled): static
+    public function languageSwitcherDisabled(bool | Closure $disabled = true): static
     {
         $this->languageSwitcherDisabled = $disabled;
 

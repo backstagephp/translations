@@ -20,7 +20,7 @@ class Switcher extends Component
 
     public function render()
     {
-        $this->languages = LanguageResource::getModel()::all()->pluck('name', 'code')->toArray();
+        $this->languages = LanguageResource::getModel()::all()->pluck('native', 'code')->toArray();
 
         if (isset(session()->get('languages')['code'])) {
             $this->currentLanguage = session()->get('languages')['code'];
@@ -53,6 +53,10 @@ class Switcher extends Component
 
         session()->put('languages.code', $lang->code);
         session()->put('languages.language_code', $lang->languageCode);
+
+        session()->put('locale', $lang->languageCode);
+
+        cookie()->queue(cookie()->forever('filament_language_switch_locale', $lang->languageCode));
 
         Notification::make()
             ->title(__('Language changed'))

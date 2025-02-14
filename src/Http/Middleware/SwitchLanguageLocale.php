@@ -12,19 +12,35 @@ class SwitchLanguageLocale
     {
         if (filamentTranslations()->isLanguageSwitcherDisabled()) {
             $perferredLocale = LanguageResource::getModel()::where('default', true)?->first();
-
             if (! $perferredLocale) {
-                session()->put('languages.code', 'en_US');
-                session()->put('languages.language_code', 'en');
+                config(['languages.code' => 'en_US']);
+                config(['languages.language_code' => 'en']);
 
+                app()->setLocale(locale: 'en');
+                
                 return $next($request);
             }
 
-            session()->put('languages.code', $perferredLocale->code);
-            session()->put('languages.language_code', $perferredLocale->languageCode);
+            config(['languages.code' => $perferredLocale->code]);
+            config(['languages.language_code' => $perferredLocale->languageCode]);
+
+            app()->setLocale(
+                locale: $perferredLocale->languageCode
+            );
 
             return $next($request);
         }
+
+        
+        $perferredLocale = session()->get('languages')['language_code'] ??
+            request()->get('locale') ??
+            request()->cookie('filament_language_switch_locale') ??
+            config('app.locale', 'en') ??
+            request()->getPreferredLanguage();
+
+        app()->setLocale(
+            locale: $perferredLocale
+        );
 
         return $next($request);
     }

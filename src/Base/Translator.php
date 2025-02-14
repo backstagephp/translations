@@ -16,9 +16,9 @@ class Translator extends BaseTranslator
             $line = isset($this->loaded['*']['*'][$locale][$key]) && ! is_array($this->loaded['*']['*'][$locale][$key])
                         ? $this->loaded['*']['*'][$locale][$key] : null;
 
-            return $this->makeReplacements($line ?: $key, $replace);
-        } else {
-            return $key;
-        }
+            $key =  $this->makeReplacements($line ?: $key, $replace);
+        } 
+
+        return $key;
     }
 }
