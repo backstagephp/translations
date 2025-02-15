@@ -2,7 +2,6 @@
 
 namespace Backstage\Translations\Filament\Base;
 
-use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Laravel\Models\Translation;
 use Illuminate\Support\Facades\Schema;
