@@ -77,10 +77,6 @@ class TranslationsServiceProvider extends PackageServiceProvider
             $this->publishes([
                 __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
             ], 'blade-flags');
-
-            $this->publishes([
-                __DIR__ . '/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
-            ], 'blade-flags-config');
         }
 
         FilamentAsset::register(
