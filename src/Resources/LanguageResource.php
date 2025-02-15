@@ -133,13 +133,13 @@ class LanguageResource extends Resource
                     ->label(__('Default'))
                     ->boolean()
                     ->action(function ($record) {
-                        if(!$record->active && ! $record->default) {
+                        if (! $record->active && ! $record->default) {
                             Notification::make()
                                 ->title(__('Language not active'))
                                 ->body(__('You can only set a language as default if it is active'))
                                 ->danger()
                                 ->send();
-                                
+
                             return;
                         }
 
@@ -163,10 +163,10 @@ class LanguageResource extends Resource
                     ->poll('1s')
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
-              
-                    Tables\Columns\TextColumn::make('native')
+
+                Tables\Columns\TextColumn::make('native')
                     ->searchable()
-                    ->visible(false)
+                    ->visible(false),
             ])
             ->actions([
                 Tables\Actions\Action::make('translate')

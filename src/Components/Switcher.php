@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class Switcher extends Component
 {
-
     public array $languages;
 
     public string $currentLanguage;
@@ -26,8 +25,7 @@ class Switcher extends Component
             $this->currentLanguage = app()->getLocale();
         }
 
-
-        if(!LanguageResource::getModel()::active()->where('code', $this->currentLanguage)->exists() && LanguageResource::getModel()::active()->exists()) {
+        if (! LanguageResource::getModel()::active()->where('code', $this->currentLanguage)->exists() && LanguageResource::getModel()::active()->exists()) {
             $this->currentLanguage = LanguageResource::getModel()::active()->first()->code;
 
             $this->switchLanguage($this->currentLanguage);
@@ -35,8 +33,8 @@ class Switcher extends Component
 
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
-        if (!(count($this->languages) > 0)) {
-            return  view('backstage-translations::components.switcher-empty');
+        if (! (count($this->languages) > 0)) {
+            return view('backstage-translations::components.switcher-empty');
         }
 
         return view('backstage-translations::components.switcher');
