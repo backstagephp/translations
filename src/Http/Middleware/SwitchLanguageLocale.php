@@ -17,7 +17,7 @@ class SwitchLanguageLocale
                 config(['languages.language_code' => 'en']);
 
                 app()->setLocale(locale: 'en');
-                
+
                 return $next($request);
             }
 
@@ -31,7 +31,6 @@ class SwitchLanguageLocale
             return $next($request);
         }
 
-        
         $perferredLocale = session()->get('languages')['language_code'] ??
             request()->get('locale') ??
             request()->cookie('filament_language_switch_locale') ??
