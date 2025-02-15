@@ -68,7 +68,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
             $locale = $app['config']['app.locale'];
 
             $trans = new Translator($loader, $locale);
-            $trans->setFallback($app['config']['app.fallback_locale']);
+            $trans->setFallback('country.uk');
 
             return $trans;
         });
@@ -77,6 +77,10 @@ class TranslationsServiceProvider extends PackageServiceProvider
             $this->publishes([
                 __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
             ], 'blade-flags');
+
+            $this->publishes([
+                __DIR__ . '/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
+            ], 'blade-flags-config');
         }
 
         FilamentAsset::register(
@@ -121,5 +125,6 @@ class TranslationsServiceProvider extends PackageServiceProvider
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/blade-flags.php', 'blade-flags');
+        $this->mergeConfigFrom(__DIR__ . '/../config/filament-translations.php', 'filament-translations');
     }
 }

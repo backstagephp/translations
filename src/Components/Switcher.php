@@ -37,18 +37,6 @@ class Switcher extends Component
     {
         $oldLang = session()->get('languages')['code'] ?? $lang;
 
-        if (array_key_exists($oldLang, $this->languages)) {
-            if ($this->languages[$oldLang] === $this->languages[$lang]) {
-                Notification::make()
-                    ->title(__('Language not changed'))
-                    ->body(__('The language has not been changed because the selected language is the same as the current language'))
-                    ->danger()
-                    ->send();
-
-                return;
-            }
-        }
-
         $lang = LanguageResource::getModel()::where('code', $lang)->first();
 
         session()->put('languages.code', $lang->code);
