@@ -30,7 +30,7 @@ class LanguageResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Translations');
+        return config('backstage-translations.navigation.group') ?? __('Translations');
     }
 
     public static function getNavigationLabel(): string
@@ -132,10 +132,25 @@ class LanguageResource extends Resource
                 Tables\Columns\IconColumn::make('default')
                     ->label(__('Default'))
                     ->boolean()
-                    ->action(fn ($record) => $record->update(['default' => ! $record->default])),
+                    ->action(function ($record) {
+                        if(!$record->active && ! $record->default) {
+                            Notification::make()
+                                ->title(__('Language not active'))
+                                ->body(__('You can only set a language as default if it is active'))
+                                ->danger()
+                                ->send();
+                                
+                            return;
+                        }
+
+                        $record->update(['default' => ! $record->default]);
+
+                        return redirect(request()->header('Referer'));
+                    }),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('Name'))
+                    ->searchable()
                     ->description(fn ($record) => $record->native),
 
                 Tables\Columns\TextColumn::make('code')
@@ -148,6 +163,10 @@ class LanguageResource extends Resource
                     ->poll('1s')
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
+              
+                    Tables\Columns\TextColumn::make('native')
+                    ->searchable()
+                    ->visible(false)
             ])
             ->actions([
                 Tables\Actions\Action::make('translate')

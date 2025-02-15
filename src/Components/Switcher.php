@@ -4,13 +4,11 @@ namespace Backstage\Translations\Filament\Components;
 
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
-use Filament\Actions\Concerns\HasForm;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Switcher extends Component
 {
-    use HasForm;
 
     public array $languages;
 
@@ -20,7 +18,7 @@ class Switcher extends Component
 
     public function render()
     {
-        $this->languages = LanguageResource::getModel()::all()->pluck('native', 'code')->toArray();
+        $this->languages = LanguageResource::getModel()::active()->get()->pluck('native', 'code')->toArray();
 
         if (isset(session()->get('languages')['code'])) {
             $this->currentLanguage = session()->get('languages')['code'];
@@ -28,7 +26,18 @@ class Switcher extends Component
             $this->currentLanguage = app()->getLocale();
         }
 
+
+        if(!LanguageResource::getModel()::active()->where('code', $this->currentLanguage)->exists() && LanguageResource::getModel()::active()->exists()) {
+            $this->currentLanguage = LanguageResource::getModel()::active()->first()->code;
+
+            $this->switchLanguage($this->currentLanguage);
+        }
+
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
+
+        if (!(count($this->languages) > 0)) {
+            return  view('backstage-translations::components.switcher-empty');
+        }
 
         return view('backstage-translations::components.switcher');
     }

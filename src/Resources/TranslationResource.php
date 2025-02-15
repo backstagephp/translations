@@ -31,7 +31,7 @@ class TranslationResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Translations');
+        return LanguageResource::getNavigationGroup();
     }
 
     public static function getNavigationLabel(): string

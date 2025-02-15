@@ -81,6 +81,10 @@ class TranslationsServiceProvider extends PackageServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
             ], 'blade-flags-config');
+
+            $this->publishes([
+                __DIR__ . '/../config/backstage-translations.php' => $this->app->configPath('backstage-translations.php'),
+            ], 'backstage-translations-config');
         }
 
         FilamentAsset::register(
@@ -125,6 +129,6 @@ class TranslationsServiceProvider extends PackageServiceProvider
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/blade-flags.php', 'blade-flags');
-        $this->mergeConfigFrom(__DIR__ . '/../config/filament-translations.php', 'filament-translations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/backstage-translations.php', 'backstage-translations');
     }
 }
