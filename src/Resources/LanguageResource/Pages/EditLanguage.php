@@ -20,8 +20,7 @@ class EditLanguage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make()
-                ->after(fn () => TranslationResource::getModel()::where('code', $this->record['code'])->delete()),
+            Actions\DeleteAction::make(),
         ];
     }
 

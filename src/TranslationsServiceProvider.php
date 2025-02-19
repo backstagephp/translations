@@ -56,23 +56,6 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        $this->app->register(\Spatie\TranslationLoader\TranslationServiceProvider::class, true);
-
-        $this->app->singleton('translation.loader', function ($app) {
-            return new TranslationLoader($app['files'], $app['path.lang']);
-        });
-
-        $this->app->singleton('translator', function ($app) {
-            $loader = $app['translation.loader'];
-
-            $locale = $app['config']['app.locale'];
-
-            $trans = new Translator($loader, $locale);
-            $trans->setFallback('country.uk');
-
-            return $trans;
-        });
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
