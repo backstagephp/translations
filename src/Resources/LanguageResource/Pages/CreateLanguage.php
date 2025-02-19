@@ -1,12 +1,11 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 
 class CreateLanguage extends CreateRecord
 {
@@ -17,11 +16,10 @@ class CreateLanguage extends CreateRecord
         return __('Create Language');
     }
 
-    protected function beforeCreate(): void {}
-
     protected function afterCreate()
     {
-        dispatch_sync(new ScanTranslatableKeys($this->record));
-        dispatch(new TranslateKeys($this->record));
+        dispatch(new ScanTranslationStrings($this->record));
+
+        $this->redirect(EditLanguage::getUrl(['record' => $this->record->code]));
     }
 }

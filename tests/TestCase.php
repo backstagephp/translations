@@ -1,7 +1,8 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Tests;
+namespace Backstage\Translations\Filament\Tests;
 
+use Backstage\Translations\Filament\FilamentTranslationsServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Vormkracht10\FilamentTranslations\FilamentTranslationsServiceProvider;
 
 class TestCase extends Orchestra
 {

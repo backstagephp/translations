@@ -1,26 +1,27 @@
 {
-    "name": "vormkracht10/filament-translations",
-    "description": "This is the official Vormkracht10 Filament Translations package!",
+    "name": "backstage/translations",
+    "description": "This is the official Backstagephp Translations package!",
     "keywords": [
-        "vormkracht10",
+        "backstagephp",
         "laravel",
-        "filament-translations"
+        "filament",
+        "translations"
     ],
-    "homepage": "https://github.com/vormkracht10/filament-translations",
+    "homepage": "https://github.com/backstagephp/translations",
     "support": {
-        "issues": "https://github.com/vormkracht10/filament-translations/issues",
-        "source": "https://github.com/vormkracht10/filament-translations"
+        "issues": "https://github.com/backstagephp/translations/issues",
+        "source": "https://github.com/backstagephp/translations"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "Manoj Hortulanus",
-            "email": "manoj@vormkracht10.nl",
+            "email": "manoj@backstagephp.com",
             "role": "Developer"
         },
         {
             "name": "Mark",
-            "email": "mark@vormkracht10.nl",
+            "email": "mark@backstagephp.com",
             "role": "Developer"
         }
     ],
@@ -30,7 +31,7 @@
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "*",
-        "vormkracht10/laravel-translations": "*"
+        "backstage/laravel-translations": "dev-main"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -47,14 +48,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\": "src/",
-            "Vormkracht10\\FilamentTranslations\\Database\\Factories\\": "database/factories/"
+            "Backstage\\Translations\\Filament\\": "src/",
+            "Backstage\\Translations\\Filament\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\Tests\\": "tests/"
-        }
+            "Backstage\\Translations\\Filament\\Tests\\": "tests/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
@@ -73,10 +77,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\FilamentTranslations\\FilamentTranslationsServiceProvider"
+                "Backstage\\Translations\\Filament\\TranslationsServiceProvider"
             ],
             "aliases": {
-                "FilamentTranslations": "Vormkracht10\\FilamentTranslations\\Facades\\FilamentTranslations"
+                "Translations": "Backstage\\Translations\\Filament\\Facades\\Translations"
             }
         }
     },

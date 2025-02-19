@@ -1,9 +1,9 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\TranslationResource\Pages;
+namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Resources\Pages\CreateRecord;
-use Vormkracht10\FilamentTranslations\Resources\TranslationResource;
 
 class CreateTranslation extends CreateRecord
 {
