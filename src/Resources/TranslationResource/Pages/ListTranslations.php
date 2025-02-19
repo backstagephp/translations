@@ -34,7 +34,7 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
 
-                    return dispatch_sync(new ScanTranslationStrings(redo: true));
+                    return dispatch(new ScanTranslationStrings(redo: true));
                 })
                 ->icon('heroicon-o-arrow-path'),
 
