@@ -12,6 +12,7 @@ class SwitchLanguageLocale
     {
         if (filamentTranslations()->isLanguageSwitcherDisabled()) {
             $perferredLocale = LanguageResource::getModel()::where('default', true)?->first();
+
             if (! $perferredLocale) {
                 config(['languages.code' => 'en_US']);
                 config(['languages.language_code' => 'en']);
