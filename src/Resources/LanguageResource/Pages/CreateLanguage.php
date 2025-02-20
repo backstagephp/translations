@@ -30,7 +30,6 @@ class CreateLanguage extends CreateRecord
         return $data;
     }
 
-
     protected function afterCreate()
     {
         if ($this->langRequiresTranslation) {

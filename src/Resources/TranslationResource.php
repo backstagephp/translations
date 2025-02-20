@@ -2,16 +2,18 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
-use Backstage\Translations\Laravel\Models\Translation;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Filters\Filter;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Blade;
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Actions\EditAction;
+use Backstage\Translations\Laravel\Models\Translation;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
 class TranslationResource extends Resource
 {
@@ -68,16 +70,16 @@ class TranslationResource extends Resource
             ->columns([
                 Tables\Columns\IconColumn::make('code')
                     ->label('')
-                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
+                    ->icon(fn($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\TextColumn::make('key')
                     ->label(__('Key'))
                     ->searchable()
                     ->width('50%')
                     ->limit(50)
-                    ->description(fn ($record) => $record->group)
+                    ->description(fn($record) => $record->group)
                     ->sortable(),
 
                 Tables\Columns\TextInputColumn::make('text')
@@ -90,8 +92,8 @@ class TranslationResource extends Resource
             ->actions([
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
-                    ->modalDescription(fn ($record) => $record->key)
-                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
+                    ->modalDescription(fn($record) => $record->key)
+                    ->modalIcon(fn($record) => getCountryFlag($record->languageCode))
                     ->modalIconColor(null),
             ])
             ->filters([
