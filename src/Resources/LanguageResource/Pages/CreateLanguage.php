@@ -18,8 +18,6 @@ class CreateLanguage extends CreateRecord
 
     protected function afterCreate()
     {
-        dispatch(new ScanTranslationStrings($this->record));
-
         $this->redirect(EditLanguage::getUrl(['record' => $this->record->code]));
     }
 }
