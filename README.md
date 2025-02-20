@@ -9,6 +9,10 @@
 
 Hi! We're a digital agency from Nijmegen in the Netherlands and we use Laravel for everything: advanced websites with a lot of bells and whistles and large web applications.
 
+## Before using
+
+Please read this documentation first: [https://github.com/backstagephp/laravel-translations](https://github.com/backstagephp/laravel-translations)
+
 ## Installation
 
 You can install the package via composer:
