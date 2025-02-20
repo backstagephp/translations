@@ -2,8 +2,6 @@
 
 namespace Backstage\Translations\Filament;
 
-use Backstage\Translations\Filament\Base\TranslationLoader;
-use Backstage\Translations\Filament\Base\Translator;
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
