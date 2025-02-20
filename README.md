@@ -49,6 +49,18 @@ $panel
     ]);
 ```
 
+Optionally, you can disable the language switcher and rely on the ``default`` language:
+ ```php
+use Backstage\Translations\Filament\TranslationsPlugin;
+
+$panel
+    ->plugins([
+        TranslationsPlugin::make()
+            ->languageSwitcherDisabled(),
+    ]);
+```
+
+
 ## Testing
 
 ```bash
