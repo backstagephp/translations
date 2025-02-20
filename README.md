@@ -20,13 +20,15 @@ composer require backstage/translations
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider=" Backstage\Translations\Laravel\LaravelTranslationsServiceProvider"
+php artisan vendor:publish --provider="Backstage\Translations\Laravel\TranslationServiceProvider"
+php artisan vendor:publish --provider="Backstage\Translations\Filament\TranslationsServiceProvider"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
+php artisan vendor:publish --tag="translations-config"
 php artisan vendor:publish --tag="backstage-translations-config"
 ```
 
