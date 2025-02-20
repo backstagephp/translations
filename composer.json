@@ -31,7 +31,7 @@
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "*",
-        "backstage/laravel-translations": "dev-main"
+        "backstage/laravel-translations": "^0.1.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
