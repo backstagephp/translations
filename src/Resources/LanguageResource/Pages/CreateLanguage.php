@@ -1,27 +1,42 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\LaravelTranslations\Jobs\ScanTranslatableKeys;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
 
 class CreateLanguage extends CreateRecord
 {
     protected static string $resource = LanguageResource::class;
+
+    protected $langRequiresTranslation = false;
 
     public function getTitle(): string | Htmlable
     {
         return __('Create Language');
     }
 
-    protected function beforeCreate(): void {}
+    public function beforeCreate()
+    {
+        $this->langRequiresTranslation = $this->data['translate_after_creation'];
+    }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        unset($data['translate_after_creation']);
+
+        return $data;
+    }
 
     protected function afterCreate()
     {
-        dispatch_sync(new ScanTranslatableKeys($this->record));
-        dispatch(new TranslateKeys($this->record));
+        if ($this->langRequiresTranslation) {
+            dispatch(new TranslateKeys($this->record))
+                ->delay(now()->addSeconds(30));
+        }
+
+        $this->redirect(EditLanguage::getUrl(['record' => $this->record->code]));
     }
 }

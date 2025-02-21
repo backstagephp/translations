@@ -1,6 +1,6 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Tables;
+namespace Backstage\Translations\Filament\Tables;
 
 use Filament\Forms\Components\Concerns\CanBeNative;
 use Filament\Tables\Columns\SelectColumn as ColumnsSelectColumn;

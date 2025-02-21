@@ -1,12 +1,12 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
+namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource;
-use Vormkracht10\FilamentTranslations\Resources\TranslationResource;
 
 class EditLanguage extends EditRecord
 {
@@ -14,23 +14,25 @@ class EditLanguage extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return $this->record->label;
+        return $this->record->native ? $this->record->name . ' (' . $this->record->native . ')' : $this->record->name;
     }
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make()
-                ->after(function () {
-                    TranslationResource::getModel()::where('locale', $this->record['locale'])->delete();
-                }),
+            Actions\DeleteAction::make(),
         ];
     }
 
     protected function beforeSave(): void
     {
-        $translations = TranslationResource::getModel()::where('locale', $this->record['locale'])
+        TranslationResource::getModel()::where('code', $this->record['code'])
             ->get()
-            ->each(fn ($translation) => $translation->update(['locale' => $this->data['locale']]));
+            ->each(fn ($translation) => $translation->update(['code' => $this->data['code']]));
+    }
+
+    protected function afterSave(): void
+    {
+        redirect($this->getUrl(['record' => $this->record->languageCode]));
     }
 }

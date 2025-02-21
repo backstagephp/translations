@@ -1,60 +1,64 @@
 {
-    "name": "vormkracht10/filament-translations",
-    "description": "This is the official Vormkracht10 Filament Translations package!",
+    "name": "backstage/translations",
+    "description": "This is the official Backstagephp Translations package!",
     "keywords": [
-        "vormkracht10",
+        "backstagephp",
         "laravel",
-        "filament-translations"
+        "filament",
+        "translations"
     ],
-    "homepage": "https://github.com/vormkracht10/filament-translations",
+    "homepage": "https://github.com/backstagephp/translations",
     "support": {
-        "issues": "https://github.com/vormkracht10/filament-translations/issues",
-        "source": "https://github.com/vormkracht10/filament-translations"
+        "issues": "https://github.com/backstagephp/translations/issues",
+        "source": "https://github.com/backstagephp/translations"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "Manoj Hortulanus",
-            "email": "manoj@vormkracht10.nl",
+            "email": "manoj@backstagephp.com",
             "role": "Developer"
         },
         {
             "name": "Mark",
-            "email": "mark@vormkracht10.nl",
+            "email": "mark@backstagephp.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.2",
+        "backstage/laravel-translations": "^0.1.2",
         "blade-ui-kit/blade-icons": "^1.6",
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
-        "spatie/laravel-package-tools": "*",
-        "vormkracht10/laravel-translations": "*"
+        "spatie/laravel-package-tools": "*"
     },
     "require-dev": {
-        "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.9",
-        "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.1",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "larastan/larastan": "^2.9",
+        "orchestra/testbench": "^9.0.0||^8.22.0",
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-arch": "^2.7",
+        "pestphp/pest-plugin-laravel": "^2.3",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "spatie/laravel-ray": "^1.35"
     },
     "autoload": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\": "src/",
-            "Vormkracht10\\FilamentTranslations\\Database\\Factories\\": "database/factories/"
+            "Backstage\\Translations\\Filament\\": "src/",
+            "Backstage\\Translations\\Filament\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vormkracht10\\FilamentTranslations\\Tests\\": "tests/"
-        }
+            "Backstage\\Translations\\Filament\\Tests\\": "tests/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
@@ -73,10 +77,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vormkracht10\\FilamentTranslations\\FilamentTranslationsServiceProvider"
+                "Backstage\\Translations\\Filament\\TranslationsServiceProvider"
             ],
             "aliases": {
-                "FilamentTranslations": "Vormkracht10\\FilamentTranslations\\Facades\\FilamentTranslations"
+                "Translations": "Backstage\\Translations\\Filament\\Facades\\Translations"
             }
         }
     },

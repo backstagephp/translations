@@ -1,38 +1,49 @@
 <?php
 
-namespace Vormkracht10\FilamentTranslations\Resources;
+namespace Backstage\Translations\Filament\Resources;
 
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\Translations\Laravel\Models\Language;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Vormkracht10\FilamentTranslations\Resources\LanguageResource\Pages;
-use Vormkracht10\LaravelTranslations\Jobs\TranslateKeys;
-use Vormkracht10\LaravelTranslations\Models\Language;
+use Locale;
 
 class LanguageResource extends Resource
 {
     protected static ?string $model = Language::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $slug = 'translations/languages';
+    protected static ?string $slug = 'languages/translations';
 
     protected static bool $isScopedToTenant = false;
 
-    public static function getNavigationParentItem(): ?string
+    public static function getNavigationIcon(): string
     {
-        return __('Translations');
+        return 'heroicon-o-language';
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Translations');
+        return config('backstage-translations.navigation.group') ?? __('Translations');
     }
 
-    public static function getLabel(): ?string
+    public static function getNavigationLabel(): string
+    {
+        return __('Languages');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Language');
+    }
+
+    public static function getPluralModelLabel(): string
     {
         return __('Languages');
     }
@@ -46,28 +57,59 @@ class LanguageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('locale')
+                Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
-                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : null)
+                    ->prefixIconColor('gray')
+                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
                     ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
-                    ->live()
-                    ->reactive()
+                    ->live(debounce: 250)
+                    ->columnSpan(2)
+                    ->afterStateUpdated(function ($state, Set $set) {
+                        $set('name', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], app()->getLocale())));
+                        $set('native', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], explode('_', $state)[0])));
+                    })
                     ->required(),
 
-                Forms\Components\TextInput::make('label')
-                    ->label(__('Label'))
+                Forms\Components\TextInput::make('name')
+                    ->label(__('Name'))
+                    ->columnSpan(5)
                     ->required(),
-            ]);
+
+                Forms\Components\TextInput::make('native')
+                    ->label(__('Native'))
+                    ->columnSpan(5)
+                    ->required(),
+
+                Forms\Components\Toggle::make('active')
+                    ->label(__('Active'))
+                    ->columnSpan(2)
+                    ->default(false)
+                    ->required(),
+
+                Forms\Components\Toggle::make('default')
+                    ->label(__('Default'))
+                    ->default(false)
+                    ->inline()
+                    ->required(),
+
+                Forms\Components\Checkbox::make('translate_after_creation')
+                    ->label(__('Translate after creation'))
+                    ->default(true)
+                    ->columnSpan(12)
+                    ->helperText(__('This is translate all the keys after automatically scanning the project for translation keys.'))
+                    ->visibleOn('create'),
+            ])
+            ->columns(12);
     }
 
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $translated = TranslationResource::getModel()::where('locale', $record->locale)
+            $translated = TranslationResource::getModel()::where('code', $record->code)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('locale', $record->locale)
+            $total = TranslationResource::getModel()::where('code', $record->code)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
@@ -81,30 +123,70 @@ class LanguageResource extends Resource
 
         return $table
             ->columns([
-                Tables\Columns\IconColumn::make('id')
-                    ->label(__('Flag'))
-                    ->icon(fn ($record): string => getCountryFlag($record->locale))
+                Tables\Columns\IconColumn::make('flag')
+                    ->label('')
+                    ->width(1)
+                    ->getStateUsing(fn () => true)
+                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
-                Tables\Columns\TextColumn::make('locale')
-                    ->label(__('Locale')),
+                Tables\Columns\IconColumn::make('active')
+                    ->label(__('Active'))
+                    ->boolean()
+                    ->action(fn ($record) => $record->update(['active' => ! $record->active])),
 
-                Tables\Columns\TextColumn::make('label')
-                    ->label(__('Label')),
+                Tables\Columns\IconColumn::make('default')
+                    ->label(__('Default'))
+                    ->boolean()
+                    ->action(function ($record) {
+                        if (! $record->active && ! $record->default) {
+                            Notification::make()
+                                ->title(__('Language not active'))
+                                ->body(__('You can only set a language as default if it is active'))
+                                ->danger()
+                                ->send();
+
+                            return;
+                        }
+
+                        $record->update(['default' => ! $record->default]);
+
+                        return redirect(request()->header('Referer'));
+                    }),
+
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
+                    ->searchable()
+                    ->description(fn ($record) => $record->native),
+
+                Tables\Columns\TextColumn::make('code')
+                    ->label(__('Code'))
+                    ->badge()
+                    ->color('gray'),
 
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
-                    ->poll(fn ($record) => '1s')
+                    ->poll('1s')
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
+
+                Tables\Columns\TextColumn::make('native')
+                    ->searchable()
+                    ->visible(false),
             ])
             ->actions([
                 Tables\Actions\Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
-                    ->label(__('Redo Translation'))
+                    ->label(__('Translate'))
                     ->action(function ($record) {
                         dispatch(new TranslateKeys($record));
+
+                        Notification::make()
+                            ->title(__('Translations queued'))
+                            ->body(__('The translations have been queued for translation'))
+                            ->success()
+                            ->send();
                     })
                     ->button(),
             ]);
