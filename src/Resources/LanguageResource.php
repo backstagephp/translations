@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Locale;
 
 class LanguageResource extends Resource
 {
@@ -66,7 +65,7 @@ class LanguageResource extends Resource
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
                         $code = str_replace('_', '-', $state);
-                        
+
                         $set('name', getLocalizedLanguageName($code));
                         $set('native', getLocalizedLanguageName($code, explode('-', $code)[0]));
                     })
