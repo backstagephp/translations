@@ -3,12 +3,9 @@
 namespace Backstage\Translations\Filament;
 
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
-use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
