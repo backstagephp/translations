@@ -2,24 +2,23 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Locale;
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\View\Components\Filament\Badge;
+use Backstage\View\Components\Filament\BadgeableColumn;
 use Filament\Facades\Filament;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Illuminate\Support\Facades\DB;
+use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Notifications\Notification;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Backstage\View\Components\Filament\Badge;
-use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\View\Components\Filament\BadgeableColumn;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
+use Illuminate\Support\Facades\DB;
 
 class LanguageResource extends Resource
 {
@@ -72,7 +71,7 @@ class LanguageResource extends Resource
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
                         $code = str_replace('_', '-', $state);
-                        
+
                         $set('name', getLocalizedLanguageName($code));
                         $set('native', getLocalizedLanguageName($code, explode('-', $code)[0]));
                     })
@@ -228,12 +227,12 @@ class LanguageResource extends Resource
                     })
                     ->button(),
 
-            EditAction::make()
-                ->modal()
-                ->modalHeading(__('Edit Language'))
-                ->modalDescription(fn ($record) => $record->key)
-                ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
-                ->modalIconColor(null),
+                EditAction::make()
+                    ->modal()
+                    ->modalHeading(__('Edit Language'))
+                    ->modalDescription(fn ($record) => $record->key)
+                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
+                    ->modalIconColor(null),
             ]);
     }
 
