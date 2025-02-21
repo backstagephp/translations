@@ -2,17 +2,17 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
+use Backstage\Models\Language;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Backstage\Translations\Laravel\Models\Translation;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
-use Backstage\Models\Language;
-use Backstage\Translations\Laravel\Models\Translation;
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
 
 class TranslationResource extends Resource
 {
