@@ -35,7 +35,7 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
 
-                    return dispatch(new ScanTranslationStrings);
+                    ScanTranslationStrings::dispatch();
                 })
                 ->icon('heroicon-o-arrow-path'),
 
@@ -46,7 +46,7 @@ class ListTranslations extends ListRecords
                 ->action(function () {
                     $record = LanguageResource::getModel()::where('code', config('app.locale'))->first();
 
-                    dispatch(new TranslateKeys($record));
+                    TranslateKeys::dispatch($record);
 
                     Notification::make()
                         ->title(__('Translations are being translated'))
