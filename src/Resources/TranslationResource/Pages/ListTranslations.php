@@ -2,19 +2,19 @@
 
 namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Backstage\Translations\Filament\Resources\TranslationResource;
+use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Filament\Actions;
-use Illuminate\Support\Str;
-use Filament\Support\Colors\Color;
-use Illuminate\Support\HtmlString;
-use Filament\Support\Enums\MaxWidth;
-use Filament\Support\Enums\Alignment;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
-use Backstage\Translations\Filament\Resources\TranslationResource;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\MaxWidth;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class ListTranslations extends ListRecords
 {

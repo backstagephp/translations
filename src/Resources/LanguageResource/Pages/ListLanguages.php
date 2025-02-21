@@ -2,12 +2,12 @@
 
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
-use Filament\Actions;
-use Filament\Support\Colors\Color;
-use Filament\Notifications\Notification;
-use Filament\Resources\Pages\ListRecords;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
+use Filament\Actions;
+use Filament\Notifications\Notification;
+use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Colors\Color;
 
 class ListLanguages extends ListRecords
 {
@@ -29,7 +29,7 @@ class ListLanguages extends ListRecords
                     return dispatch(new ScanTranslationStrings);
                 })
                 ->icon('heroicon-o-arrow-path'),
-                
+
             Actions\CreateAction::make(),
         ];
     }
