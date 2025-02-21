@@ -2,7 +2,7 @@
 
 namespace Backstage\Translations\Filament\Tests;
 
-use Backstage\Translations\Filament\FilamentTranslationsServiceProvider;
+use Backstage\Translations\Filament\TranslationsServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -44,7 +44,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            FilamentTranslationsServiceProvider::class,
+            TranslationsServiceProvider::class,
         ];
     }
 
