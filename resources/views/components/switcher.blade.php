@@ -8,7 +8,7 @@
             <x-filament::dropdown.list.item wire:click="switchLanguage('{{ $language }}')">
             <div class="flex gap-3 truncate filament-dropdown-list-item-label text-start justify-content-start">   
                 <div>
-                    <x-filament::icon :icon="{{ explode('-', $language)[0] }}" class="w-5" style="margin-top:3px;" />
+                    <x-filament::icon :icon="getCountryFlag($language)" class="w-5" style="margin-top:3px;" />
                 </div>
                 <div>
                     {{ $label }}
