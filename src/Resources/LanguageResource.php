@@ -167,7 +167,7 @@ class LanguageResource extends Resource
 
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
-                    ->poll('1s')
+                    ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
 
