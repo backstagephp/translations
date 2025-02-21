@@ -11,9 +11,9 @@ class SwitchLanguageLocale
     public function handle(Request $request, Closure $next): mixed
     {
         if (filamentTranslations()->isLanguageSwitcherDisabled()) {
-            $perferredLocale = LanguageResource::getModel()::where('default', true)?->first();
+            $preferredLocale = LanguageResource::getModel()::where('default', true)?->first();
 
-            if (! $perferredLocale) {
+            if (! $preferredLocale) {
                 config(['languages.code' => 'en_US']);
                 config(['languages.language_code' => 'en']);
 
@@ -22,24 +22,24 @@ class SwitchLanguageLocale
                 return $next($request);
             }
 
-            config(['languages.code' => $perferredLocale->code]);
-            config(['languages.language_code' => $perferredLocale->languageCode]);
+            config(['languages.code' => $preferredLocale->code]);
+            config(['languages.language_code' => $preferredLocale->languageCode]);
 
             app()->setLocale(
-                locale: $perferredLocale->languageCode
+                locale: $preferredLocale->languageCode
             );
 
             return $next($request);
         }
 
-        $perferredLocale = session()->get('languages')['language_code'] ??
+        $preferredLocale = session()->get('languages')['language_code'] ??
             request()->get('locale') ??
             request()->cookie('filament_language_switch_locale') ??
             config('app.locale', 'en') ??
             request()->getPreferredLanguage();
 
         app()->setLocale(
-            locale: $perferredLocale
+            locale: $preferredLocale
         );
 
         return $next($request);
