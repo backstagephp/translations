@@ -19,6 +19,8 @@ class TranslationResource extends Resource
 
     protected static ?string $slug = 'translations';
 
+    protected static bool $isScopedToTenant = false;
+
     public static function getNavigationParentItem(): ?string
     {
         return __('Languages');
