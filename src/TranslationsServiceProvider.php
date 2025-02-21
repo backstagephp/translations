@@ -101,6 +101,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
     protected function registerConfig(): void
     {
+        $this->mergeConfigFrom(__DIR__ . '/../config/blade-flags.php', 'blade-flags');
         $this->mergeConfigFrom(__DIR__ . '/../config/backstage/translations.php', 'backstage.translations');
     }
 }
