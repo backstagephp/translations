@@ -1,6 +1,6 @@
 {
     "name": "backstage/translations",
-    "description": "This is the official Backstagephp Translations package!",
+    "description": "Backstage Translations for Filament",
     "keywords": [
         "backstagephp",
         "laravel",
