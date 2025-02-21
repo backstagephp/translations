@@ -5,7 +5,6 @@ namespace Backstage\Translations\Filament;
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
