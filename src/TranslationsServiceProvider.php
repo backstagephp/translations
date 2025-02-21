@@ -2,18 +2,18 @@
 
 namespace Backstage\Translations\Filament;
 
+use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
 use BladeUI\Icons\Factory;
-use Livewire\Livewire;
 use Filament\Support\Assets\Css;
-use Spatie\LaravelPackageTools\Package;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Blade;
-use Filament\Support\Facades\FilamentAsset;
 use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TranslationsServiceProvider extends PackageServiceProvider
 {
@@ -67,7 +67,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
         Livewire::component('backstage-translations::switcher', \Backstage\Translations\Filament\Components\Switcher::class);
     }
-    
+
     public function packageRegistered()
     {
         $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
@@ -90,7 +90,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
             Css::make('filament-progress-column-styles', __DIR__ . '/../resources/dist/filament-progress-column.css'),
         ];
     }
-    
+
     protected function getIcons(): array
     {
         return [
