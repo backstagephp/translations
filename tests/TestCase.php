@@ -3,9 +3,6 @@
 namespace Backstage\Translations\Filament\Tests;
 
 use Backstage\Translations\Filament\TranslationsServiceProvider;
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
-use BladeUI\Icons\BladeIconsServiceProvider;
-use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Infolists\InfolistsServiceProvider;
@@ -32,10 +29,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            ActionsServiceProvider::class,
             BladeCaptureDirectiveServiceProvider::class,
-            BladeHeroiconsServiceProvider::class,
-            BladeIconsServiceProvider::class,
             FilamentServiceProvider::class,
             FormsServiceProvider::class,
             InfolistsServiceProvider::class,

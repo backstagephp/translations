@@ -3,12 +3,8 @@
 namespace Backstage\Translations\Filament;
 
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
-use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -41,30 +37,11 @@ class TranslationsServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered()
-    {
-        $this->callAfterResolving(Factory::class, function (Factory $factory, Container $container) {
-            $config = $container->make('config')->get('blade-flags', [
-                'prefix' => 'flag',
-            ]);
-
-            $factory->add('blade-flags', array_merge(['path' => __DIR__ . '/../resources/svg'], $config));
-        });
-    }
-
     public function packageBooted(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../resources/svg' => public_path('vendor/blade-flags'),
-            ], 'blade-flags');
-
-            $this->publishes([
-                __DIR__ . '/../config/blade-flags.php' => $this->app->configPath('blade-flags.php'),
-            ], 'blade-flags-config');
-
-            $this->publishes([
-                __DIR__ . '/../config/backstage-translations.php' => $this->app->configPath('backstage-translations.php'),
+                __DIR__ . '/../config/backstage/translations.php' => $this->app->configPath('backstage/translations.php'),
             ], 'backstage-translations-config');
         }
 
@@ -77,8 +54,6 @@ class TranslationsServiceProvider extends PackageServiceProvider
             [],
             $this->getAssetPackageName()
         );
-
-        FilamentIcon::register($this->getIcons());
 
         Testable::mixin(new TestsFilamentTranslations);
 
@@ -99,17 +74,8 @@ class TranslationsServiceProvider extends PackageServiceProvider
         ];
     }
 
-    protected function getIcons(): array
-    {
-        return [
-            Blade::aliasComponent('flag-country-us', 'flag_country_en'),
-            Blade::aliasComponent('flag-country-en', 'flag_country_en'),
-        ];
-    }
-
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/blade-flags.php', 'blade-flags');
-        $this->mergeConfigFrom(__DIR__ . '/../config/backstage-translations.php', 'backstage-translations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/backstage/translations.php', 'backstage.translations');
     }
 }
