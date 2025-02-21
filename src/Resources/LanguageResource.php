@@ -139,7 +139,7 @@ class LanguageResource extends Resource
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
                     ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
-                        'tableFilters[locale][values]' => [$record->code],
+                        'tableFilters[language][code]' => [$record->code],
                     ])),
 
                 Tables\Columns\IconColumn::make('active')
@@ -161,7 +161,7 @@ class LanguageResource extends Resource
                     ])
                     ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
-                        'tableFilters[locale][values]' => [$record->code],
+                        'tableFilters[language][code]' => [$record->code],
                     ])),
 
                 TextColumn::make('country')
@@ -171,7 +171,7 @@ class LanguageResource extends Resource
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
                     ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
-                        'tableFilters[locale][values]' => [$record->code],
+                        'tableFilters[language][code]' => [$record->code],
                     ]))
                     ->visible(fn () => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
 
@@ -205,7 +205,7 @@ class LanguageResource extends Resource
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
                     ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
-                        'tableFilters[locale][values]' => [$record->code],
+                        'tableFilters[language][code]' => [$record->code],
                     ])),
 
                 Tables\Columns\TextColumn::make('native')
