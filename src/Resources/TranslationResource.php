@@ -2,16 +2,17 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
-use Backstage\Translations\Laravel\Models\Translation;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Table;
+use Backstage\Models\Language;
+use Backstage\Translations\Laravel\Models\Translation;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
 class TranslationResource extends Resource
 {
@@ -106,24 +107,14 @@ class TranslationResource extends Resource
                             ->placeholder(__('Select language...'))
                             ->default(null)
                             ->options(
-                                Language::pluck('code', 'name')->mapWithKeys(fn ($name, $code) => [$code => $name])
+                                Language::active()->pluck('name', 'code')->mapWithKeys(fn ($name, $code) => [$code => $name])
                             )
                             ->multiple()
                             ->label(__('Language'))
                             ->native(false),
                     ])
                     ->query(function ($query, $data) {
-                        if ($data['translated_at'] === 'all') {
-                            return $query;
-                        }
-
-                        if ($data['translated_at'] === 'translated') {
-                            return $query->whereNotNull('translated_at');
-                        }
-
-                        if ($data['translated_at'] === 'not_translated') {
-                            return $query->whereNull('translated_at');
-                        }
+                        return $query->whereIn('code', $data['code']);
                     }),
                 Filter::make('translated_at')
                     ->label(__('Translated'))

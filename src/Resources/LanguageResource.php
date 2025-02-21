@@ -2,18 +2,22 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\Translations\Laravel\Models\Language;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Locale;
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Notifications\Notification;
+use Illuminate\Database\Eloquent\Builder;
+use Backstage\View\Components\Filament\Badge;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\View\Components\Filament\BadgeableColumn;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 class LanguageResource extends Resource
 {
@@ -134,12 +138,34 @@ class LanguageResource extends Resource
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\IconColumn::make('active')
+                    ->width(1)
                     ->label(__('Active'))
                     ->boolean()
+                    ->alignCenter()
                     ->action(fn ($record) => $record->update(['active' => ! $record->active])),
+
+                BadgeableColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->separator('')
+                    ->description(fn ($record) => $record->native)
+                    ->suffixBadges([
+                        Badge::make('code')
+                            ->label(fn (Language $record) => $record->code)
+                            ->color('gray'),
+                    ]),
+
+                TextColumn::make('country')
+                    ->label(__('Country'))
+                    ->searchable()
+                    ->sortable()
+                    ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
+                    ->visible(fn () => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
 
                 Tables\Columns\IconColumn::make('default')
                     ->label(__('Default'))
+                    ->width(1)
+                    ->alignCenter()
                     ->boolean()
                     ->action(function ($record) {
                         if (! $record->active && ! $record->default) {
@@ -157,18 +183,10 @@ class LanguageResource extends Resource
                         return redirect(request()->header('Referer'));
                     }),
 
-                Tables\Columns\TextColumn::make('name')
-                    ->label(__('Name'))
-                    ->searchable()
-                    ->description(fn ($record) => $record->native),
-
-                Tables\Columns\TextColumn::make('code')
-                    ->label(__('Code'))
-                    ->badge()
-                    ->color('gray'),
-
                 \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
                     ->label('Translated')
+                    ->width('25%')
+                    ->alignRight()
                     ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
