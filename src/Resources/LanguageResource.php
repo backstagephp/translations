@@ -8,8 +8,10 @@ use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
@@ -135,7 +137,11 @@ class LanguageResource extends Resource
                     ->getStateUsing(fn () => true)
                     ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
+                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                        'tenant' => Filament::getTenant(),
+                        'tableFilters[locale][values]' => [$record->code],
+                    ])),
 
                 Tables\Columns\IconColumn::make('active')
                     ->width(1)
@@ -153,13 +159,21 @@ class LanguageResource extends Resource
                         Badge::make('code')
                             ->label(fn (Language $record) => $record->code)
                             ->color('gray'),
-                    ]),
+                    ])
+                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                        'tenant' => Filament::getTenant(),
+                        'tableFilters[locale][values]' => [$record->code],
+                    ])),
 
                 TextColumn::make('country')
                     ->label(__('Country'))
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
+                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                        'tenant' => Filament::getTenant(),
+                        'tableFilters[locale][values]' => [$record->code],
+                    ]))
                     ->visible(fn () => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
 
                 Tables\Columns\IconColumn::make('default')
@@ -189,7 +203,11 @@ class LanguageResource extends Resource
                     ->alignRight()
                     ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
                     ->progress(fn ($record) => $percentage($record))
-                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger'),
+                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
+                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                        'tenant' => Filament::getTenant(),
+                        'tableFilters[locale][values]' => [$record->code],
+                    ])),
 
                 Tables\Columns\TextColumn::make('native')
                     ->searchable()
@@ -209,6 +227,13 @@ class LanguageResource extends Resource
                             ->send();
                     })
                     ->button(),
+
+            EditAction::make()
+                ->modal()
+                ->modalHeading(__('Edit Language'))
+                ->modalDescription(fn ($record) => $record->key)
+                ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
+                ->modalIconColor(null),
             ]);
     }
 
