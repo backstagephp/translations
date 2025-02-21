@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "^0.1.2",
+        "backstage/laravel-translations": "^0.1.3",
         "blade-ui-kit/blade-icons": "^1.6",
         "filament/filament": "^3.0",
         "ryangjchandler/filament-progress-column": "*",
