@@ -2,18 +2,19 @@
 
 namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
-use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
-use Backstage\Translations\Filament\Resources\TranslationResource;
-use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Filament\Actions;
+use Illuminate\Support\Str;
+use Filament\Support\Colors\Color;
+use Illuminate\Support\HtmlString;
+use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Alignment;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Support\Colors\Color;
-use Filament\Support\Enums\Alignment;
-use Filament\Support\Enums\MaxWidth;
-use Illuminate\Support\HtmlString;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
+use Backstage\Translations\Filament\Resources\TranslationResource;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
 
 class ListTranslations extends ListRecords
 {
@@ -34,13 +35,13 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
 
-                    return dispatch(new ScanTranslationStrings(redo: true));
+                    return dispatch(new ScanTranslationStrings);
                 })
                 ->icon('heroicon-o-arrow-path'),
 
             Actions\Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
-                ->label(__('Translate using :type', ['type' => ucfirst(config('translations.translators.default'))]))
+                ->label(__('Translate using :type', ['type' => Str::headline(config('translations.translators.default'))]))
                 ->color(fn () => Color::Green)
                 ->action(function () {
                     $record = LanguageResource::getModel()::where('code', config('app.locale'))->first();
