@@ -97,6 +97,34 @@ class TranslationResource extends Resource
                     ->modalIconColor(null),
             ])
             ->filters([
+                Filter::make('code')
+                    ->label(__('Language'))
+                    ->default(null)
+                    ->form([
+                        Select::make('code')
+                            ->nullable()
+                            ->placeholder(__('Select language...'))
+                            ->default(null)
+                            ->options(
+                                Language::pluck('code', 'name')->mapWithKeys(fn ($name, $code) => [$code => $name])
+                            )
+                            ->multiple()
+                            ->label(__('Language'))
+                            ->native(false),
+                    ])
+                    ->query(function ($query, $data) {
+                        if ($data['translated_at'] === 'all') {
+                            return $query;
+                        }
+
+                        if ($data['translated_at'] === 'translated') {
+                            return $query->whereNotNull('translated_at');
+                        }
+
+                        if ($data['translated_at'] === 'not_translated') {
+                            return $query->whereNull('translated_at');
+                        }
+                    }),
                 Filter::make('translated_at')
                     ->label(__('Translated'))
                     ->default(null)

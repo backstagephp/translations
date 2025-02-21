@@ -34,10 +34,10 @@ class Switcher extends Component
         $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
 
         if (! (count($this->languages) > 0)) {
-            return view('backstage-translations::components.switcher-empty');
+            return view('backstage.translations::components.switcher-empty');
         }
 
-        return view('backstage-translations::components.switcher');
+        return view('backstage.translations::components.switcher');
     }
 
     public function switchLanguage(string $lang)

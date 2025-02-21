@@ -65,8 +65,10 @@ class LanguageResource extends Resource
                     ->live(debounce: 250)
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
-                        $set('name', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], app()->getLocale())));
-                        $set('native', ucfirst(Locale::getDisplayLanguage(explode('_', $state)[0], explode('_', $state)[0])));
+                        $code = str_replace('_', '-', $state);
+                        
+                        $set('name', getLocalizedLanguageName($code));
+                        $set('native', getLocalizedLanguageName($code, explode('-', $code)[0]));
                     })
                     ->required(),
 

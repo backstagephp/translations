@@ -19,7 +19,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'translations';
 
-    public static string $viewNamespace = 'backstage-translations';
+    public static string $viewNamespace = 'backstage.translations';
 
     public function configurePackage(Package $package): void
     {
@@ -65,7 +65,7 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
         require_once __DIR__ . '/helpers.php';
 
-        Livewire::component('backstage-translations::switcher', \Backstage\Translations\Filament\Components\Switcher::class);
+        Livewire::component('backstage.translations::switcher', \Backstage\Translations\Filament\Components\Switcher::class);
     }
 
     public function packageRegistered()
