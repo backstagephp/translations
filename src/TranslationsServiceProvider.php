@@ -61,6 +61,8 @@ class TranslationsServiceProvider extends PackageServiceProvider
 
         FilamentIcon::register($this->getIcons());
 
+        Translations::registerMacro();
+
         Testable::mixin(new TestsFilamentTranslations);
 
         require_once __DIR__ . '/helpers.php';
