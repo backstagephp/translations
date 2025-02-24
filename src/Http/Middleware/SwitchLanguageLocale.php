@@ -20,9 +20,9 @@ class SwitchLanguageLocale
             app()->setLocale(
                 locale: $preferredLocale->languageCode
             );
-    
+
             session(['locale' => $preferredLocale]);
-            
+
             view()->share('preferredLocale', $preferredLocale);
 
             return $next($request);
@@ -32,7 +32,7 @@ class SwitchLanguageLocale
             LanguageResource::getModel()::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
             LanguageResource::getModel()::default();
 
-        if($preferredLocale) {
+        if ($preferredLocale) {
             session(['locale' => $preferredLocale]);
 
             app()->setLocale(
