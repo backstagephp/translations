@@ -13,25 +13,13 @@ class Switcher extends Component
 
     public string $currentLanguage;
 
-    public string $currentLanguageIcon;
-
     public function render()
     {
         $this->languages = LanguageResource::getModel()::active()->get()->pluck('native', 'code')->toArray();
 
-        if (isset(session()->get('languages')['code'])) {
-            $this->currentLanguage = session()->get('languages')['code'];
-        } else {
-            $this->currentLanguage = app()->getLocale();
-        }
+        $this->currentLanguage = session('locale') ?: LanguageResource::getModel()::default()?->languageCode ?: config('app.locale');
 
-        if (! LanguageResource::getModel()::active()->where('code', $this->currentLanguage)->exists() && LanguageResource::getModel()::active()->exists()) {
-            $this->currentLanguage = LanguageResource::getModel()::active()->first()->code;
-
-            $this->switchLanguage($this->currentLanguage);
-        }
-
-        $this->currentLanguageIcon = getCountryFlag($this->currentLanguage);
+        $this->switchLanguage($this->currentLanguage);
 
         if (! (count($this->languages) > 0)) {
             return view('backstage.translations::components.switcher-empty');
@@ -40,18 +28,13 @@ class Switcher extends Component
         return view('backstage.translations::components.switcher');
     }
 
-    public function switchLanguage(string $lang)
+    public function switchLanguage(string $code)
     {
-        $oldLang = session()->get('languages')['code'] ?? $lang;
+        $oldLang = session('locale');
 
-        $lang = LanguageResource::getModel()::where('code', $lang)->first();
+        $lang = LanguageResource::getModel()::where('code', $code)->first();
 
-        session()->put('languages.code', $lang->code);
-        session()->put('languages.language_code', $lang->languageCode);
-
-        session()->put('locale', $lang->languageCode);
-
-        cookie()->queue(cookie()->forever('filament_language_switch_locale', $lang->languageCode));
+        session(['locale' => $lang->code]);
 
         Notification::make()
             ->title(__('Language changed'))

@@ -1,6 +1,6 @@
 <x-filament::dropdown placement="bottom-start">
     <x-slot name="trigger">
-        <x-filament::icon :icon="$currentLanguageIcon" class="w-6 h-auto" />
+        <x-filament::icon :icon="getCountryFlag($currentLanguage)" class="w-6 h-auto" />
     </x-slot>
 
     <x-filament::dropdown.list >
