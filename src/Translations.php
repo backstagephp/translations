@@ -2,11 +2,10 @@
 
 namespace Backstage\Translations\Filament;
 
-use Filament\Forms\Set;
-use Filament\Support\Colors\Color;
-use Filament\Forms\Components\Field;
-use Filament\Notifications\Notification;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Field;
+use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 
 class Translations
 {
@@ -23,12 +22,12 @@ class Translations
                             'x-show' => 'focused || hover',
                             'x-cloak' => '',
                         ] : [])
-                        ->action(function ($data) use ($component, $set) {
-                                Notification::make()
-                                    ->title(__('Text is translated'))
-                                    ->body('Translated')
-                                    ->success()
-                                    ->send();
+                        ->action(function ($data) {
+                            Notification::make()
+                                ->title(__('Text is translated'))
+                                ->body('Translated')
+                                ->success()
+                                ->send();
                         });
                 }
             )->extraFieldWrapperAttributes([
