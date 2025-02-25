@@ -27,13 +27,13 @@ class Switcher extends Component
         return view('backstage.translations::components.switcher');
     }
 
-    public function switchLanguage($language)
+    public function switchLanguage($code)
     {
         $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
-        $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $language->code)->first();
+        $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $code)->first();
 
         if ($previousLanguage->code !== $newLanguage->code) {
-            session(['locale' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
+            session(['language' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
             Notification::make()
                 ->title(__('Language changed'))
