@@ -75,7 +75,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Backstage\\Translations\\Filament\\TranslationsServiceProvider"
+                "Backstage\\Translations\\Filament\\TranslationServiceProvider"
             ],
             "aliases": {
                 "Translations": "Backstage\\Translations\\Filament\\Facades\\Translations"

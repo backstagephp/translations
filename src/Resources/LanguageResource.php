@@ -5,8 +5,6 @@ namespace Backstage\Translations\Filament\Resources;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
-use Backstage\View\Components\Filament\Badge;
-use Backstage\View\Components\Filament\BadgeableColumn;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -137,7 +135,7 @@ class LanguageResource extends Resource
                     ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
-                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.'.Filament::getPanel()->getId().'.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -149,17 +147,12 @@ class LanguageResource extends Resource
                     ->alignCenter()
                     ->action(fn ($record) => $record->update(['active' => ! $record->active])),
 
-                BadgeableColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable()
                     ->separator('')
-                    ->description(fn ($record) => $record->native)
-                    ->suffixBadges([
-                        Badge::make('code')
-                            ->label(fn (Language $record) => $record->code)
-                            ->color('gray'),
-                    ])
-                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                    ->description(fn ($record) => $record->code)
+                    ->url(fn (Language $record) => route('filament.'.Filament::getPanel()->getId().'.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -169,7 +162,7 @@ class LanguageResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
-                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.'.Filament::getPanel()->getId().'.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ]))
@@ -203,7 +196,7 @@ class LanguageResource extends Resource
                     ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
-                    ->url(fn (Language $record) => route('filament.backstage.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.'.Filament::getPanel()->getId().'.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),

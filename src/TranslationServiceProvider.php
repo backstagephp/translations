@@ -15,7 +15,7 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class TranslationsServiceProvider extends PackageServiceProvider
+class TranslationServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'translations';
 
@@ -30,11 +30,9 @@ class TranslationsServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('backstagephp/translations');
             });
 
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
+            $this->mergeConfigFrom(
+                __DIR__.'/../config/backstage/translations.php', 'backstage.translations',
+            );
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);

@@ -25,7 +25,7 @@ You can publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --provider="Backstage\Translations\Laravel\TranslationServiceProvider"
-php artisan vendor:publish --provider="Backstage\Translations\Filament\TranslationsServiceProvider"
+php artisan vendor:publish --provider="Backstage\Translations\Filament\TranslationServiceProvider"
 php artisan migrate
 ```
 

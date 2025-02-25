@@ -2,7 +2,7 @@
 
 namespace Backstage\Translations\Filament\Tests;
 
-use Backstage\Translations\Filament\TranslationsServiceProvider;
+use Backstage\Translations\Filament\TranslationServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Infolists\InfolistsServiceProvider;
@@ -38,7 +38,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            TranslationsServiceProvider::class,
+            TranslationServiceProvider::class,
         ];
     }
 
