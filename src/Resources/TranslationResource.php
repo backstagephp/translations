@@ -2,20 +2,20 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Tables\Filters\Filter;
-use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Blade;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\EditAction;
-use Illuminate\Database\Eloquent\Builder;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 use Backstage\Translations\Laravel\Models\Language;
 use Backstage\Translations\Laravel\Models\Translation;
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
 
 class TranslationResource extends Resource
 {
@@ -118,7 +118,7 @@ class TranslationResource extends Resource
                                     })
                                     ->mapWithKeys(fn ($languages, $countryName) => [
                                         $countryName => $languages->mapWithKeys(fn ($language) => [
-                                            $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\''.$language->languageCode.'\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
+                                            $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
                                         ])->toArray(),
                                     ])
                             )
