@@ -5,7 +5,7 @@
 
     <x-filament::dropdown.list>
         @foreach ($languages as $language)
-            <x-filament::dropdown.list.item wire:click="switchLanguage('{{ $language }}')">
+            <x-filament::dropdown.list.item wire:click="switchLanguage('{{ $language->code }}')">
             <div class="flex gap-3 truncate filament-dropdown-list-item-label text-start justify-content-start">   
                 <div>
                     <x-filament::icon :icon="getCountryFlag($language->languageCode)" class="w-5" style="margin-top:3px;" />
