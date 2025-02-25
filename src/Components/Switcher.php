@@ -32,7 +32,7 @@ class Switcher extends Component
         $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
         $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $language->code)->first();
 
-        if($previousLanguage->code !== $newLanguage->code) {
+        if ($previousLanguage->code !== $newLanguage->code) {
             session(['locale' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
             Notification::make()
