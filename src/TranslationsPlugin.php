@@ -30,8 +30,8 @@ class TranslationsPlugin implements Plugin
         $panel->middleware([SwitchLanguageLocale::class]);
 
         $panel->resources([
-            Resources\LanguageResource::class,
-            Resources\TranslationResource::class,
+            config('backstage.translations.resources.language'),
+            config('backstage.translations.resources.translation'),
         ]);
 
         if (! $this->isLanguageSwitcherDisabled()) {

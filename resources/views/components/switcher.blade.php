@@ -1,17 +1,17 @@
 <x-filament::dropdown placement="bottom-start">
     <x-slot name="trigger">
-        <x-filament::icon :icon="getCountryFlag($currentLanguage)" class="w-6 h-auto" />
+        <x-filament::icon :icon="getCountryFlag($currentLanguage->languageCode)" class="w-6 h-auto" />
     </x-slot>
 
     <x-filament::dropdown.list >
-        @foreach ($languages as $language  => $label)
+        @foreach ($languages as $language)
             <x-filament::dropdown.list.item wire:click="switchLanguage('{{ $language }}')">
             <div class="flex gap-3 truncate filament-dropdown-list-item-label text-start justify-content-start">   
                 <div>
-                    <x-filament::icon :icon="getCountryFlag($language)" class="w-5" style="margin-top:3px;" />
+                    <x-filament::icon :icon="getCountryFlag($language->languageCode)" class="w-5" style="margin-top:3px;" />
                 </div>
                 <div>
-                    {{ $label }}
+                    {{ $language->localizedLanguageName }}
                 </div>
               </div>
             </x-filament::dropdown.list.item>

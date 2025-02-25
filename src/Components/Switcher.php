@@ -2,22 +2,23 @@
 
 namespace Backstage\Translations\Filament\Components;
 
-use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
 class Switcher extends Component
 {
-    public array $languages;
+    public $languages;
 
-    public string $currentLanguage;
+    public $currentLanguage;
 
     public function render()
     {
-        $this->languages = LanguageResource::getModel()::active()->get()->pluck('native', 'code')->toArray();
+        $this->languages = config('backstage.translations.resources.language')::getModel()::active()->get();
 
-        $this->currentLanguage = session('locale') ?: LanguageResource::getModel()::default()?->languageCode ?: config('app.locale');
+        $this->currentLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first() ?:
+            config('backstage.translations.resources.language')::getModel()::default() ?:
+            config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
         $this->switchLanguage($this->currentLanguage);
 
@@ -28,21 +29,20 @@ class Switcher extends Component
         return view('backstage.translations::components.switcher');
     }
 
-    public function switchLanguage(string $code)
+    public function switchLanguage($language)
     {
-        $oldLang = session('locale');
+        $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
+        $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $language->code)->first();
 
-        $lang = LanguageResource::getModel()::where('code', $code)->first();
-
-        session(['locale' => $lang->code]);
+        session(['locale' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
         Notification::make()
             ->title(__('Language changed'))
-            ->body(__('The language has been changed from :oldLanguage to :language', ['oldLanguage' => array_key_exists($oldLang, $this->languages) ? $this->languages[$oldLang] : 'UNKNOWN', 'language' => $lang->name], $lang->languageCode))
+            ->body(__('The language has been changed from :oldLanguage to :newLanguage', ['previousLanguage' => $previousLanguage->localizedLanguageName, $newLanguage->localizedLanguageName]))
             ->success()
             ->send();
 
-        return redirect(request()->header('Referer'));
+        return redirect()->back();
     }
 
     public function list()

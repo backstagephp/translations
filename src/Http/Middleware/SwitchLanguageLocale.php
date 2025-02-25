@@ -21,19 +21,19 @@ class SwitchLanguageLocale
                 locale: $preferredLocale->languageCode
             );
     
-            session(['locale' => $preferredLocale]);
+            session(['language' => $preferredLocale->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
             
             view()->share('preferredLocale', $preferredLocale);
 
             return $next($request);
         }
 
-        $preferredLocale = session('locale') ?:
+        $preferredLocale = LanguageResource::getModel()::where('code', session('language')['code'] ?? '')->first() ?:
             LanguageResource::getModel()::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
             LanguageResource::getModel()::default();
 
         if($preferredLocale) {
-            session(['locale' => $preferredLocale]);
+            session(['language' => $preferredLocale->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
             app()->setLocale(
                 locale: $preferredLocale->languageCode
