@@ -20,8 +20,6 @@ class Switcher extends Component
             config('backstage.translations.resources.language')::getModel()::default() ?:
             config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
-        $this->switchLanguage($this->currentLanguage);
-
         if (! (count($this->languages) > 0)) {
             return view('backstage.translations::components.switcher-empty');
         }
@@ -34,15 +32,17 @@ class Switcher extends Component
         $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
         $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $language->code)->first();
 
-        session(['locale' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
+        if($previousLanguage->code !== $newLanguage->code) {
+            session(['locale' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
-        Notification::make()
-            ->title(__('Language changed'))
-            ->body(__('The language has been changed from :oldLanguage to :newLanguage', ['previousLanguage' => $previousLanguage->localizedLanguageName, $newLanguage->localizedLanguageName]))
-            ->success()
-            ->send();
+            Notification::make()
+                ->title(__('Language changed'))
+                ->body(__('The language has been changed from :previousLanguage to :newLanguage', ['previousLanguage' => $previousLanguage->localizedLanguageName, 'newLanguage' => $newLanguage->localizedLanguageName]))
+                ->success()
+                ->send();
 
-        return redirect()->back();
+            return redirect()->back();
+        }
     }
 
     public function list()
