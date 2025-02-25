@@ -30,9 +30,10 @@ class TranslationServiceProvider extends PackageServiceProvider
                     ->askToStarRepoOnGitHub('backstagephp/translations');
             });
 
-            $this->mergeConfigFrom(
-                __DIR__.'/../config/backstage/translations.php', 'backstage.translations',
-            );
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/backstage/translations.php',
+            'backstage.translations',
+        );
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
