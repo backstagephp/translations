@@ -88,7 +88,7 @@ class LanguageResource extends Resource
                 Forms\Components\Toggle::make('active')
                     ->label(__('Active'))
                     ->columnSpan(2)
-                    ->default(false)
+                    ->default(true)
                     ->required(),
 
                 Forms\Components\Toggle::make('default')
