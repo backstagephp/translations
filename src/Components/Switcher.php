@@ -17,7 +17,7 @@ class Switcher extends Component
     {
         $this->languages = config('backstage.translations.resources.language')::getModel()::active()->get();
 
-        $this->currentLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first() ?:
+        $this->currentLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language') ? session('language')['code'] : null)->first() ?:
             config('backstage.translations.resources.language')::getModel()::default() ?:
             config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
