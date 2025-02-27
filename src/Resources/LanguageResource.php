@@ -152,7 +152,7 @@ class LanguageResource extends Resource
                     ->sortable()
                     ->separator('')
                     ->description(fn ($record) => $record->code)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -162,7 +162,7 @@ class LanguageResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ]))
@@ -196,7 +196,7 @@ class LanguageResource extends Resource
                     ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
                     ->progress(fn ($record) => $percentage($record))
                     ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
