@@ -23,14 +23,7 @@ class EditLanguage extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
-    protected function beforeSave(): void
-    {
-        TranslationResource::getModel()::where('code', $this->record['code'])
-            ->get()
-            ->each(fn ($translation) => $translation->update(['code' => $this->data['code']]));
-    }
-
+    
     protected function afterSave(): void
     {
         redirect($this->getUrl(['record' => $this->record->languageCode]));
