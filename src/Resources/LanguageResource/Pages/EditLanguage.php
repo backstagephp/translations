@@ -3,7 +3,6 @@
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -22,13 +21,6 @@ class EditLanguage extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
-    }
-
-    protected function beforeSave(): void
-    {
-        TranslationResource::getModel()::where('code', $this->record['code'])
-            ->get()
-            ->each(fn ($translation) => $translation->update(['code' => $this->data['code']]));
     }
 
     protected function afterSave(): void
