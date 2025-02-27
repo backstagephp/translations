@@ -33,7 +33,7 @@ class LanguageResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return config('backstage.translations.navigation.group', __('Translations'));
+        return config('backstage.translations.navigation.group') ?? __('Translations');
     }
 
     public static function getNavigationLabel(): string
