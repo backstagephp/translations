@@ -23,7 +23,7 @@ class Switcher extends Component
         return view('backstage.translations::components.switcher');
     }
 
-    public function switchLanguage($code): mixed
+    public function switchLanguage($code)
     {
         $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
         $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $code)->first();
