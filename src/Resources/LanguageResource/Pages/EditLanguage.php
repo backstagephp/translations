@@ -3,7 +3,6 @@
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Filament\Resources\TranslationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -23,7 +22,7 @@ class EditLanguage extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-    
+
     protected function afterSave(): void
     {
         redirect($this->getUrl(['record' => $this->record->languageCode]));
