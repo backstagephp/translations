@@ -2,7 +2,6 @@
 
 namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
-use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
 use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
