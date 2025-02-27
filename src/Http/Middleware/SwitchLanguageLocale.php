@@ -11,7 +11,7 @@ class SwitchLanguageLocale
     public function handle(Request $request, Closure $next): mixed
     {
         if (filamentTranslations()->isLanguageSwitcherDisabled()) {
-            $preferredLocale = LanguageResource::getModel()::default();
+            $preferredLocale = config('backstage.translations.resources.language')::getModel()::default();
 
             if (! $preferredLocale) {
                 return $next($request);
@@ -28,9 +28,9 @@ class SwitchLanguageLocale
             return $next($request);
         }
 
-        $preferredLocale = LanguageResource::getModel()::where('code', session('language')['code'] ?? '')->first() ?:
-            LanguageResource::getModel()::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
-            LanguageResource::getModel()::default();
+        $preferredLocale = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'] ?? '')->first() ?:
+        config('backstage.translations.resources.language')::getModel()::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
+        config('backstage.translations.resources.language')::getModel()::default();
 
         if ($preferredLocale) {
             session(['language' => $preferredLocale->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);

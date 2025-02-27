@@ -44,7 +44,7 @@ class ListTranslations extends ListRecords
                 ->label(__('Translate using :type', ['type' => Str::headline(config('translations.translators.default'))]))
                 ->color(fn () => Color::Green)
                 ->action(function () {
-                    $record = LanguageResource::getModel()::where('code', config('app.locale'))->first();
+                    $record = config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
                     TranslateKeys::dispatch($record);
 
@@ -62,7 +62,7 @@ class ListTranslations extends ListRecords
     public function checkLanguages(): Actions\Action
     {
         return Actions\Action::make('checkLanguages')
-            ->visible(fn () => LanguageResource::getModel()::count() === 0)
+            ->visible(fn () => config('backstage.translations.resources.language')::getModel()::count() === 0)
             ->label(__('Check languages'))
             ->color(Color::Blue)
             ->modalHeading((config('app.name')))

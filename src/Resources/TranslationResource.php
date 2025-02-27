@@ -27,7 +27,7 @@ class TranslationResource extends Resource
 
     public static function getNavigationParentItem(): ?string
     {
-        return LanguageResource::getNavigationLabel();
+        return config('backstage.translations.resources.language')::getNavigationLabel();
     }
 
     public static function getNavigationIcon(): string
@@ -37,7 +37,7 @@ class TranslationResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return LanguageResource::getNavigationGroup();
+        return config('backstage.translations.resources.language')::getNavigationGroup();
     }
 
     public static function getNavigationLabel(): string

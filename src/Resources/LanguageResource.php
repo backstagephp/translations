@@ -110,11 +110,11 @@ class LanguageResource extends Resource
     public static function table(Table $table): Table
     {
         $percentage = function ($record) {
-            $translated = TranslationResource::getModel()::where('code', $record->code)
+            $translated = config('backstage.translations.resources.translation')::getModel()::where('code', $record->code)
                 ->whereNotNull('translated_at')
                 ->count();
 
-            $total = TranslationResource::getModel()::where('code', $record->code)
+            $total = config('backstage.translations.resources.translation')::getModel()::where('code', $record->code)
                 ->count();
 
             if ($translated == 0 || $total == 0) {
