@@ -4,7 +4,6 @@ namespace Backstage\Translations\Filament\Components;
 
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Filament\Notifications\Notification;
-use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
 
 class Switcher extends Component
@@ -21,14 +20,10 @@ class Switcher extends Component
             config('backstage.translations.resources.language')::getModel()::default() ?:
             config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
-        if (! (count($this->languages) > 0)) {
-            return view('backstage.translations::components.switcher-empty');
-        }
-
         return view('backstage.translations::components.switcher');
     }
 
-    public function switchLanguage($code): RedirectResponse
+    public function switchLanguage($code): mixed
     {
         $previousLanguage = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'])->first();
         $newLanguage = config('backstage.translations.resources.language')::getModel()::where('code', $code)->first();

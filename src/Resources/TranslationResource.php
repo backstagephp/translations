@@ -27,7 +27,7 @@ class TranslationResource extends Resource
 
     public static function getNavigationParentItem(): ?string
     {
-        return __('Languages');
+        return LanguageResource::getNavigationLabel();
     }
 
     public static function getNavigationIcon(): string
