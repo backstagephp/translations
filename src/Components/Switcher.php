@@ -37,7 +37,7 @@ class Switcher extends Component
                 ->success()
                 ->send();
 
-            return redirect()->back();
+            $this->redirect()->back();
         }
     }
 
