@@ -4,6 +4,8 @@ namespace Backstage\Translations\Filament\Components;
 
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Filament\Notifications\Notification;
+use Filament\Notifications\Livewire\Notifications;
+use Filament\Support\Enums\VerticalAlignment;
 use Livewire\Component;
 
 class Switcher extends Component
@@ -31,13 +33,15 @@ class Switcher extends Component
         if ($previousLanguage->code !== $newLanguage->code) {
             session(['language' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
+            app()->setLocale($newLanguage->code);
+
             Notification::make()
                 ->title(__('Language changed'))
                 ->body(__('The language has been changed from :previousLanguage to :newLanguage', ['previousLanguage' => $previousLanguage->localizedLanguageName, 'newLanguage' => $newLanguage->localizedLanguageName]))
                 ->success()
                 ->send();
 
-            $this->redirect(request()->fullUrl());
+            $this->js('window.location.reload()');
         }
     }
 
