@@ -1,6 +1,6 @@
 <?php
 
-namespace Backstage\Translations\Filament\Exporters;
+namespace Backstage\Translations\Filament\Exports;
 
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\ExportColumn;
@@ -15,23 +15,15 @@ class TranslationExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('code')
-                ->label(__('Code')),
+            ExportColumn::make('code'),
 
-            ExportColumn::make('group')
-                ->label(__('Group')),
+            ExportColumn::make('group'),
 
-            ExportColumn::make('key')
-                ->label(__('Key')),
+            ExportColumn::make('key'),
 
-            ExportColumn::make('text')
-                ->label(__('Text')),
+            ExportColumn::make('text'),
 
-            ExportColumn::make('metadata')
-                ->label(__('Metadata')),
-
-            ExportColumn::make('namespace')
-                ->label(__('Namespace')),
+            ExportColumn::make('namespace'),
         ];
     }
 
