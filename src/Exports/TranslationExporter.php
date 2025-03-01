@@ -2,11 +2,11 @@
 
 namespace Backstage\Translations\Filament\Exports;
 
-use Filament\Actions\Exports\Exporter;
-use Filament\Actions\Exports\ExportColumn;
-use Filament\Actions\Exports\Models\Export;
-use Filament\Actions\Exports\Enums\ExportFormat;
 use Backstage\Translations\Laravel\Models\Translation;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Actions\Exports\ExportColumn;
+use Filament\Actions\Exports\Exporter;
+use Filament\Actions\Exports\Models\Export;
 
 class TranslationExporter extends Exporter
 {
@@ -41,7 +41,7 @@ class TranslationExporter extends Exporter
     public function getFormats(): array
     {
         return [
-            ExportFormat::Xlsx
+            ExportFormat::Xlsx,
         ];
     }
 }

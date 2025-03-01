@@ -2,24 +2,24 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Support\Colors\Color;
-use Filament\Tables\Filters\Filter;
-use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Blade;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\EditAction;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Actions\Exports\Enums\ExportFormat;
-use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Laravel\Models\Translation;
 use Backstage\Translations\Filament\Exports\TranslationExporter;
 use Backstage\Translations\Filament\Imports\TranslationImporter;
 use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\Translations\Laravel\Models\Translation;
+use Filament\Actions\Exports\Enums\ExportFormat;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
+use Filament\Tables;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
 
 class TranslationResource extends Resource
 {
@@ -89,24 +89,24 @@ class TranslationResource extends Resource
                     ->color(Color::Red)
                     ->formats([
                         ExportFormat::Xlsx,
-                        ExportFormat::Csv
+                        ExportFormat::Csv,
                     ])
-                    ->disabled(fn() => static::getModel()::count() === 0),
+                    ->disabled(fn () => static::getModel()::count() === 0),
             ])
             ->columns([
                 Tables\Columns\IconColumn::make('code')
                     ->label('')
                     ->sortable()
-                    ->icon(fn($record): string => getCountryFlag($record->languageCode))
+                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\TextColumn::make('key')
                     ->label(__('Key'))
                     ->searchable()
                     ->width('50%')
                     ->limit(50)
-                    ->description(fn($record) => $record->group)
+                    ->description(fn ($record) => $record->group)
                     ->sortable(),
 
                 Tables\Columns\TextInputColumn::make('text')
@@ -119,8 +119,8 @@ class TranslationResource extends Resource
             ->actions([
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
-                    ->modalDescription(fn($record) => $record->key)
-                    ->modalIcon(fn($record) => getCountryFlag($record->languageCode))
+                    ->modalDescription(fn ($record) => $record->key)
+                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
                     ->modalIconColor(null),
             ])
             ->filters([
@@ -138,8 +138,8 @@ class TranslationResource extends Resource
                                     ->groupBy(function ($language) {
                                         return Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide');
                                     })
-                                    ->mapWithKeys(fn($languages, $countryName) => [
-                                        $countryName => $languages->mapWithKeys(fn($language) => [
+                                    ->mapWithKeys(fn ($languages, $countryName) => [
+                                        $countryName => $languages->mapWithKeys(fn ($language) => [
                                             $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
                                         ])->toArray(),
                                     ])

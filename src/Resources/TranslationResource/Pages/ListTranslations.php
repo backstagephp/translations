@@ -2,24 +2,14 @@
 
 namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
+use Backstage\Translations\Filament\Resources\TranslationResource;
+use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Filament\Actions;
-use Illuminate\Support\Str;
-use Filament\Facades\Filament;
-use Filament\Support\Colors\Color;
-use Illuminate\Support\HtmlString;
-use Filament\Support\Enums\MaxWidth;
-use Filament\Support\Enums\Alignment;
-use Illuminate\Support\Facades\Blade;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
-use Filament\Actions\Exports\Enums\ExportFormat;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
-use Backstage\Translations\Filament\Exports\TranslationExporter;
-use Backstage\Translations\Filament\Imports\TranslationImporter;
-use Backstage\Translations\Filament\Resources\TranslationResource;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Filament\Support\Colors\Color;
+use Illuminate\Support\Str;
 
 class ListTranslations extends ListRecords
 {
@@ -45,7 +35,7 @@ class ListTranslations extends ListRecords
             Actions\Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
                 ->label(__('Translate using :type', ['type' => Str::headline(config('translations.translators.default'))]))
-                ->color(fn() => Color::Green)
+                ->color(fn () => Color::Green)
                 ->action(function () {
                     $record = config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
@@ -57,8 +47,8 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
                 })
-                ->visible(fn() => config('translations.translators.default'))
-                ->disabled(fn() => $this->getResource()::getModel()::count() === 0),
+                ->visible(fn () => config('translations.translators.default'))
+                ->disabled(fn () => $this->getResource()::getModel()::count() === 0),
         ];
     }
 }
