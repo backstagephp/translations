@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "dev-main",
+        "backstage/laravel-translations": "^0.2.2",
         "filament/filament": "^3.2",
         "ryangjchandler/filament-progress-column": "^1.0",
         "spatie/laravel-package-tools": "^1.19"
