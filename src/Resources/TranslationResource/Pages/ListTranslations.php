@@ -2,6 +2,7 @@
 
 namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
+use Backstage\Translations\Filament\Exporters\TranslationExporter;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
 use Backstage\Translations\Filament\Resources\TranslationResource;
@@ -42,7 +43,7 @@ class ListTranslations extends ListRecords
             Actions\Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
                 ->label(__('Translate using :type', ['type' => Str::headline(config('translations.translators.default'))]))
-                ->color(fn () => Color::Green)
+                ->color(fn() => Color::Green)
                 ->action(function () {
                     $record = config('backstage.translations.resources.language')::getModel()::where('code', config('app.locale'))->first();
 
@@ -54,15 +55,21 @@ class ListTranslations extends ListRecords
                         ->success()
                         ->send();
                 })
-                ->visible(fn () => config('translations.translators.default'))
-                ->disabled(fn () => $this->getResource()::getModel()::count() === 0),
+                ->visible(fn() => config('translations.translators.default'))
+                ->disabled(fn() => $this->getResource()::getModel()::count() === 0),
+
+            Actions\ExportAction::make('export_translations')
+                ->label(__('Export translations'))
+                ->exporter(TranslationExporter::class)
+                ->color(Color::Amber)
+                ->disabled(fn() => $this->getResource()::getModel()::count() === 0),
         ];
     }
 
     public function checkLanguages(): Actions\Action
     {
         return Actions\Action::make('checkLanguages')
-            ->visible(fn () => config('backstage.translations.resources.language')::getModel()::count() === 0)
+            ->visible(fn() => config('backstage.translations.resources.language')::getModel()::count() === 0)
             ->label(__('Check languages'))
             ->color(Color::Blue)
             ->modalHeading((config('app.name')))
@@ -78,7 +85,6 @@ class ListTranslations extends ListRecords
             ->closeModalByClickingAway(false)
             ->modalSubmitAction()
             ->modalSubmitActionLabel(__('Create language'))
-            ->action(fn () => redirect(CreateLanguage::getUrl()));
-
+            ->action(fn() => redirect(CreateLanguage::getUrl()));
     }
 }
