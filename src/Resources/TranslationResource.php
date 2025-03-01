@@ -2,12 +2,9 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Exports\TranslationExporter;
-use Backstage\Translations\Filament\Imports\TranslationImporter;
 use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 use Backstage\Translations\Laravel\Models\Language;
 use Backstage\Translations\Laravel\Models\Translation;
-use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
@@ -79,18 +76,14 @@ class TranslationResource extends Resource
                 Tables\Actions\ImportAction::make('import_translations')
                     ->label(__('Import translations'))
                     ->icon('heroicon-m-arrow-down-tray')
-                    ->importer(TranslationImporter::class)
+                    ->importer(config('backstage.translations.importer.class'))
                     ->color(Color::Green),
 
                 Tables\Actions\ExportAction::make('export_translations')
                     ->label(__('Export translations'))
-                    ->exporter(TranslationExporter::class)
+                    ->exporter(config('backstage.translations.exporter.class'))
                     ->icon('heroicon-m-arrow-up-tray')
                     ->color(Color::Red)
-                    ->formats([
-                        ExportFormat::Xlsx,
-                        ExportFormat::Csv,
-                    ])
                     ->disabled(fn () => static::getModel()::count() === 0),
             ])
             ->columns([

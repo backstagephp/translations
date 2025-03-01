@@ -3,7 +3,6 @@
 namespace Backstage\Translations\Filament\Exports;
 
 use Backstage\Translations\Laravel\Models\Translation;
-use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
@@ -40,8 +39,6 @@ class TranslationExporter extends Exporter
 
     public function getFormats(): array
     {
-        return [
-            ExportFormat::Xlsx,
-        ];
+        return config('backstage.translations.exporter.formats');
     }
 }
