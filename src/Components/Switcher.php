@@ -31,13 +31,15 @@ class Switcher extends Component
         if ($previousLanguage->code !== $newLanguage->code) {
             session(['language' => $newLanguage->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
 
+            app()->setLocale($newLanguage->code);
+
             Notification::make()
                 ->title(__('Language changed'))
                 ->body(__('The language has been changed from :previousLanguage to :newLanguage', ['previousLanguage' => $previousLanguage->localizedLanguageName, 'newLanguage' => $newLanguage->localizedLanguageName]))
                 ->success()
                 ->send();
 
-            return redirect()->back();
+            $this->js('window.location.reload()');
         }
     }
 
