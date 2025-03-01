@@ -3,7 +3,6 @@
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 use Backstage\Translations\Filament\Resources\LanguageResource;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
