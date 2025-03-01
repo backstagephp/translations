@@ -128,9 +128,7 @@ class TranslationResource extends Resource
                                 Language::active()
                                     ->get()
                                     ->sort()
-                                    ->groupBy(function ($language) {
-                                        return Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide');
-                                    })
+                                    ->groupBy(fn ($language) => Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide'))
                                     ->mapWithKeys(fn ($languages, $countryName) => [
                                         $countryName => $languages->mapWithKeys(fn ($language) => [
                                             $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
