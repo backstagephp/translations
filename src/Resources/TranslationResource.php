@@ -78,13 +78,13 @@ class TranslationResource extends Resource
                     ->label(__('Import translations'))
                     ->icon('heroicon-m-arrow-down-tray')
                     ->importer(config('backstage.translations.importer.class'))
-                    ->color(Color::Green),
+                    ->color(fn() => Color::Gray),
 
                 Tables\Actions\ExportAction::make('export_translations')
                     ->label(__('Export translations'))
                     ->exporter(config('backstage.translations.exporter.class'))
                     ->icon('heroicon-m-arrow-up-tray')
-                    ->color(Color::Red)
+                    ->color(fn() => Color::Gray)
                     ->disabled(fn () => static::getModel()::count() === 0),
             ])
             ->columns([
