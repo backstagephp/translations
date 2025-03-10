@@ -138,6 +138,7 @@ class TranslationResource extends Resource
                                 ->label(__('Other Translations'))
                                 ->keyLabel(__('Language'))
                                 ->addable(false)
+                                ->editableKeys(false)
                                 ->deletable(false)
                                 ->valueLabel(__('Text')),
                         ]);
