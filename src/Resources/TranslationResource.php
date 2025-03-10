@@ -78,29 +78,29 @@ class TranslationResource extends Resource
                     ->label(__('Import translations'))
                     ->icon('heroicon-m-arrow-down-tray')
                     ->importer(config('backstage.translations.importer.class'))
-                    ->color(fn() => Color::Gray),
+                    ->color(fn () => Color::Gray),
 
                 Tables\Actions\ExportAction::make('export_translations')
                     ->label(__('Export translations'))
                     ->exporter(config('backstage.translations.exporter.class'))
                     ->icon('heroicon-m-arrow-up-tray')
-                    ->color(fn() => Color::Gray)
-                    ->disabled(fn() => static::getModel()::count() === 0),
+                    ->color(fn () => Color::Gray)
+                    ->disabled(fn () => static::getModel()::count() === 0),
             ])
             ->columns([
                 Tables\Columns\IconColumn::make('code')
                     ->label('')
                     ->sortable()
-                    ->icon(fn($record): string => getCountryFlag($record->languageCode))
+                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
                     ->color('danger')
-                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
                 Tables\Columns\TextColumn::make('key')
                     ->label(__('Key'))
                     ->searchable()
                     ->width('50%')
                     ->limit(50)
-                    ->description(fn($record) => $record->group)
+                    ->description(fn ($record) => $record->group)
                     ->sortable(),
 
                 Tables\Columns\TextInputColumn::make('text')
@@ -113,16 +113,16 @@ class TranslationResource extends Resource
             ->actions([
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
-                    ->modalDescription(fn($record) => $record->key)
-                    ->modalIcon(fn($record) => getCountryFlag($record->languageCode))
+                    ->modalDescription(fn ($record) => $record->key)
+                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
                     ->modalIconColor(null)
                     ->mountUsing(function ($form, $record) {
                         $key = $record->key;
 
                         $translations = static::getModel()::where('key', $key)
                             ->get()
-                            ->filter(fn($translation) => $translation->code !== $record->code)
-                            ->mapWithKeys(fn($translation) => [$translation->code => $translation->text])
+                            ->filter(fn ($translation) => $translation->code !== $record->code)
+                            ->mapWithKeys(fn ($translation) => [$translation->code => $translation->text])
                             ->toArray();
 
                         $form->fill([
@@ -140,7 +140,7 @@ class TranslationResource extends Resource
                                 ->addable(false)
                                 ->editableKeys(false)
                                 ->deletable(false)
-                                ->visible(fn($state) => !empty($state))
+                                ->visible(fn ($state) => ! empty($state))
                                 ->view('backstage.translations::components.forms.key-value')
                                 ->hintIcon('heroicon-s-globe-alt')
                                 ->valueLabel(__('Text')),
@@ -174,9 +174,9 @@ class TranslationResource extends Resource
                                 Language::active()
                                     ->get()
                                     ->sort()
-                                    ->groupBy(fn($language) => Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide'))
-                                    ->mapWithKeys(fn($languages, $countryName) => [
-                                        $countryName => $languages->mapWithKeys(fn($language) => [
+                                    ->groupBy(fn ($language) => Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide'))
+                                    ->mapWithKeys(fn ($languages, $countryName) => [
+                                        $countryName => $languages->mapWithKeys(fn ($language) => [
                                             $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
                                         ])->toArray(),
                                     ])
