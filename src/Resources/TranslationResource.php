@@ -142,20 +142,18 @@ class TranslationResource extends Resource
                                 ->valueLabel(__('Text'))
                         ]);
                     })
-                    ->action(function ($record, $data) {
-                        $record->update([
-                            'text' => $data['text'],
-                        ]);
-
+                    ->action(function (Translation $record, $data) {
+                        $record->text = $data['text'];
+                        $record->save();
+                        
                         foreach ($data['other_translations'] as $code => $text) {
                             $translation = static::getModel()::where('key', $record->key)
                                 ->where('code', $code)
                                 ->first();
 
-                                if ($translation) {
-                                $translation->update([
-                                    'text' => $text,
-                                ]);
+                            if ($translation) {
+                                $translation->text = $text;
+                                $translation->save();
                             }
                         }
                     }),
