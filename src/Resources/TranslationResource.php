@@ -140,6 +140,8 @@ class TranslationResource extends Resource
                                 ->addable(false)
                                 ->editableKeys(false)
                                 ->deletable(false)
+                                ->view('backstage.translations::components.forms.key-value')
+                                ->hintIcon('heroicon-s-globe-alt')
                                 ->valueLabel(__('Text')),
                         ]);
                     })

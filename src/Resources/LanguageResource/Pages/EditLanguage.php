@@ -11,6 +11,11 @@ class EditLanguage extends EditRecord
 {
     protected static string $resource = LanguageResource::class;
 
+    public function mount(int | string $record): void
+    {
+        parent::mount($record);
+    }
+
     public function getTitle(): string | Htmlable
     {
         return $this->record->native ? $this->record->name . ' (' . $this->record->native . ')' : $this->record->name;
