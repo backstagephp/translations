@@ -70,8 +70,8 @@ class LanguageResource extends Resource
                     ->afterStateUpdated(function ($state, Set $set) {
                         $code = str_replace('_', '-', $state);
 
-                        $set('name', getLocalizedLanguageName($code));
-                        $set('native', getLocalizedLanguageName($code, explode('-', $code)[0]));
+                        $set('name', localized_language_name($code));
+                        $set('native', localized_language_name($code, explode('-', $code)[0]));
                     })
                     ->required(),
 

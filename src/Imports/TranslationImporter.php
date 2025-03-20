@@ -32,8 +32,8 @@ class TranslationImporter extends Importer
         if (! $language) {
             Language::create([
                 'code' => $langCode,
-                'name' => getLocalizedLanguageName($langCode),
-                'native' => getLocalizedLanguageName($langCode, explode('-', $langCode)[0]),
+                'name' => localized_language_name($langCode),
+                'native' => localized_language_name($langCode, explode('-', $langCode)[0]),
                 'active' => true,
                 'default' => false,
             ]);
