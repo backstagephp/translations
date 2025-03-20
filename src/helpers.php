@@ -2,7 +2,7 @@
 
 use Backstage\Translations\Filament\TranslationsPlugin;
 
-function getCountryFlag($code)
+function country_flag($code)
 {
     $code = explode('-', $code)[0];
 
