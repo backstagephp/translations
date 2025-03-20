@@ -4,43 +4,61 @@ namespace Backstage\Translations\Filament\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 
 class SwitchLanguageLocale
 {
     public function handle(Request $request, Closure $next): mixed
     {
-        if (filamentTranslations()->isLanguageSwitcherDisabled()) {
-            $preferredLocale = config('backstage.translations.resources.language')::getModel()::default();
+        $model = config('backstage.translations.resources.language')::getModel();
 
-            if (! $preferredLocale) {
+        if (filamentTranslations()->isLanguageSwitcherDisabled()) {
+            $preferredLanguage = $model::default();
+
+            if (! $preferredLanguage) {
                 return $next($request);
             }
 
+            $this->saveLanguageForUser($preferredLanguage);
+            $this->setLanguageInSession($preferredLanguage);
+
             app()->setLocale(
-                locale: $preferredLocale->languageCode
+                locale: $preferredLanguage->languageCode
             );
 
-            session(['language' => $preferredLocale->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
-
-            view()->share('preferredLocale', $preferredLocale);
+            view()->share('preferredLanguage', $preferredLanguage);
 
             return $next($request);
         }
 
-        $preferredLocale = config('backstage.translations.resources.language')::getModel()::where('code', session('language')['code'] ?? '')->first() ?:
-        config('backstage.translations.resources.language')::getModel()::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
-        config('backstage.translations.resources.language')::getModel()::default();
+        $preferredLanguage = $model::where('code', session('language')['code'] ?? '')->first() ?:
+            $model::find(auth()->user()->locale) ?:
+            $model::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
+            $model::default();
 
-        if ($preferredLocale) {
-            session(['language' => $preferredLocale->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
+        if ($preferredLanguage) {
+            $this->saveLanguageForUser($preferredLanguage);
+            $this->setLanguageInSession($preferredLanguage);
 
             app()->setLocale(
-                locale: $preferredLocale->languageCode
+                locale: $preferredLanguage->languageCode
             );
 
-            view()->share('preferredLocale', $preferredLocale);
+            view()->share('preferredLanguage', $preferredLanguage);
         }
 
         return $next($request);
+    }
+
+    public function setLanguageInSession(Model $language): void
+    {
+        session(['language' => $language->only('code', 'name', 'native', 'localizedLanguageName', 'localizedCountryName')]);
+    }
+
+    public function saveLanguageForUser(Model $language): void
+    {
+        if(auth()->user()->hasAttribute('locale')) {
+            auth()->user()->update(['locale' => $language->code]);
+        }
     }
 }
