@@ -3,8 +3,8 @@
 namespace Backstage\Translations\Filament\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class SwitchLanguageLocale
 {
@@ -57,7 +57,7 @@ class SwitchLanguageLocale
 
     public function saveLanguageForUser(Model $language): void
     {
-        if(auth()->user()->hasAttribute('locale')) {
+        if (auth()->user()->hasAttribute('locale')) {
             auth()->user()->update(['locale' => $language->code]);
         }
     }
