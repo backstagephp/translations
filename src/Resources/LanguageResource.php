@@ -63,7 +63,7 @@ class LanguageResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
                     ->prefixIconColor('gray')
-                    ->prefixIcon(fn ($state): ?string => $state ? getCountryFlag($state) : 'heroicon-s-globe-alt')
+                    ->prefixIcon(fn ($state): ?string => $state ? country_flag($state) : 'heroicon-s-globe-alt')
                     ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
                     ->live(debounce: 250)
                     ->columnSpan(2)
@@ -132,7 +132,7 @@ class LanguageResource extends Resource
                     ->label('')
                     ->width(1)
                     ->getStateUsing(fn () => true)
-                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
+                    ->icon(fn ($record): string => country_flag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
                     ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
@@ -224,7 +224,7 @@ class LanguageResource extends Resource
                     ->modal()
                     ->modalHeading(__('Edit Language'))
                     ->modalDescription(fn ($record) => $record->key)
-                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
+                    ->modalIcon(fn ($record) => country_flag($record->languageCode))
                     ->modalIconColor(null),
             ]);
     }
