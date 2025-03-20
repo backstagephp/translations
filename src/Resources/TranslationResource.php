@@ -177,7 +177,7 @@ class TranslationResource extends Resource
                                     ->groupBy(fn ($language) => Str::contains($language->code, '-') ? localized_country_name($language->code) : __('Worldwide'))
                                     ->mapWithKeys(fn ($languages, $countryName) => [
                                         $countryName => $languages->mapWithKeys(fn ($language) => [
-                                            $language->code => Blade::render('<x-filament::icon :icon="country_flag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
+                                            $language->code => Blade::render('<x-filament::icon :icon="country_flag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . localized_language_name($language->code) . ' (' . $countryName . ')',
                                         ])->toArray(),
                                     ])
                             )
