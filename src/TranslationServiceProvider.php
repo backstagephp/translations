@@ -38,6 +38,7 @@ class TranslationServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
         }
+
     }
 
     public function packageBooted(): void
@@ -88,7 +89,8 @@ class TranslationServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            Css::make('filament-progress-column-styles', __DIR__ . '/../resources/dist/filament-progress-column.css'),
+            Css::make('backstage-progress-column-styles', __DIR__ . '/../resources/dist/filament-progress-column.css'),
+            Css::make('backstage-translations-styles', __DIR__ . '/../resources/dist/backstage-translations.css'),
         ];
     }
 

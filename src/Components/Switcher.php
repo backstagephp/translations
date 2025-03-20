@@ -4,8 +4,6 @@ namespace Backstage\Translations\Filament\Components;
 
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Filament\Notifications\Notification;
-use Filament\Notifications\Livewire\Notifications;
-use Filament\Support\Enums\VerticalAlignment;
 use Livewire\Component;
 
 class Switcher extends Component

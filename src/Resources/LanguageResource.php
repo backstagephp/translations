@@ -96,13 +96,6 @@ class LanguageResource extends Resource
                     ->default(false)
                     ->inline()
                     ->required(),
-
-                Forms\Components\Checkbox::make('translate_after_creation')
-                    ->label(__('Translate after creation'))
-                    ->default(true)
-                    ->columnSpan(12)
-                    ->helperText(__('This is translate all the keys after automatically scanning the project for translation keys.'))
-                    ->visibleOn('create'),
             ])
             ->columns(12);
     }
