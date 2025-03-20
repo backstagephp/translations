@@ -91,7 +91,7 @@ class TranslationResource extends Resource
                 Tables\Columns\IconColumn::make('code')
                     ->label('')
                     ->sortable()
-                    ->icon(fn ($record): string => getCountryFlag($record->languageCode))
+                    ->icon(fn ($record): string => country_flag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
 
@@ -114,7 +114,7 @@ class TranslationResource extends Resource
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
                     ->modalDescription(fn ($record) => $record->key)
-                    ->modalIcon(fn ($record) => getCountryFlag($record->languageCode))
+                    ->modalIcon(fn ($record) => country_flag($record->languageCode))
                     ->modalIconColor(null)
                     ->mountUsing(function ($form, $record) {
                         $key = $record->key;
@@ -177,7 +177,7 @@ class TranslationResource extends Resource
                                     ->groupBy(fn ($language) => Str::contains($language->code, '-') ? getLocalizedCountryName($language->code) : __('Worldwide'))
                                     ->mapWithKeys(fn ($languages, $countryName) => [
                                         $countryName => $languages->mapWithKeys(fn ($language) => [
-                                            $language->code => Blade::render('<x-filament::icon :icon="getCountryFlag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
+                                            $language->code => Blade::render('<x-filament::icon :icon="country_flag(\'' . $language->languageCode . '\')" class="w-5" style="position: relative; top: -1px; margin-right: 3px; display: inline-block;" />') . getLocalizedLanguageName($language->code) . ' (' . $countryName . ')',
                                         ])->toArray(),
                                     ])
                             )
