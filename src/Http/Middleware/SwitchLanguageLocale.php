@@ -32,7 +32,7 @@ class SwitchLanguageLocale
         }
 
         $preferredLanguage = $model::where('code', session('language')['code'] ?? '')->first() ?:
-            $model::find(auth()->user()->locale) ?:
+            $model::find(auth()->user()?->locale) ?:
             $model::where('code', str_replace('_', '-', (string) request()->getPreferredLanguage()))->first() ?:
             $model::default();
 
