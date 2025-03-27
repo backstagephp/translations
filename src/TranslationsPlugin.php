@@ -39,7 +39,7 @@ class TranslationsPlugin implements Plugin
         if (! $this->isLanguageSwitcherDisabled()) {
             $panel->renderHook(
                 PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-                fn(): string => Blade::render('@livewire(\'backstage.translations::switcher\')'),
+                fn (): string => Blade::render('@livewire(\'backstage.translations::switcher\')'),
             );
         }
 
