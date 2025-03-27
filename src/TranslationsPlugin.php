@@ -20,6 +20,8 @@ class TranslationsPlugin implements Plugin
 
     protected bool | Closure $userCanDisableLanguageSwitcher = false;
 
+    protected bool | Closure $userCanManageTranslations = true;
+
     public function getId(): string
     {
         return 'translations';
@@ -37,7 +39,7 @@ class TranslationsPlugin implements Plugin
         if (! $this->isLanguageSwitcherDisabled()) {
             $panel->renderHook(
                 PanelsRenderHook::GLOBAL_SEARCH_AFTER,
-                fn (): string => Blade::render('@livewire(\'backstage.translations::switcher\')'),
+                fn(): string => Blade::render('@livewire(\'backstage.translations::switcher\')'),
             );
         }
 
@@ -87,5 +89,17 @@ class TranslationsPlugin implements Plugin
     public function isLanguageSwitcherDisabled(): bool
     {
         return $this->evaluate($this->languageSwitcherDisabled);
+    }
+
+    public function canManageTranslations(bool | Closure $userCanManageTranslations = true): static
+    {
+        $this->userCanManageTranslations = $userCanManageTranslations;
+
+        return $this;
+    }
+
+    public function userCanManageTranslations(): bool
+    {
+        return $this->evaluate($this->userCanManageTranslations);
     }
 }

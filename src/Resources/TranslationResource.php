@@ -2,22 +2,23 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
-use Backstage\Translations\Laravel\Models\Language;
-use Backstage\Translations\Laravel\Models\Translation;
-use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
+use Filament\Tables;
 use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
-use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Filters\Filter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Str;
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Actions\EditAction;
+use Illuminate\Database\Eloquent\Builder;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\Translations\Laravel\Models\Translation;
+use Backstage\Translations\Filament\TranslationsPlugin;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 
 class TranslationResource extends Resource
 {
@@ -27,6 +28,11 @@ class TranslationResource extends Resource
 
     protected static bool $isScopedToTenant = false;
 
+    public static function canAccess(): bool
+    {
+        return TranslationsPlugin::get()->userCanManageTranslations();
+    }
+    
     public static function getNavigationParentItem(): ?string
     {
         return config('backstage.translations.resources.language')::getNavigationLabel();
