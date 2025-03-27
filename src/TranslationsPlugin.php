@@ -27,7 +27,7 @@ class TranslationsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->middleware([SwitchLanguageLocale::class]);
+        $panel->authMiddleware([SwitchLanguageLocale::class]);
 
         $panel->resources([
             config('backstage.translations.resources.language', \Backstage\Translations\Filament\Resources\LanguageResource::class),
