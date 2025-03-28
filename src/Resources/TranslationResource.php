@@ -3,6 +3,7 @@
 namespace Backstage\Translations\Filament\Resources;
 
 use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Backstage\Translations\Filament\TranslationsPlugin;
 use Backstage\Translations\Laravel\Models\Language;
 use Backstage\Translations\Laravel\Models\Translation;
 use Filament\Forms\Components\KeyValue;
@@ -26,6 +27,11 @@ class TranslationResource extends Resource
     protected static ?string $slug = 'translations';
 
     protected static bool $isScopedToTenant = false;
+
+    public static function canAccess(): bool
+    {
+        return TranslationsPlugin::get()->userCanManageTranslations();
+    }
 
     public static function getNavigationParentItem(): ?string
     {
