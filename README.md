@@ -64,6 +64,17 @@ $panel
     ]);
 ```
 
+If you want to show only the language switcher in a panel, you can set the `canManageTranslations` to `false`:
+
+ ```php
+use Backstage\Translations\Filament\TranslationsPlugin;
+
+$panel
+    ->plugins([
+        TranslationsPlugin::make()
+            ->canManageTranslations(false),
+    ]);
+```
 
 ## Testing
 
