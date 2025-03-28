@@ -72,7 +72,7 @@ use Backstage\Translations\Filament\TranslationsPlugin;
 $panel
     ->plugins([
         TranslationsPlugin::make()
-            ->canManageTranslations(false),
+            ->userCanManageTranslations(false),
     ]);
 ```
 

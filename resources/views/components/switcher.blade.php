@@ -19,7 +19,7 @@
                     </x-filament::dropdown.list.item>
                 @endforeach
 
-                @if(filamentTranslations()->canManageTranslations())
+                @if(filamentTranslations()->userCanManageTranslations())
                 <x-filament::dropdown.list.item wire:click="list" class="mt-3">
                     <div class="flex gap-3 truncate filament-dropdown-list-item-label text-start justify-content-start">
                         <div>
