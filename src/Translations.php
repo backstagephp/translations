@@ -2,15 +2,13 @@
 
 namespace Backstage\Translations\Filament;
 
-use Filament\Forms\Set;
-use Filament\Forms\Components\Field;
-use Filament\Notifications\Notification;
-use Filament\Forms\Components\Actions\Action;
 use Backstage\Translations\Laravel\Facades\Translator;
-use Backstage\Translations\Laravel\Managers\TranslatorManager;
 use Backstage\Translations\Laravel\Models\Language;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\App;
+use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 
 class Translations
 {
@@ -31,12 +29,12 @@ class Translations
                             Select::make('language')
                                 ->label(__('Language'))
                                 ->helperText(__('Select the language to translate to'))
-                                ->options(Language::active()->get()->pluck('native', 'code'))
+                                ->options(Language::active()->get()->pluck('native', 'code')),
                         ])
                         ->visible(function ($get, Field $component) {
                             return $get($component->getName()) !== null;
                         })
-                        ->action(function ($get, Field  $component, $data) {
+                        ->action(function ($get, Field $component, $data) {
                             $stringToTranslate = $get($component->getName());
 
                             $translator = Translator::with(config('translations.translators.default'));
