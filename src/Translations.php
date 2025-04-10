@@ -33,6 +33,9 @@ class Translations
                                 ->helperText(__('Select the language to translate to'))
                                 ->options(Language::active()->get()->pluck('native', 'code'))
                         ])
+                        ->visible(function ($get, Field $component) {
+                            return $get($component->getName()) !== null;
+                        })
                         ->action(function ($get, Field  $component, $data) {
                             $stringToTranslate = $get($component->getName());
 
