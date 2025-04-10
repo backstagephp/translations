@@ -69,8 +69,8 @@ class LanguageResource extends Resource
                 Forms\Components\TextInput::make('code')
                     ->label(__('Code'))
                     ->prefixIconColor('gray')
-                    ->prefixIcon(fn ($state): ?string => $state ? country_flag($state) : 'heroicon-s-globe-alt')
-                    ->unique(fn () => (new (static::getModel()))->getTable(), fn ($component) => $component->getName(), null, true)
+                    ->prefixIcon(fn($state): ?string => $state ? country_flag($state) : 'heroicon-s-globe-alt')
+                    ->unique(fn() => (new (static::getModel()))->getTable(), fn($component) => $component->getName(), null, true)
                     ->live(debounce: 250)
                     ->columnSpan(2)
                     ->afterStateUpdated(function ($state, Set $set) {
@@ -130,11 +130,11 @@ class LanguageResource extends Resource
                 Tables\Columns\IconColumn::make('flag')
                     ->label('')
                     ->width(1)
-                    ->getStateUsing(fn () => true)
-                    ->icon(fn ($record): string => country_flag($record->languageCode))
+                    ->getStateUsing(fn() => true)
+                    ->icon(fn($record): string => country_flag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->size(fn() => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
+                    ->url(fn(Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -144,14 +144,14 @@ class LanguageResource extends Resource
                     ->label(__('Active'))
                     ->boolean()
                     ->alignCenter()
-                    ->action(fn ($record) => $record->update(['active' => ! $record->active])),
+                    ->action(fn($record) => $record->update(['active' => ! $record->active])),
 
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
                     ->separator('')
-                    ->description(fn ($record) => $record->code)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->description(fn($record) => $record->code)
+                    ->url(fn(Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -160,14 +160,15 @@ class LanguageResource extends Resource
                     ->label(__('Country'))
                     ->searchable()
                     ->sortable()
-                    ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->description(fn($record) => explode('-', $record->code)[1] ?? '')
+                    ->url(fn(Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ]))
-                    ->visible(fn () => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
+                    ->visible(fn() => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
 
                 Tables\Columns\IconColumn::make('default')
+                    ->tooltip(__('This "default" setting is ignored if the Language Switcher is being used.'))
                     ->label(__('Default'))
                     ->width(1)
                     ->alignCenter()
@@ -192,10 +193,10 @@ class LanguageResource extends Resource
                     ->label('Translated')
                     ->width('25%')
                     ->alignRight()
-                    ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
-                    ->progress(fn ($record) => $percentage($record))
-                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->poll(fn($record) => $percentage($record) < 100 ? '1s' : null)
+                    ->progress(fn($record) => $percentage($record))
+                    ->color(fn($record) => $percentage($record) == 100 ? 'success' : 'danger')
+                    ->url(fn(Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -222,8 +223,8 @@ class LanguageResource extends Resource
                 EditAction::make()
                     ->modal()
                     ->modalHeading(__('Edit Language'))
-                    ->modalDescription(fn ($record) => $record->key)
-                    ->modalIcon(fn ($record) => country_flag($record->languageCode))
+                    ->modalDescription(fn($record) => $record->key)
+                    ->modalIcon(fn($record) => country_flag($record->languageCode))
                     ->modalIconColor(null),
             ]);
     }
