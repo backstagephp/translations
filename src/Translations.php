@@ -30,6 +30,7 @@ class Translations
                         ->form([
                             Select::make('language')
                                 ->label(__('Language'))
+                                ->helperText(__('Select the language to translate to'))
                                 ->options(Language::active()->get()->pluck('native', 'code'))
                         ])
                         ->action(function ($get, Field  $component, $data) {
