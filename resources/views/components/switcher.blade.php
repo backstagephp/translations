@@ -1,6 +1,6 @@
 <div>
     @if(count($languages))
-        <x-filament::dropdown placement="bottom-start">
+        <x-filament::dropdown placement="bottom-start" teleport>
             <x-slot name="trigger">
                 <x-filament::icon :icon="country_flag($currentLanguage->languageCode)" class="w-6 h-auto" />
             </x-slot>
