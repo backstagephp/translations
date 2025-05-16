@@ -82,6 +82,13 @@
             }
         }
     },
+    "repositories": {
+        "ryangjchandler/filament-progress-column": {
+            "type": "vcs",
+            "url": "git@github.com:Sicklou/filament-progress-column.git"
+        
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": false
 }
