@@ -189,18 +189,6 @@ class LanguageResource extends Resource
                         return redirect(request()->header('Referer'));
                     }),
 
-                \RyanChandler\FilamentProgressColumn\ProgressColumn::make('translated')
-                    ->label('Translated')
-                    ->width('25%')
-                    ->alignRight()
-                    ->poll(fn ($record) => $percentage($record) < 100 ? '1s' : null)
-                    ->progress(fn ($record) => $percentage($record))
-                    ->color(fn ($record) => $percentage($record) == 100 ? 'success' : 'danger')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
-                        'tenant' => Filament::getTenant(),
-                        'tableFilters[language][code]' => [$record->code],
-                    ])),
-
                 Tables\Columns\TextColumn::make('native')
                     ->searchable()
                     ->visible(false),

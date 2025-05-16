@@ -29,7 +29,6 @@
         "php": "^8.2",
         "backstage/laravel-translations": "^0.2.11",
         "filament/filament": "^3",
-        "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "^1.19"
     },
     "require-dev": {
@@ -80,12 +79,6 @@
             "aliases": {
                 "Translations": "Backstage\\Translations\\Filament\\Facades\\Translations"
             }
-        }
-    },
-    "repositories": {
-        "filament-progress-column": {
-            "type": "vcs",
-            "url": "git@github.com:Sicklou/filament-progress-column.git"
         }
     },
     "minimum-stability": "dev",

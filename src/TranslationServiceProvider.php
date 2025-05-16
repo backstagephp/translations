@@ -89,7 +89,6 @@ class TranslationServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            Css::make('backstage-progress-column-styles', __DIR__ . '/../resources/dist/filament-progress-column.css'),
             Css::make('backstage-translations-styles', __DIR__ . '/../resources/dist/backstage-translations.css'),
         ];
     }
