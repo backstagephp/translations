@@ -29,7 +29,7 @@
         "php": "^8.2",
         "backstage/laravel-translations": "^0.2.11",
         "filament/filament": "^3.2",
-        "ryangjchandler/filament-progress-column": "^1.0",
+        "ryangjchandler/filament-progress-column": "*",
         "spatie/laravel-package-tools": "^1.19"
     },
     "require-dev": {
