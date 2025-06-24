@@ -2,6 +2,8 @@
 
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
+use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
 use Filament\Actions;
@@ -16,7 +18,7 @@ class ListLanguages extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('scan')
+            Action::make('scan')
                 ->label(__('Scan'))
                 ->color(Color::Blue)
                 ->action(function () {
@@ -30,7 +32,7 @@ class ListLanguages extends ListRecords
                 })
                 ->icon('heroicon-o-arrow-path'),
 
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

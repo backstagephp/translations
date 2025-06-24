@@ -2,12 +2,12 @@
 
 namespace Backstage\Translations\Filament;
 
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Actions\Action;
 use Backstage\Translations\Laravel\Facades\Translator;
 use Backstage\Translations\Laravel\Models\Language;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Set;
 use Filament\Notifications\Notification;
 
 class Translations
@@ -27,7 +27,7 @@ class Translations
                             'x-show' => 'focused || hover',
                             'x-cloak' => '',
                         ] : [])
-                        ->form([
+                        ->schema([
                             Select::make('language')
                                 ->label(__('Language'))
                                 ->helperText(__('Select the language to translate to'))

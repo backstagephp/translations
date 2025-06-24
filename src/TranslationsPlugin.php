@@ -2,6 +2,8 @@
 
 namespace Backstage\Translations\Filament;
 
+use Backstage\Translations\Filament\Resources\LanguageResource;
+use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Filament\Http\Middleware\SwitchLanguageLocale;
 use Closure;
 use Filament\Contracts\Plugin;
@@ -32,8 +34,8 @@ class TranslationsPlugin implements Plugin
         $panel->authMiddleware([SwitchLanguageLocale::class]);
 
         $panel->resources([
-            config('backstage.translations.resources.language', \Backstage\Translations\Filament\Resources\LanguageResource::class),
-            config('backstage.translations.resources.translation', \Backstage\Translations\Filament\Resources\TranslationResource::class),
+            config('backstage.translations.resources.language', LanguageResource::class),
+            config('backstage.translations.resources.translation', TranslationResource::class),
         ]);
 
         if (! $this->isLanguageSwitcherDisabled()) {
