@@ -2,9 +2,9 @@
 
 namespace Backstage\Translations\Filament;
 
+use Backstage\Translations\Filament\Http\Middleware\SwitchLanguageLocale;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Filament\Resources\TranslationResource;
-use Backstage\Translations\Filament\Http\Middleware\SwitchLanguageLocale;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Forms\Components\Select;

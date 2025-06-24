@@ -2,26 +2,23 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Support\Enums\IconSize;
-use Filament\Actions\Action;
-use Filament\Actions\EditAction;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\EditLanguage;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Backstage\Translations\Filament\TranslationsPlugin;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Facades\Filament;
-use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\IconSize;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;

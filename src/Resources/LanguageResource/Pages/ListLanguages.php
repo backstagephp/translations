@@ -2,11 +2,10 @@
 
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
-use Filament\Actions\Action;
-use Filament\Actions\CreateAction;
 use Backstage\Translations\Filament\Resources\LanguageResource;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
-use Filament\Actions;
+use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Colors\Color;
