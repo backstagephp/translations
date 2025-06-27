@@ -2,18 +2,26 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\TranslationResource\Pages;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages\CreateTranslation;
+use Backstage\Translations\Filament\Resources\TranslationResource\Pages\ListTranslations;
 use Backstage\Translations\Filament\TranslationsPlugin;
 use Backstage\Translations\Laravel\Models\Language;
 use Backstage\Translations\Laravel\Models\Translation;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
-use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
+use Filament\Support\Enums\IconSize;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -63,10 +71,10 @@ class TranslationResource extends Resource
         return __('Translations');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 TextArea::make('text')
                     ->label(__('Text'))
                     ->autosize()
@@ -80,13 +88,13 @@ class TranslationResource extends Resource
     {
         return $table
             ->headerActions([
-                Tables\Actions\ImportAction::make('import_translations')
+                ImportAction::make('import_translations')
                     ->label(__('Import translations'))
                     ->icon('heroicon-m-arrow-down-tray')
                     ->importer(config('backstage.translations.importer.class'))
                     ->color(fn () => Color::Gray),
 
-                Tables\Actions\ExportAction::make('export_translations')
+                ExportAction::make('export_translations')
                     ->label(__('Export translations'))
                     ->exporter(config('backstage.translations.exporter.class'))
                     ->icon('heroicon-m-arrow-up-tray')
@@ -94,14 +102,14 @@ class TranslationResource extends Resource
                     ->disabled(fn () => static::getModel()::count() === 0),
             ])
             ->columns([
-                Tables\Columns\IconColumn::make('code')
+                IconColumn::make('code')
                     ->label('')
                     ->sortable()
                     ->icon(fn ($record): string => country_flag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge),
+                    ->size(fn () => IconSize::TwoExtraLarge),
 
-                Tables\Columns\TextColumn::make('key')
+                TextColumn::make('key')
                     ->label(__('Key'))
                     ->searchable()
                     ->width('50%')
@@ -109,14 +117,14 @@ class TranslationResource extends Resource
                     ->description(fn ($record) => $record->group)
                     ->sortable(),
 
-                Tables\Columns\TextInputColumn::make('text')
+                TextInputColumn::make('text')
                     ->label(__('Text'))
                     ->searchable()
                     ->width('50%')
                     ->sortable()
                     ->translated(),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make()
                     ->modalHeading(__('Edit Translation'))
                     ->modalDescription(fn ($record) => $record->key)
@@ -136,9 +144,9 @@ class TranslationResource extends Resource
                             'other_translations' => $translations,
                         ]);
                     })
-                    ->form(function (Form $form) {
-                        return $form->components([
-                            TranslationResource::form($form)->getComponents()[0],
+                    ->schema(function (Schema $schema) {
+                        return $schema->components([
+                            TranslationResource::form($schema)->getComponents()[0],
 
                             KeyValue::make('other_translations')
                                 ->label(__('Other Translations'))
@@ -172,7 +180,7 @@ class TranslationResource extends Resource
                 Filter::make('language')
                     ->label(__('Language'))
                     ->default(null)
-                    ->form([
+                    ->schema([
                         Select::make('code')
                             ->nullable()
                             ->placeholder(__('Select language...'))
@@ -202,7 +210,7 @@ class TranslationResource extends Resource
                 Filter::make('translated_at')
                     ->label(__('Translated'))
                     ->default(null)
-                    ->form([
+                    ->schema([
                         Select::make('translated_at')
                             ->nullable()
                             ->placeholder(__('Select...'))
@@ -230,9 +238,9 @@ class TranslationResource extends Resource
                         }
                     }),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -240,8 +248,8 @@ class TranslationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTranslations::route('/'),
-            'create' => Pages\CreateTranslation::route('/create'),
+            'index' => ListTranslations::route('/'),
+            'create' => CreateTranslation::route('/create'),
         ];
     }
 }
