@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "^0.2.11",
+        "backstage/laravel-translations": "dev-feature/morph-translations",
         "filament/filament": ">=3.0",
         "spatie/laravel-package-tools": "^1.19"
     },
@@ -68,6 +68,7 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
             "phpstan/extension-installer": true
         }
     },
