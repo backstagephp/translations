@@ -3,7 +3,7 @@
 namespace Backstage\Translations\Filament\Resources\LanguageResource\Pages;
 
 use Backstage\Translations\Filament\Resources\LanguageResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -24,7 +24,7 @@ class EditLanguage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 

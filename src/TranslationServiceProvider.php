@@ -2,6 +2,7 @@
 
 namespace Backstage\Translations\Filament;
 
+use Backstage\Translations\Filament\Components\Switcher;
 use Backstage\Translations\Filament\Testing\TestsFilamentTranslations;
 use BladeUI\Icons\Factory;
 use Filament\Support\Assets\Css;
@@ -67,7 +68,7 @@ class TranslationServiceProvider extends PackageServiceProvider
 
         require_once __DIR__ . '/helpers.php';
 
-        Livewire::component('backstage.translations::switcher', \Backstage\Translations\Filament\Components\Switcher::class);
+        Livewire::component('backstage.translations::switcher', Switcher::class);
     }
 
     public function packageRegistered()
