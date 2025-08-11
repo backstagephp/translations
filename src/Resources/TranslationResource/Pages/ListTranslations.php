@@ -5,7 +5,7 @@ namespace Backstage\Translations\Filament\Resources\TranslationResource\Pages;
 use Backstage\Translations\Filament\Resources\TranslationResource;
 use Backstage\Translations\Laravel\Jobs\ScanTranslationStrings;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Colors\Color;
@@ -18,7 +18,7 @@ class ListTranslations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('scan')
+            Action::make('scan')
                 ->label(__('Scan'))
                 ->color(Color::Blue)
                 ->action(function () {
@@ -32,7 +32,7 @@ class ListTranslations extends ListRecords
                 })
                 ->icon('heroicon-o-arrow-path'),
 
-            Actions\Action::make('translate')
+            Action::make('translate')
                 ->icon($this->getResource()::getNavigationIcon())
                 ->label(__('Translate using :type', ['type' => Str::headline(config('translations.translators.default'))]))
                 ->color(fn () => Color::Green)
