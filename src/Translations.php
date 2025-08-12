@@ -14,7 +14,11 @@ class Translations
 {
     public static function registerMacro(): void
     {
-        Field::macro('canTranslate', function ($hint = true) {
+        Field::macro('canTranslate', function ($enabled = true, $hint = true) {
+            if (! $enabled) {
+                return $this;
+            }
+
             $this->live();
 
             return $this->{$hint ? 'hintAction' : 'suffixAction'}(
