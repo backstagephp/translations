@@ -90,7 +90,7 @@ class TranslationServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            Css::make('backstage-translations-styles', __DIR__ . '/../resources/dist/backstage-translations.css'),
+            // Css::make('backstage-translations-styles', __DIR__ . '/../resources/dist/backstage-translations.css'),
         ];
     }
 
