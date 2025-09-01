@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "dev-feature/morph-translations",
+        "backstage/laravel-translations": "dev-feature/morph-translations-operational-translations",
         "filament/filament": ">=4.0",
         "spatie/laravel-package-tools": "^1.19"
     },
@@ -82,6 +82,6 @@
             }
         }
     },
-    "minimum-stability": "beta",
-    "prefer-stable": false
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
