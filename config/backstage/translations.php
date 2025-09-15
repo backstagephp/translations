@@ -8,6 +8,11 @@ return [
         'translation' => Backstage\Translations\Filament\Resources\TranslationResource::class,
     ],
 
+    'resources-cluster' => [
+        'language' => null,
+        'translation' => null,
+    ],
+
     'navigation' => [
         // If null, default of __('Translations') will be used
         'group' => null,

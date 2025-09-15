@@ -32,6 +32,11 @@ class LanguageResource extends Resource
 
     protected static bool $isScopedToTenant = false;
 
+    public static function getCluster(): ?string
+    {
+        return config('backstage.translations.resources-cluster.language');
+    }
+    
     public static function canAccess(): bool
     {
         return TranslationsPlugin::get()->userCanManageTranslations();
@@ -139,7 +144,7 @@ class LanguageResource extends Resource
                     ->icon(fn ($record): string => country_flag($record->languageCode))
                     ->color('danger')
                     ->size(fn () => IconSize::TwoExtraLarge)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentOrDefaultPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -156,7 +161,7 @@ class LanguageResource extends Resource
                     ->sortable()
                     ->separator('')
                     ->description(fn ($record) => $record->code)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentOrDefaultPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -166,7 +171,7 @@ class LanguageResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentOrDefaultPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ]))
