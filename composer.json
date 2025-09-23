@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "^0.2.11",
+        "backstage/laravel-translations": "^0.3",
         "filament/filament": ">=3.0",
         "spatie/laravel-package-tools": "^1.19"
     },
