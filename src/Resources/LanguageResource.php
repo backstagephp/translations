@@ -2,18 +2,23 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\EditLanguage;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
 use Backstage\Translations\Filament\TranslationsPlugin;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Facades\Filament;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\IconSize;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,6 +31,11 @@ class LanguageResource extends Resource
     protected static ?string $slug = 'languages/translations';
 
     protected static bool $isScopedToTenant = false;
+
+    public static function getCluster(): ?string
+    {
+        return config('backstage.translations.resources-cluster.language');
+    }
 
     public static function canAccess(): bool
     {
@@ -62,11 +72,11 @@ class LanguageResource extends Resource
         return parent::getEloquentQuery();
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
+        return $schema
+            ->components([
+                TextInput::make('code')
                     ->label(__('Code'))
                     ->prefixIconColor('gray')
                     ->prefixIcon(fn ($state): ?string => $state ? country_flag($state) : 'heroicon-s-globe-alt')
@@ -81,23 +91,23 @@ class LanguageResource extends Resource
                     })
                     ->required(),
 
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label(__('Name'))
                     ->columnSpan(5)
                     ->required(),
 
-                Forms\Components\TextInput::make('native')
+                TextInput::make('native')
                     ->label(__('Native'))
                     ->columnSpan(5)
                     ->required(),
 
-                Forms\Components\Toggle::make('active')
+                Toggle::make('active')
                     ->label(__('Active'))
                     ->columnSpan(2)
                     ->default(true)
                     ->required(),
 
-                Forms\Components\Toggle::make('default')
+                Toggle::make('default')
                     ->label(__('Default'))
                     ->default(false)
                     ->inline()
@@ -127,19 +137,19 @@ class LanguageResource extends Resource
 
         return $table
             ->columns([
-                Tables\Columns\IconColumn::make('flag')
+                IconColumn::make('flag')
                     ->label('')
                     ->width(1)
                     ->getStateUsing(fn () => true)
                     ->icon(fn ($record): string => country_flag($record->languageCode))
                     ->color('danger')
-                    ->size(fn () => Tables\Columns\IconColumn\IconColumnSize::TwoExtraLarge)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->size(fn () => IconSize::TwoExtraLarge)
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
 
-                Tables\Columns\IconColumn::make('active')
+                IconColumn::make('active')
                     ->width(1)
                     ->label(__('Active'))
                     ->boolean()
@@ -151,7 +161,7 @@ class LanguageResource extends Resource
                     ->sortable()
                     ->separator('')
                     ->description(fn ($record) => $record->code)
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ])),
@@ -161,13 +171,13 @@ class LanguageResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->description(fn ($record) => explode('-', $record->code)[1] ?? '')
-                    ->url(fn (Language $record) => route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.translations.index', [
+                    ->url(fn (Language $record) => TranslationResource::getUrl('index', [
                         'tenant' => Filament::getTenant(),
                         'tableFilters[language][code]' => [$record->code],
                     ]))
                     ->visible(fn () => Language::active()->where('code', 'LIKE', '%-%')->distinct(DB::raw('SUBSTRING_INDEX(code, "-", -1)'))->count() > 1),
 
-                Tables\Columns\IconColumn::make('default')
+                IconColumn::make('default')
                     ->tooltip(__('This "default" setting is ignored if the Language Switcher is being used.'))
                     ->label(__('Default'))
                     ->width(1)
@@ -189,12 +199,12 @@ class LanguageResource extends Resource
                         return redirect(request()->header('Referer'));
                     }),
 
-                Tables\Columns\TextColumn::make('native')
+                TextColumn::make('native')
                     ->searchable()
                     ->visible(false),
             ])
-            ->actions([
-                Tables\Actions\Action::make('translate')
+            ->recordActions([
+                Action::make('translate')
                     ->icon('heroicon-o-arrow-path')
                     ->label(__('Translate'))
                     ->action(function ($record) {
@@ -227,9 +237,9 @@ class LanguageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLanguages::route('/'),
-            'create' => Pages\CreateLanguage::route('/create'),
-            'edit' => Pages\EditLanguage::route('/{record}/edit'),
+            'index' => ListLanguages::route('/'),
+            'create' => CreateLanguage::route('/create'),
+            'edit' => EditLanguage::route('/{record}/edit'),
         ];
     }
 }
