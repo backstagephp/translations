@@ -36,6 +36,11 @@ class TranslationResource extends Resource
 
     protected static bool $isScopedToTenant = false;
 
+    public static function getCluster(): ?string
+    {
+        return config('backstage.translations.resources-cluster.translation');
+    }
+
     public static function canAccess(): bool
     {
         return TranslationsPlugin::get()->userCanManageTranslations();
