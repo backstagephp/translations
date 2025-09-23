@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "php",
+            "args": [
+                "vendor/orchestra/testbench-core/laravel/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
