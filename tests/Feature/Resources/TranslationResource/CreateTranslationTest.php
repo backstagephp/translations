@@ -14,7 +14,7 @@ it('can create a translation', function () {
         'active' => true,
         'default' => false,
     ]);
-    
+
     $translationData = [
         'text' => 'Welcome to our application',
     ];
@@ -37,7 +37,7 @@ it('validates required text field', function () {
         ->call('create')
         ->assertHasNoFormErrors();
 
-    });
+});
 
 it('can create translation with multiline text', function () {
     $language = Language::create([

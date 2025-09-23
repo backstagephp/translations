@@ -2,26 +2,26 @@
 
 namespace Backstage\Translations\Filament\Tests;
 
+use Backstage\Translations\Filament\Tests\Filament\AdminPanelProvider;
+use Backstage\Translations\Filament\TranslationServiceProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Forms\FormsServiceProvider;
+use Filament\Infolists\InfolistsServiceProvider;
+use Filament\Notifications\NotificationsServiceProvider;
+use Filament\Support\SupportServiceProvider;
+use Filament\Tables\TablesServiceProvider;
+use Filament\Widgets\WidgetsServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Filament\FilamentServiceProvider;
 use Livewire\LivewireServiceProvider;
-use Filament\Forms\FormsServiceProvider;
-use Filament\Tables\TablesServiceProvider;
-use Filament\Support\SupportServiceProvider;
-use Filament\Widgets\WidgetsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Filament\Infolists\InfolistsServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Filament\Notifications\NotificationsServiceProvider;
-use Backstage\Translations\Filament\TranslationServiceProvider;
-use Backstage\Translations\Filament\Tests\Filament\AdminPanelProvider;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 
 class TestCase extends Orchestra
 {
     use RefreshDatabase;
-    
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -60,7 +60,7 @@ class TestCase extends Orchestra
         ]);
 
         $pdo = new \PDO('mysql:host=localhost;port=3306;dbname=translations_testing', 'root', '');
-            $pdo->exec('CREATE DATABASE IF NOT EXISTS translations_testing');
+        $pdo->exec('CREATE DATABASE IF NOT EXISTS translations_testing');
 
         // Enure DB exists
         $app->register(AdminPanelProvider::class);

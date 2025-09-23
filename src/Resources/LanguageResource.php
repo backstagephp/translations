@@ -36,7 +36,7 @@ class LanguageResource extends Resource
     {
         return config('backstage.translations.resources-cluster.language');
     }
-    
+
     public static function canAccess(): bool
     {
         return TranslationsPlugin::get()->userCanManageTranslations();
