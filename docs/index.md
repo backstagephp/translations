@@ -70,7 +70,3 @@ This package builds on top of the Laravel Translations package, which provides:
 - Laravel 10.x, 11.x, or 12.x
 - Filament 4.0+
 - Laravel Translations package
-
-## Documentation
-
-For detailed setup and configuration, see the main [README](../README.md) file.
