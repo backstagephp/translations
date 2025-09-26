@@ -23,7 +23,7 @@ php artisan translations:translate
 - Switch languages
 - Import/export
 
-![Language Switched](img/filament/resources/languages/languages_overview_language_switched.png)
+![Language Switched](../img/filament/resources/languages/languages_overview_language_switched.png)
 
 ## Code Examples
 

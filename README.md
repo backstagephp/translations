@@ -9,7 +9,7 @@
 
 Hi! We're a digital agency from Nijmegen in the Netherlands and we use Laravel for everything: advanced websites with a lot of bells and whistles and large web applications.
 
-> **Note**: All screenshots in this documentation are taken using browser developer tools simulating a "Nest Hub Max" device with dimensions of 1280x800 pixels at 100% zoom with no network throttling.
+> **Note**: All screenshots used in documentation are taken using browser developer tools simulating a "Nest Hub Max" device with dimensions of 1280x800 pixels at 100% zoom.
 
 ## Before using
 

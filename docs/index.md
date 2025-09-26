@@ -2,8 +2,6 @@
 
 A Filament admin panel plugin that provides a complete translation management system for Laravel applications.
 
-> **Note**: All screenshots in this documentation are taken using browser developer tools simulating a "Nest Hub Max" device with dimensions of 1280x800 pixels at 100% zoom with no network throttling.
-
 ![Languages Overview](img/filament/resources/languages/lagnuages_overview.png)
 
 ## What This Package Does
@@ -33,14 +31,14 @@ This package extends the [Laravel Translations](https://github.com/backstagephp/
 - Bulk edit multiple translations
 - Filter by language or translation status
 
-![Translations Overview](img/filament/resources/translations/translations_overview.png)
+![Translations Overview](../img/filament/resources/translations/translations_overview.png)
 
 ### 3. Language Switching
 - Switch languages in the admin panel
 - Language switcher shows current language
 - Automatic page reload after language change
 
-![Language Switcher](img/filament/resources/languages/languages_overview_switcher_example.png)
+![Language Switcher](../img/filament/resources/languages/languages_overview_switcher_example.png)
 
 ### 4. Import/Export
 - Import translation files
@@ -56,7 +54,7 @@ This package builds on top of the Laravel Translations package, which provides:
 - **Model attributes**: Translate Eloquent model attributes
 - **Performance**: Optional caching and queued operations
 
-![Scanning Process](img/filament/resources/translations/translations_overview_scanning.png)
+![Scanning Process](../img/filament/resources/translations/translations_overview_scanning.png)
 
 ## Quick Setup
 
