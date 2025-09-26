@@ -6,7 +6,7 @@ Admin panel for managing translations.
 
 The Languages resource provides a complete interface for managing your application's languages.
 
-![Languages Overview](img/filament/resources/languages/lagnuages_overview.png)
+![Languages Overview](img/filament/resources/languages/languages_overview.png)
 
 ### Language Switcher
 
