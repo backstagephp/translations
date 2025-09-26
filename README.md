@@ -25,7 +25,9 @@ You can publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --provider="Backstage\Translations\Laravel\TranslationServiceProvider"
+
 php artisan vendor:publish --provider="Backstage\Translations\Filament\TranslationServiceProvider"
+
 php artisan migrate
 ```
 
@@ -103,3 +105,9 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+---
+
+<div align="center">
+Made with ❤️ by [Vormkracht10](https://vormkracht10.nl)
+</div>
