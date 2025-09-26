@@ -14,8 +14,11 @@ $panel->plugins([
 
 ```bash
 php artisan translations:scan
+
 php artisan translations:translate
+
 php artisan translations:languages:add en English
+
 php artisan translations:sync
 ```
 
@@ -34,6 +37,7 @@ php artisan translations:sync
 
 ```php
 localized_language_name('es')  // Spanish
+
 country_flag('es')  // 🇪🇸
 ```
 
@@ -42,11 +46,24 @@ country_flag('es')  // 🇪🇸
 ```php
 // config/translations.php
 'translators' => [
-    'default' => 'google-translate',
+    'default' => env('TRANSLATION_DRIVER', 'google-translate'),
+
     'drivers' => [
-        'google-translate' => [],
-        'deep-l' => ['api_key' => env('DEEPL_API_KEY')],
-        'ai' => ['api_key' => env('OPENAI_API_KEY')],
+        'google-translate' => [
+            // no options
+        ],
+
+        'ai' => [
+            'provider' => Provider::OpenAI,
+            'model' => 'gpt-4.1',
+            'system_prompt' => 'You translate Laravel translations strings to the language you have been asked.',
+        ],
+
+        'deep-l' => [
+            'options' => [
+                TranslatorOptions::SERVER_URL => env('DEEPL_SERVER_URL', 'https://api.deepl.com/'),
+            ],
+        ],
     ],
 ],
 ```
