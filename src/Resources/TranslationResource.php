@@ -136,49 +136,14 @@ class TranslationResource extends Resource
                     ->modalIcon(fn ($record) => country_flag($record->languageCode))
                     ->modalIconColor(null)
                     ->mountUsing(function ($form, $record) {
-                        $key = $record->key;
-
-                        $translations = static::getModel()::where('key', $key)
-                            ->get()
-                            ->filter(fn ($translation) => $translation->code !== $record->code)
-                            ->mapWithKeys(fn ($translation) => [$translation->code => $translation->text])
-                            ->toArray();
-
                         $form->fill([
                             'text' => $record->text,
-                            'other_translations' => $translations,
-                        ]);
-                    })
-                    ->schema(function (Schema $schema) {
-                        return $schema->components([
-                            TranslationResource::form($schema)->getComponents()[0],
-
-                            KeyValue::make('other_translations')
-                                ->label(__('Other Translations'))
-                                ->keyLabel(__('Language'))
-                                ->addable(false)
-                                ->editableKeys(false)
-                                ->deletable(false)
-                                ->visible(fn ($state) => ! empty($state))
-                                ->view('backstage.translations::components.forms.key-value')
-                                ->hintIcon('heroicon-s-globe-alt')
-                                ->valueLabel(__('Text')),
                         ]);
                     })
                     ->action(function (Translation $record, $data) {
                         $record->text = $data['text'];
+
                         $record->save();
-
-                        foreach ($data['other_translations'] as $code => $text) {
-                            $translation = static::getModel()::where('key', $record->key)
-                                ->where('code', $code)
-                                ->first();
-
-                            if ($translation) {
-                                $translation->text = $text;
-                                $translation->save();
-                            }
-                        }
                     }),
             ])
             ->filters([
