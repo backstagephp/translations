@@ -5,6 +5,7 @@
 1. **Add languages**
 ```bash
 php artisan translations:languages:add en English
+
 php artisan translations:languages:add es Spanish
 ```
 
@@ -24,40 +25,6 @@ php artisan translations:translate
 - Import/export
 
 ![Language Switched](../img/filament/resources/languages/languages_overview_language_switched.png)
-
-## Code Examples
-
-### Translation Functions
-
-```php
-// Blade templates
-{{ trans('messages.welcome') }}
-{{ __('messages.hello') }}
-
-// PHP code
-$message = trans('validation.required');
-```
-
-### Model Translation
-
-```php
-use HasTranslatableAttributes;
-
-class Post extends Model
-{
-    use HasTranslatableAttributes;
-    
-    protected $translatable = ['title', 'content'];
-}
-```
-
-### Language Switching
-
-```php
-// Set language
-session(['language' => ['code' => 'es', 'name' => 'Spanish']]);
-app()->setLocale('es');
-```
 
 ## Troubleshooting
 
