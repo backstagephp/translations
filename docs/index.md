@@ -2,7 +2,7 @@
 
 A Filament admin panel plugin that provides a complete translation management system for Laravel applications.
 
-![Languages Overview](../img/filament/resources/languages/lagnuages_overview.png)
+![Languages Overview](../img/filament/resources/languages/languages_overview.png)
 
 ## What This Package Does
 
