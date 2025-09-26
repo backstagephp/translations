@@ -2,6 +2,8 @@
 
 A Filament admin panel plugin that provides a complete translation management system for Laravel applications.
 
+> **Note**: All screenshots in this documentation are taken using browser developer tools simulating a "Nest Hub Max" device with dimensions of 1280x800 pixels at 100% zoom with no network throttling.
+
 ![Languages Overview](img/filament/resources/languages/lagnuages_overview.png)
 
 ## What This Package Does
