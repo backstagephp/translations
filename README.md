@@ -1,9 +1,9 @@
 # Backstage: Translations for Filament
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/backstagephp/translations.svg?style=flat-square)](https://packagist.org/packages/backstagephp/translations)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/backstage/translations.svg?style=flat-square)](https://packagist.org/packages/backstage/translations)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/backstagephp/translations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/backstagephp/translations/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/backstagephp/translations/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/backstagephp/translations/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/backstagephp/translations.svg?style=flat-square)](https://packagist.org/packages/backstagephp/translations)
+[![Total Downloads](https://img.shields.io/packagist/dt/backstage/translations.svg?style=flat-square)](https://packagist.org/packages/backstage/translations)
 
 ## Nice to meet you, we're [Vormkracht10](https://vormkracht10.nl)
 
