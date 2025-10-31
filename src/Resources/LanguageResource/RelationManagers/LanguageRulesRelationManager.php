@@ -1,24 +1,25 @@
 <?php
+
 namespace Backstage\Translations\Filament\Resources\LanguageResource\RelationManagers;
 
-use Filament\Tables\Table;
-use Filament\Schemas\Schema;
-use Filament\Actions\EditAction;
-use Filament\Actions\CreateAction;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Repeater;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Repeater\TableColumn;
-use Filament\Resources\RelationManagers\RelationManager;
 use Backstage\Translations\Laravel\Enums\LanguageRuleConditionType;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Repeater\TableColumn;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class LanguageRulesRelationManager extends RelationManager
 {
     protected static string $relationship = 'languageRules';
 
     protected static ?string $title = 'Language Rules';
-    
+
     public function form(Schema $schema): Schema
     {
         return $schema
@@ -49,13 +50,13 @@ class LanguageRulesRelationManager extends RelationManager
     {
         return $table
             ->headerActions([
-                CreateAction::make()
+                CreateAction::make(),
             ])
             ->columns([
                 TextColumn::make('name'),
             ])
             ->recordActions([
-                EditAction::make()
+                EditAction::make(),
             ]);
     }
 }
