@@ -5,6 +5,7 @@ namespace Backstage\Translations\Filament\Resources;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\EditLanguage;
 use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
+use Backstage\Translations\Filament\Resources\LanguageResource\RelationManagers\LanguageRulesRelationManager;
 use Backstage\Translations\Filament\TranslationsPlugin;
 use Backstage\Translations\Laravel\Jobs\TranslateKeys;
 use Backstage\Translations\Laravel\Models\Language;
@@ -230,7 +231,7 @@ class LanguageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            LanguageRulesRelationManager::class,
         ];
     }
 

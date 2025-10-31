@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "backstage/laravel-translations": "^0.3",
+        "backstage/laravel-translations": "dev-feature/translation-rules",
         "filament/filament": ">=4.0",
         "spatie/laravel-package-tools": "^1.19"
     },
@@ -83,5 +83,12 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "backstage/laravel-translations": {
+        "type": "path",
+        "url": "../laravel-translations",
+        "options": {
+            "symlink": true
+        }
+    }
 }
