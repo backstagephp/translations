@@ -2,27 +2,28 @@
 
 namespace Backstage\Translations\Filament\Resources;
 
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\EditLanguage;
-use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
-use Backstage\Translations\Filament\TranslationsPlugin;
-use Backstage\Translations\Laravel\Jobs\TranslateKeys;
-use Backstage\Translations\Laravel\Models\Language;
+use Filament\Tables\Table;
 use Filament\Actions\Action;
-use Filament\Actions\EditAction;
-use Filament\Facades\Filament;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Facades\Filament;
+use Filament\Actions\EditAction;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
 use Filament\Support\Enums\IconSize;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
+use Filament\Schemas\Components\Utilities\Set;
+use Backstage\Translations\Laravel\Models\Language;
+use Backstage\Translations\Laravel\Jobs\TranslateKeys;
+use Backstage\Translations\Filament\TranslationsPlugin;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\EditLanguage;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\ListLanguages;
+use Backstage\Translations\Filament\Resources\LanguageResource\Pages\CreateLanguage;
+use Backstage\Translations\Filament\Resources\LanguageResource\RelationManagers\LanguageRulesRelationManager;
 
 class LanguageResource extends Resource
 {
@@ -230,7 +231,7 @@ class LanguageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            LanguageRulesRelationManager::class,
         ];
     }
 
